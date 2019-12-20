@@ -1,0 +1,125 @@
+CREATE TABLE 과목 
+(	
+	
+	과목코드 int NOT NULL primary key, 
+	과목명   VARCHAR2(50) NOT NULL, 
+	강사명 	 VARCHAR2(20) NOT NULL, 
+	요일_시간 VARCHAR2(50) NOT NULL, 
+	학점     int NOT NULL, 
+	제한인원 int NOT NULL 
+	
+
+);
+
+
+
+insert into 과목 values(524840,	'고급프로그래밍','우진운','수 19,20,21',3,40);
+insert into 과목 values(524860,	'고급데이터베이스','이석균','화 1,2,3,4,5,6',3,40);
+insert into 과목 values(312550,	'공학수학','이해균','월 9,10,11,12,13,14',3,50);
+insert into 과목 values(448410,	'멀티미디어신호처리','박규식',	'화 19,20,21',3	,40);
+insert into 과목 values(524880,	'서비스플랫폼',	'이재동','수 1,2,3,4,5,6',3,45);
+insert into 과목 values(527850,	'소프트웨어공학','박용범','화 4,5,6,7,8,9',3,30);
+insert into 과목 values(527820,	'시스템프로그래밍','최종무','월 4,5,6,7,8,9',3,	40);
+insert into 과목 values(527200,	'실무중심산학협력프로젝트','박규식','수 1,2,3,4,5,6',3,10);
+insert into 과목 values(378260, '영상정보처리','송인식' ,'목 13,14,15,16,17,18', 3, 30);
+insert into 과목 values(524890, '오토마타와컴파일러','이상범', '화 9,10,11,12,13,14',3,40);
+insert into 과목 values(524810,'오픈소스SW설계','송인식', '금 9,10,11,12,13,14',3,40);
+insert into 과목 values(383280,'웹프로그래밍','박제호',  '화 1,2,3,4,5,6',3,50);
+insert into 과목 values(527860,'인공지능','황두성','월 1,2,3,4,5,6',3,40);
+insert into 과목 values(527800,'자료구조','우진운',  '월 12,13,14,15,16,17',3,40);
+insert into 과목 values(418520,'컴퓨터구조','조경산', '월 9,10,11,12,13,14',3,40);
+insert into 과목 values(478500,'컴퓨터와통신','송인식',  '금 1,2,3,4,5,6',3,40);
+insert into 과목 values(426630,'프로그래밍활용','이석균',  '월 9,10,11,12,13,14',3,40);
+insert into 과목 values(524710,'악성코드분석', '우사무엘','화 1,2,3,4,5,6',3,40);
+insert into 과목 values(524870,'운영체제보안','조성제',	'월 4,5,6,7,8,9',3,30);
+insert into 과목 values(403480,'정보보호이론','박창섭',	'목 19,20,21',3,40);
+
+
+
+
+CREATE TABLE 학생 
+(	
+	학번 int NOT NULL PRIMARY KEY, 
+	이름 VARCHAR2(20) NOT NULL, 
+	비밀번호 VARCHAR2(20) NOT NULL, 
+	이메일 VARCHAR2(30) NOT NULL, 
+	생년월일 VARCHAR2(20) NOT NULL 
+
+);
+
+
+
+
+
+create or replace PROCEDURE dummy_proc          -- 학생 dummy data
+IS
+BEGIN
+
+    FOR i IN 1..100 LOOP
+        INSERT INTO 학생 VALUES
+        ('2019' || (1000+i),
+         '김' || (30+i),
+         '1234',
+         'aa_' || (100+i) || '@abcd.com',
+        ROUND(DBMS_RANDOM.VALUE(1995,2000),0) || '-' || ROUND(DBMS_RANDOM.VALUE(01,12),0) || '-' || ROUND(DBMS_RANDOM.VALUE(01,28),0)
+         );
+     END LOOP;
+
+    COMMIT;    
+END;
+
+EXECUTE dummy_proc;   
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE name_update_proc      -- 이름 생성 dummy data
+IS  
+      TYPE first_name_array      IS VARRAY(20) OF CLOB;  
+      TYPE middle_name_array      IS VARRAY(10) OF CLOB;  
+      TYPE last_name_array      IS VARRAY(10) OF CLOB;  
+      first_names   first_name_array;  
+      middle_names   middle_name_array;  
+      last_names   last_name_array;        
+      v_firstName CLOB;  
+      v_middleName CLOB;  
+      v_lastName CLOB;  
+      totalName CLOB;  
+      temp_num NUMBER(2);  
+BEGIN  
+      first_names := first_name_array('김','이','박','최','주','임','오','유','류','윤','장','정');  
+      middle_names := middle_name_array('영','원','우','이','성','아','미','민');  
+      last_names := last_name_array('준','희','빈','민','정','주','연','영');  
+       
+      FOR i IN 1..100 LOOP  
+         
+        temp_num := round(DBMS_RANDOM.VALUE(1,12),0);  
+        v_firstName :=  first_names(temp_num);  
+        temp_num := round(DBMS_RANDOM.VALUE(1,8),0);  
+        v_middleName :=  middle_names(temp_num);  
+        temp_num := round(DBMS_RANDOM.VALUE(1,8),0);  
+        v_lastName :=  last_names(temp_num);  
+        totalName := v_firstName || v_middleName || v_lastName;  
+                         
+        UPDATE 학생 SET 이름 = totalName
+	WHERE 학번 = '2019' || (1000+i);
+ 
+    END LOOP;  
+
+    COMMIT;         
+  END;  
+/  
+ 
+EXECUTE name_update_proc;     
+
+
+
+
+
+CREATE TABLE 수강 
+(	
+	과목코드 int NOT NULL, 
+	학번 int NOT NULL
+
+);
