@@ -1,50 +1,49 @@
-CREATE TABLE 과목 
+CREATE TABLE subject 
 (	
 	
-	과목코드 int NOT NULL primary key, 
-	과목명   VARCHAR2(50) NOT NULL, 
-	강사명 	 VARCHAR2(50) NOT NULL, 
-	요일_시간 VARCHAR2(50) NOT NULL, 
-	학점     int NOT NULL, 
-	제한인원 int NOT NULL 
+	sub_code int NOT NULL primary key,  -- 과목코드
+	sub_name   VARCHAR2(50) NOT NULL,   --과목명
+	professor 	 VARCHAR2(50) NOT NULL,   --교수명
+	daytime  VARCHAR2(50) NOT NULL,   --요일, 시간
+	grade     int NOT NULL,    --학점
+	limit_num  int NOT NULL   --제한인원
 	
 
 );
 
 
-
-insert into 과목 values(524840,	'비행술','후치 부인','수 19,20,21',3,40);
-insert into 과목 values(524860,	'마법', '필리우스 플리트윅','화 1,2,3,4,5,6',3,40);
-insert into 과목 values(312550,	'마법약', '세베루스 스네이프','월 9,10,11,12,13,14',3,50);
-insert into 과목 values(448410,	'마법의 역사', '커스버트 빈스',	'화 19,20,21',3	,40);
-insert into 과목 values(524880,	'변신술','미네르바 맥고나걸','수 1,2,3,4,5,6',3,45);
-insert into 과목 values(527850,	'약초학','포모나 스프라우트','화 4,5,6,7,8,9',3,30);
-insert into 과목 values(527820,	'어둠의 마법 방어술','세베루스 스네이프','월 4,5,6,7,8,9',3,	40);
-insert into 과목 values(527200,	'천문학','오로라 시니스트라','수 1,2,3,4,5,6',3,10);
-insert into 과목 values(378260, '고대 룬 문자','배쉬다 배블링' ,'목 13,14,15,16,17,18', 3, 30);
-insert into 과목 values(524890, '머글 연구','퀴리너스 퀴렐', '화 9,10,11,12,13,14',3,40);
-insert into 과목 values(524810,'산술점','셉티마 벡터', '금 9,10,11,12,13,14',3,40);
-insert into 과목 values(383280,'신비한 동물 돌보기','루베우스 해그리드', '화 1,2,3,4,5,6',3,50);
-insert into 과목 values(527860,'점술','사이빌 트릴로니','월 1,2,3,4,5,6',3,40);
-insert into 과목 values(527800,'연금술','미네르바 맥고나걸', '월 12,13,14,15,16,17',3,40);
-insert into 과목 values(418520,'순간이동','후치 부인', '월 9,10,11,12,13,14',3,40);
-insert into 과목 values(478500,'고대 연구','필리우스 플리트윅',  '금 1,2,3,4,5,6',3,40);
-insert into 과목 values(426630,'지구 마법', '커스버트 빈스',  '월 9,10,11,12,13,14',3,40);
-insert into 과목 values(524710,'악귀 연구', '포모나 스프라우트','화 1,2,3,4,5,6',3,40);
-insert into 과목 values(524870,'마법 이론','배쉬다 배블링',	'월 4,5,6,7,8,9',3,30);
-insert into 과목 values(403480,'호그와트 오케스트라','오로라 시니스트라',	'목 19,20,21',3,40);
-
+insert into subject values(524840,	'비행술','후치 부인','수 19,20,21',3,40);
+insert into subject values(524860,	'마법', '필리우스 플리트윅','화 1,2,3,4,5,6',3,40);
+insert into subject values(312550,	'마법약', '세베루스 스네이프','월 9,10,11,12,13,14',3,50);
+insert into subject values(448410,	'마법의 역사', '커스버트 빈스',	'화 19,20,21',3	,40);
+insert into subject values(524880,	'변신술','미네르바 맥고나걸','수 1,2,3,4,5,6',3,45);
+insert into subject values(527850,	'약초학','포모나 스프라우트','화 4,5,6,7,8,9',3,30);
+insert into subject values(527820,	'어둠의 마법 방어술','세베루스 스네이프','월 4,5,6,7,8,9',3,	40);
+insert into subject values(527200,	'천문학','오로라 시니스트라','수 1,2,3,4,5,6',3,10);
+insert into subject values(378260, '고대 룬 문자','배쉬다 배블링' ,'목 13,14,15,16,17,18', 3, 30);
+insert into subject values(524890, '머글 연구','퀴리너스 퀴렐', '화 9,10,11,12,13,14',3,40);
+insert into subject values(524810,'산술점','셉티마 벡터', '금 9,10,11,12,13,14',3,40);
+insert into subject values(383280,'신비한 동물 돌보기','루베우스 해그리드', '화 1,2,3,4,5,6',3,50);
+insert into subject values(527860,'점술','사이빌 트릴로니','월 1,2,3,4,5,6',3,40);
+insert into subject values(527800,'연금술','미네르바 맥고나걸', '월 12,13,14,15,16,17',3,40);
+insert into subject values(418520,'순간이동','후치 부인', '월 9,10,11,12,13,14',3,40);
+insert into subject values(478500,'고대 연구','필리우스 플리트윅',  '금 1,2,3,4,5,6',3,40);
+insert into subject values(426630,'지구 마법', '커스버트 빈스',  '월 9,10,11,12,13,14',3,40);
+insert into subject values(524710,'악귀 연구', '포모나 스프라우트','화 1,2,3,4,5,6',3,40);
+insert into subject values(524870,'마법 이론','배쉬다 배블링',	'월 4,5,6,7,8,9',3,30);
+insert into subject values(403480,'호그와트 오케스트라','오로라 시니스트라',	'목 19,20,21',3,40);
 
 
 
 
-CREATE TABLE 학생 
+
+CREATE TABLE student 
 (	
-	학번 int NOT NULL PRIMARY KEY, 
-	이름 VARCHAR2(20) NOT NULL, 
-	비밀번호 VARCHAR2(20) NOT NULL, 
-	이메일 VARCHAR2(30) NOT NULL, 
-	생년월일 VARCHAR2(20) NOT NULL 
+	stu_id int NOT NULL PRIMARY KEY,  --학번 
+	stu_name VARCHAR2(20) NOT NULL,   -- 이름
+	password  VARCHAR2(20) NOT NULL,  --비밀번호
+	email VARCHAR2(30) NOT NULL,  --이메일
+	birth VARCHAR2(20) NOT NULL   --생년월일
 
 );
 
@@ -57,11 +56,11 @@ IS
 BEGIN
 
     FOR i IN 1..100 LOOP
-        INSERT INTO 학생 VALUES
+        INSERT INTO student VALUES
         ('2019' || (1000+i),
          '김' || (30+i),
          '123456',
-         'aa_' || (100+i) || '@abcd.com',
+         'aa' || (100+i) || '@naver.com',
         ROUND(DBMS_RANDOM.VALUE(1995,2000),0) || '-' || ROUND(DBMS_RANDOM.VALUE(01,12),0) || '-' || ROUND(DBMS_RANDOM.VALUE(01,28),0)
          );
      END LOOP;
@@ -104,8 +103,8 @@ BEGIN
         v_lastName :=  last_names(temp_num);  
         totalName := v_firstName || v_middleName || v_lastName;  
                          
-        UPDATE 학생 SET 이름 = totalName
-	WHERE 학번 = '2019' || (1000+i);
+        UPDATE student SET stu_name = totalName
+	WHERE stu_id = '2019' || (1000+i);
  
     END LOOP;  
 
@@ -119,9 +118,9 @@ EXECUTE name_update_proc;
 
 
 
-CREATE TABLE 수강 
+CREATE TABLE lecture 
 (	
-	과목코드 int NOT NULL, 
-	학번 int NOT NULL
+	sub_code int NOT NULL, 
+	stu_id int NOT NULL
 
 );
