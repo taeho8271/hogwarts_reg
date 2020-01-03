@@ -1,0 +1,255 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+
+<title>시간표</title> 
+</head> 
+
+<style>
+
+	/*상단바*/
+	#list_header {
+		width : 100%;
+		height : 40px;
+		background-color :#007AAE;
+		padding : 20px 0 20px;
+
+	}
+
+	/*과목 검색 박스*/
+	.list_box {
+		height:30px;
+		margin:10px 50px;
+		width : 600px;
+	
+	}
+
+	/*시간표*/ 
+	.list_tbl {
+		margin:20px 10px;
+		
+	}
+
+
+	/*검색 버튼*/
+	.list_btn {	
+	
+		font-size : 1em;
+		border-radius : 5px;
+		border-width : 1px;
+		border-style : solid;
+		border-color : #ccc;
+		padding : 10px 15px 10px 15px;
+		font-style : bold;
+		width : auto;
+		background-color:#007AAE;
+		color:#fff;
+		
+	}
+
+
+	#check_box {
+		width:200px;
+		height:30px;
+		border:1px solid #ccc;
+		text-indent:0.5em; 
+        font-size:1em;
+		font-family:Nanum Gothic;
+	}	
+
+
+	
+	#select_box
+	{ 
+       
+	   width : 80px;
+	   height : 30px;
+	   text-indent : 0.5em;
+	   font-size : 1em;
+	   font-family : nanumgothic;
+	   -webkit-appearance : none;
+	   -moz-appearance : none;
+	   appearance :none;
+	   background-color : white;
+	   border-radius : 0px;
+	   opacity : 0.5;
+	   filter:alpha(opacity=0.5);
+   
+	} 	
+	
+	
+
+	
+
+</style>
+
+
+<body> 
+	<div id="list_header">
+			
+	</div>
+
+	<div class="list_box">
+		<select id = "select_box" name = "select_box">
+			<option>선택</option>
+			<option>과목명</option>
+			<option>강사명</option>
+		</select>&nbsp;&nbsp;
+		
+		<input type="text" id="check_box" name="check_box"> &nbsp;&nbsp;
+			<input type="checkbox" id = "mon" name="mon" value="3">월
+			<input type="checkbox" id = "tue" name="tue" value="3">화
+			<input type="checkbox" id = "wed" name="wed" value="3">수
+			<input type="checkbox" id = "thu" name="thu" value="3">목
+			<input type="checkbox" id = "fri" name="fri" value="3">금&nbsp;&nbsp;
+			<input type="submit" id = "search_btn" class="list_btn" value="검색">
+				
+	</div>
+	
+
+	
+	<div class="list_tbl">		
+		<table cellspacing="1" align="right"  cellpadding="8" width="450" height="500"> 
+			<p></p> 
+		
+		
+		<tr align="center"> 
+			<td width="50"  bgcolor="#EFEFEF"></td> 
+			<td width="100" bgcolor="#EFEFEF">월</td> 
+			<td width="100" bgcolor="#EFEFEF">화</td> 
+			<td width="100" bgcolor="#EFEFEF">수</td> 
+			<td width="100" bgcolor="#EFEFEF">목</td> 
+			<td width="100" bgcolor="#EFEFEF">금</td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">1</td> 
+			<td></td> 
+			<td bgcolor="#EFEFEF"  rowspan="2" >전산실무</td> 
+			<td></td> 
+			<td></td> 
+			<td></td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">2</td> 
+			<td></td> 
+			<td bgcolor="#EFEFEF">포토샾</td> 
+			<td></td> <td></td> <td></td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">3</td> 
+			<td bgcolor="#EFEFEF" rowspan="3" >플레시</td> 
+			<td bgcolor="#EFEFEF">포토샾</td> 
+			<td bgcolor="#EFEFEF">플래시</td> <td></td> 
+			<td bgcolor="#EFEFEF" rowspan="3">컴퓨터그래픽</td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">4</td> 
+			<td bgcolor="#EFEFEF">전산개론</td> 
+			
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">5</td> 
+			<td></td> 
+			<td bgcolor="#EFEFEF">전산개론</td> 
+			<td></td> 
+			<td></td> 
+			<td></td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">6</td> 
+			<td></td> 
+			<td bgcolor="#EFEFEF">전산개론</td> 
+			<td bgcolor="#EFEFEF" rowspan="3">웹디자인</td> 
+			<td bgcolor="#EFEFEF">웹디자인</td> 
+		</tr> 
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">7</td>  
+			<td bgcolor="#EFEFEF" rowspan="3">운영체제</td> 
+			<td></td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">8</td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">9</td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">10</td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">11</td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">12</td> 
+			<td></td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">13</td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">14</td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">15</td> 
+			<td></td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">16</td> 
+			<td></td> <td></td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">17</td> 
+			<td></td> <td></td> <td></td> 
+			<td bgcolor="#EFEFEF" rowspan="3">알고리즘</td> 
+			<td></td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">18</td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">19</td> 
+			<td></td> 
+		</tr> 
+		
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">20</td> 
+			<td></td> 
+		</tr> 
+		
+		<tr align="center"> 
+			<td bgcolor="#EFEFEF">21</td> 
+			<td></td> <td></td>  
+		</tr> 
+		
+		
+		</table> 
+	</div>
+	</body> 
+</html>
