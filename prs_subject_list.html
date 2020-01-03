@@ -5,7 +5,7 @@
 	<style>		
 	@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 	
-	/* 게시판 전체 레이아웃 */
+	/* 목록 전체 레이아웃 */
 	/*
 		너비 : 1000px;
 		글꼴크기 : 1em;
@@ -19,7 +19,7 @@
 		font-family : 나눔 고딕;
 	}
 	
-	/* 게시판 헤더*/
+	/* 목록 헤더*/
 	/*
 		너비 : 100%;
 		길이 : 30px;
@@ -45,114 +45,85 @@
 		justify-content:center;
 	}
 	
-	/* 게시글 번호 */
-	.board_num {
+	/* 과목코드 */
+	.list_sub_code {
 		float:left;
-		width:70px; 
+		width:70px;
 		/* background-color:blue; */
 	}
 	
-	/* 게시글 체크박스 */
-	.board_checkbox {
-		float:left;
-		width:30px;
-		/* background-color:pink; */
-	}
-	
-	/* 게시글 제목 */
-	.board_title {
+	/* 과목명 */
+	.list_sub_name {
 		float:left;
 		width:250px;
 		text-overflow:ellipsis;
 		/* background-color:green; */
 	}
 	
-	/* 게시글 제목 링크(버튼) */	
-	a.board_title_link:link, a.board_title_link:visited, a.board_title_link:active {
-		color:#000;
-		text-decoration:none;
-	}
-	
-	/* 게시글 제목 링크(버튼) : 롤오버(rollover) */
-	a.board_title_link:hover {
-		color:#000;
-		text-decoration:underline;
-	}
-	
-	/* 게시글 글쓴이 */
-	.board_writer {
+	/* 강사명 */
+	.list_professor {
 		float:left;
 		width:150px;
 		text-overflow:ellipsis;
 		/* background-color:magenta; */
 	}
 	
-	/* 게시글 작성일(날짜) */
-	.board_date {
+	/* 요일/시간 */
+	.list_daytime {
 		float:left;
 		width:200px;
 		/* background-color:cyan; */
 	}
 	
-	/* 게시글 본체 */
-	#board_body {
+	/* 목록 본체 */
+	#list_body {
 		width:100%;
-		height: 200px;
+		height: 230px;
 		overflow-x:hidden;
 		overflow-y:scroll;
 	}
 	
-	/* 게시판 게시글(한줄) */
-	.board_row {
+	/* 강의(한줄) */
+	.list_row {
 		height:30px;
-		padding:20px 0 10px;
+		padding:15px 0 15px ;
 		border-bottom:1px solid #ccc;
 	}
 	
-	/* 게시판 게시글(한줄) : 롤오버 효과(rollover)*/
-	/*
-	    hint) rgba를 활용할 것 !
-		배경색 : 60C5F1, 투명도 : 0.2
-	*/
-	.board_row:hover {
+	/* 강의(한줄) : 롤오버 효과(rollover)*/
+	.list_row:hover {
 	background-color: rgba(96,197,241,0.2);
 	}
 	
-	/* 게시글 추천, 비추천 */
-	.board_recommend_count, .board_decommend_count {
+	/* 학점, 제한인원, 담기 */
+	.list_grade, .list_limit_num, .list_add {
 		float:left;
 		text-align: center;
 		width:100px;
 		/* background-color:orange; */
 	}
 	
-	/* 게시판 메뉴 */
-	#board_menu {
-		width:1000px;
-		height:50px;
-		/* background-color:yellow; */
-		text-align:right;
-		padding:20px 0;
-	}
 	
-	/* 게시판 버튼 */
+	
+	/* 담기 버튼 */
 	/*
 		글꼴 크기 : 1em;
 		둥근 외곽선 효과 : 5px;
 		외곽선 : 1px 실선 #ccc;
 		너비 : 자동 확대/축소;
-		내부간격 : 상하 10px, 좌우 15px;
+		내부간격 : 상하 5px, 좌우 7px;
 		글꼴 굵기 : 굵게;
-		
 	*/
-	.prs_add_btn {		
+	.list_add_btn {
+		font-size: 1em;
 		border-radius : 5px;
-		border : 1px solid #ccc;
 		width : auto;
-		padding : 5px 7px;
+		border:1px solid #ccc;
+		margin: 0 0 15px 0;
+		padding : 6px 12px;
 		font-weight : bold;
-		/* align-items: center;
-		justify-content: center; */
+		align-items: center;
+		justify-content: center;
 	}	
 
 	.btn_blue {
@@ -165,18 +136,10 @@
 		color:#fff;
 	}
 	
-	.btn_white {
-		background-color:#fff;
-		color:#999;
-	}
-	
-	.btn_white:hover {
-		background-color:#eee;
-		color:#333;
-	}
+
 	
 	/* 게시판 검색(섹션) */
-	#board_search_menu {
+	#list_search_menu {
 		width:100%;
 		padding:20px;
 		height:50px;
@@ -188,7 +151,7 @@
     select::-ms-expand { display: none; }
 		
 	/* 게시판 검색어 입력필드 */
-	#board_search_word {
+	#list_search_word {
 		width:200px;
 		height:40px;
 		border:1px solid #ccc;
@@ -206,59 +169,75 @@
 		<!-- 게시판 헤더 시작 -->
 		<div id="list_header">
 			
-			<div class="board_num div_align_center">과목코드</div>
-			<div class="board_title div_align_center">과목명</div>
-			<div class="board_writer div_align_center">강사명</div>
-			<div class="board_date div_align_center">요일/시간</div>
-			<div class="board_recommend_count div_align_center">학점</div>
-			<div class="board_decommend_count div_align_center">제한인원</div>
-			<div class="board_decommend_count div_align_center">담기</div>
+			<div class="list_sub_code div_align_center">과목코드</div>
+			<div class="list_sub_name div_align_center">과목명</div>
+			<div class="list_professor div_align_center">강사명</div>
+			<div class="list_daytime div_align_center">요일/시간</div>
+			<div class="list_grade div_align_center">학점</div>
+			<div class="list_limit_num div_align_center">제한인원</div>
+			<div class="list_limit_num div_align_center">담기</div>
 			
 		</div>
 		<!-- 게시판 헤더 끝 -->
 		
 		<!-- 게시판 바디 시작 -->
-		<div id="board_body">
+		<div id="list_body">
 		
 			<!-- 게시판 게시글(한줄) 시작 -->
 			<!--  -->
-			<div class="board_row">
-				<div class="board_num div_align_center">1</div>
-				<div class="board_title div_align_center">비행술</div>
-				<div class="board_writer div_align_center">후치 부인</div>
-				<div class="board_date div_align_center">수 / 19,20,21</div>
-				<div class="board_recommend_count div_align_center">3</div>
-				<div class="board_decommend_count div_align_center">10/40</div>
-				<input id="prs_add_btn" class="prs_add_btn btn_blue" type="submit" value="담기"></input>
+			<div class="list_row">
+				<div class="list_sub_code div_align_center">1</div>
+				<div class="list_sub_name div_align_center">비행술</div>
+				<div class="list_professor div_align_center">후치 부인</div>
+				<div class="list_daytime div_align_center">수 / 19,20,21</div>
+				<div class="list_grade div_align_center">3</div>
+				<div class="list_limit_num div_align_center">10/40</div>
+				<div class="list_add div_align_center">
+					<input class="list_add_btn btn_blue" type="submit" value="담기"></input>
+				</div>
 			</div>
-			<div class="board_row">
-				<div class="board_num div_align_center">2</div>
-				<div class="board_title div_align_center">마법</div>
-				<div class="board_writer div_align_center">필리우스 플리트윅</div>
-				<div class="board_date div_align_center">화 / 1,2,3,4,5,6</div>
-				<div class="board_recommend_count div_align_center">3</div>
-				<div class="board_decommend_count div_align_center">20/40</div>
-				<input id="prs_add_btn" class="prs_add_btn btn_blue" type="submit" value="담기"></input>
+			<div class="list_row">
+				<div class="list_sub_code div_align_center">2</div>
+				<div class="list_sub_name div_align_center">마법</div>
+				<div class="list_professor div_align_center">필리우스 플리트윅</div>
+				<div class="list_daytime div_align_center">화 / 1,2,3,4,5,6</div>
+				<div class="list_grade div_align_center">3</div>
+				<div class="list_limit_num div_align_center">20/40</div>
+				<div class="list_add div_align_center">
+					<input class="list_add_btn btn_blue" type="submit" value="담기"></input>
+				</div>
 			</div>
-			<div class="board_row">
-				<div class="board_num div_align_center">3</div>
-				<div class="board_title div_align_center">변신술</div>
-				<div class="board_writer div_align_center">미네르바 맥고나걸</div>
-				<div class="board_date div_align_center">수 / 1,2,3,4,5,6</div>
-				<div class="board_recommend_count div_align_center">3</div>
-				<div class="board_decommend_count div_align_center">5/45</div>
-				<input id="prs_add_btn" class="prs_add_btn btn_blue div_align_center" type="submit" value="담기"></input>				
+			<div class="list_row">
+				<div class="list_sub_code div_align_center">3</div>
+				<div class="list_sub_name div_align_center">변신술</div>
+				<div class="list_professor div_align_center">미네르바 맥고나걸</div>
+				<div class="list_daytime div_align_center">수 / 1,2,3,4,5,6</div>
+				<div class="list_grade div_align_center">3</div>
+				<div class="list_limit_num div_align_center">5/45</div>
+				<div class="list_add div_align_center">
+					<input class="list_add_btn btn_blue" type="submit" value="담기"></input>
+				</div>
 			</div>
-			<div class="board_row">
-				<div class="board_num div_align_center">4</div>
-				<div class="board_title div_align_center">약초학</div>
-				<div class="board_writer div_align_center">포모나 스프라우트</div>
-				<div class="board_date div_align_center">화 / 4,5,6,7,8,9</div>
-				<div class="board_recommend_count div_align_center">3</div>
-				<div class="board_decommend_count div_align_center">2/30</div>
-				<input id="prs_add_btn" class="prs_add_btn btn_blue" type="submit" value="담기"></input>
+			<div class="list_row">
+				<div class="list_sub_code div_align_center">4</div>
+				<div class="list_sub_name div_align_center">약초학</div>
+				<div class="list_professor div_align_center">포모나 스프라우트</div>
+				<div class="list_daytime div_align_center">화 / 4,5,6,7,8,9</div>
+				<div class="list_grade div_align_center">3</div>
+				<div class="list_limit_num div_align_center">2/30</div>
+				<div class="list_add div_align_center">
+					<input class="list_add_btn btn_blue" type="submit" value="담기"></input>
+				</div>
 			</div>
 			<!-- 게시판 게시글(한줄) 끝 -->
+			
+			총 3가지가  있어야 합니다.
+			헤더 및 강의(한줄)에 쓰일 list_cancel
+			전체 버튼에 쓰일 list_cancel_btn
+			파란색 버튼에 쓰일 btn_blue
+			
+			그 다음 각 내용이 맞아야 하는데요
+			
 			
 			
 		</div>
