@@ -29,28 +29,40 @@
 	
 		background-image : url('D:/HJ/PROJECT/castle.jpg');
 		background-size : 100% 130%;
+		
 		width : 100%; 
 		height : 1000px;
 		position : fixed;
 		left : 0;
 		right : 0;
+		overflow-y : hidden;
+	}
+	
+	
+	#footer_menu{
+	
+		overflow-x : auto;
+		overflow-y : hidden;
+		width : 100%;
+		height : 120px;
+		background-color : #522808;
+		position : fixed;
+		left : 0;
+		right : 0;
+		bottom : 0;
+		opacity : 0.9;
 	}
 	
 	/*하단바 섹션*/
 	ul {
 	
 		list-style-type:none;
-		overflow:hidden;
 		background-color:#522808;
-		position : fixed;
-		left : 0;
-		right : 0;
-		bottom : 0;
-		width:100%;
+		width:1600px;
 		height : 120px;
 		padding: 0;
 		margin : 0;
-		opacity : 0.95;
+	
 	}
 
 	li {
@@ -58,6 +70,7 @@
 		margin-right : 25px;
 		float:left;
 		width:350px;
+		background-color : #522808;
 		
 		
 	}
@@ -70,7 +83,7 @@
 		padding:30px 30px;
 		text-decoration:none;
 		margin-top : 0;
-
+		
 	}
 	
 	li a:hover {
@@ -79,6 +92,7 @@
 		font-weight:bold;
 		height : 100px;
 		top : 0;
+		
 	}
 	
 	/*아이콘 크기*/
@@ -213,6 +227,7 @@ window.onload = function(){
 	
 	<!--하단바 시작-->
 	<div id = "wrap">
+	<div id = "footer_menu">
 		<ul>
 			<li id="pre_submit_btn">
 			<a href="#">
@@ -230,6 +245,7 @@ window.onload = function(){
 				<i class="material-icons">map</i><br>오시는 길</a>
 			</li>
 		</ul>
+		</div>
 	</div>
 </body> 
 </html>
