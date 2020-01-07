@@ -3,7 +3,7 @@
 <head> 
 <meta charset="UTF-8"> 
 
-<title>시간표</title> 
+<title></title> 
 </head> 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -38,7 +38,7 @@
 		overflow-y : hidden;
 	}
 	
-	
+	/*하단바 메뉴*/
 	#footer_menu{
 	
 		overflow-x : auto;
