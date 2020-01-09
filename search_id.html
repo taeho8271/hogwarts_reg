@@ -16,11 +16,12 @@
 		/* background-color: orange; */
 	}
 
-	/*상단바*/
-	#prs_header {
-		/* position : fixed;
+	/* 상단바 */
+	div#prs_header {
+		position : relative;
 		top : 0;
-		left : 0; */
+		left : 0;
+		outline: 0;
 		width: 100%;
 		height : 40px;
 		background-color :#522808;
@@ -44,7 +45,6 @@
 	div#wrap_logo_input_box {
 		width: 100%;
 		/* background: purple; */
-		
 	}
 
 	/* 로고 영역 */
@@ -70,12 +70,11 @@
 	div#input_wrap div[id^=label_] {
 		width: 90px;
 		float: left;
-		/* background: cyan; */
 		height: 48px;
 		text-align: right;
 		padding: 12px 0 25px 0;
 		font-weight: bold;
-		/* justify-content:center; */
+		/* background: cyan; */
 	}
 	
 	/* 입력 영역 속성 */
@@ -88,7 +87,6 @@
 		text-indent: 10px;
 		text-align: left;
 		padding: 5px 0 20px 0;
-		
 	}
 	
 	/* 버튼 영역 */
@@ -101,16 +99,8 @@
 		/* background-color: green; */
 	}
 	
-	
-	/* 이메일 */
-	/*div#mail_wrap {
-		width: 700px;
-		height: 50px;
-		background : blue;
-	}*/
-	
 	/* 이메일 제공자 선택 */
-	#sid_sb_msv {
+	select#sid_sb_msv {
 		/* float: left; */
 		width : 120px;
 		height : 30px;
@@ -133,21 +123,15 @@
 		/* background : yellow; */
 	}
 	
-	
-	
 	/* IE 10, 11의 네이티브(native) 화살표 숨기기 */  
     /* select::-ms-expand { display: none; } */
-
-
 	 
 	/* 폼필드(각종 입력 필드)들 외곽선 효과 */
-
 	input[type='text'], input[type='password'] {
 		border:1px solid #999;
 		font-size:1.2em;
 		padding:5px;
 	}
-
 	 
 	/* 찾기 버튼  */
 	input[id^=sid][id$=btn] {    
@@ -161,7 +145,6 @@
 		border-radius:10px;
 		margin:0 5px;
 		letter-spacing:2px;
-	   
 		transition: all .2s ease;
 	}
 	 
@@ -177,123 +160,135 @@
 		margin:0 5px;
 		letter-spacing:2px;
 	}
-
 </style>  
 
 </head>
 <body>
-<!-- 상단바 -->
+<!-- 상단바 시작 -->
 <div id="prs_header">&nbsp;&nbsp;
-	<img src = "E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-	<img src = "E:\KTH\Project\typography2.png" width="150px" height="50px">
+	<img src="E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
+	<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
 </div>
-<!-- // 상단바 -->
+<!-- 상단바 끝 -->
 
-<!-- 학번 찾기 양식 -->
+<!-- 학번 찾기 양식 시작 -->
 <div id="wrap">
 
-	<!-- 양식 상자 -->
+	<!-- 양식 상자 시작 -->
 	<div id="wrap_box">
     
-		<!-- 상단(로고+입력) 영역 -->
+		<!-- 상단(로고+입력) 영역 시작 -->
 		<div id="wrap_logo_input_box">
 		
-			<!-- 로고 영역 -->
+			<!-- 로고 영역 시작 -->
 			<div id="logo">
-				<img src = "E:\KTH\Project\hogwartslogo.png" width="230px" height="200px">
+				<img src="E:\KTH\Project\hogwartslogo.png" width="230px" height="200px">
 			</div>
+			<!-- 로고 영역 끝 -->
 						
-						
-			<!-- 입력 영역 -->
+			<!-- 입력 영역 시작 -->
 			<div id="input_wrap">
-				<!-- 이름 -->
+			
+				<!-- 이름 시작 -->
 				<div id="label_name">
 					<label for="sid_name"> 이름</label>
 				</div>
+				
 				<div id="field_name">
 					<input type="text"
 						   id="sid_name"
 						   name="sid_name"  
 						   maxlength="20"
-						   
 						   pattern="[가-힣]{2,10}|[a-zA-Z]{2,20}|\s[a-zA-Z]{2,20}"
-						   />
+						   ></input>
 				</div>
-				<!--// 학번 -->
+				<!-- 이름 끝 -->
 				
-				<!-- 생년월일 -->
+				<!-- 생년월일 시작 -->
 				<div id="label_birth">
 					<label for="sid_birth"> 생년월일</label>
 				</div>
+				
 				<div id="field_birth">
 					<input type="text"
 						   id="sid_birth"
 						   name="sid_birth"  
 						   maxlength="20"
-						   
 						   pattern="(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"
-						   />
-						   &emsp;&emsp;<b>예) 2020-02-02</b>
+						   ></input>
+						   &emsp;<b>예) 2020-02-02</b>
 				</div> 
-				<!--// 생년월일 -->
+				<!-- 생년월일 끝 -->
 				
-				<!-- 이메일 -->
+				<!-- 이메일 시작 -->
 				<div id="mail_wrap">
+				
 					<div id="label_mail">
 						<label for="sid_mail"> 이메일</label>
 					</div>
+					
 					<div id="field_mail">
 						<input type="text"
 							   id="sid_mail"  
 							   name="sid_mail"
 							   maxlength="20"
 							   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}"
-							   />
+							   ></input>
+							   
 					<b>@</b>
 
-					<!-- 이메일 제공자 -->
+					<!-- 이메일 제공자 시작-->
 					<select id="sid_sb_msv" name="sid_sb_msv">
 						<option>직접입력</option>
 						<option>hanmail.net</option>
 						<option>naver.com</option>
 						<option>gmail.com</option>
 					</select>
-					<!-- // 이메일 제공자 -->
+					<!-- 이메일 제공자 끝 -->
 					
-					<!-- 이메일 제공자 직접입력 -->
-					<!--div id="sid_msv"-->
+					<!-- 이메일 제공자 직접입력 시작 -->
 						<input type="text"
 							   id="sid_msv"  
 							   name="sid_msv"
 							   size="12"
 							   maxlength="20"
 							   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}"
-							   />
-					<!--/div-->
-					<!--// 이메일 제공자 직접입력 -->
+							   ></input>
+					<!-- 이메일 제공자 직접입력 끝 -->
 					</div>
 					
 				</div>
-				<!--// 이메일 -->
+				<!-- 이메일 끝 -->
+				
 			</div>
-			<!-- // 입력 영역 -->
+			<!-- 입력 영역 끝 -->
+			
 		</div>
-		<!-- // 상단(로고+입력) 영역 -->
+		<!-- 상단(로고+입력) 영역 끝 -->
 		
-		<!-- 찾기 버튼 -->
+		<!-- 찾기 버튼 시작 -->
 		<div id="btn_wrap">
 			<input type="submit"
 				   id="sid_submit_btn"
 				   name="sid_submit_btn"
-				   value="찾 기">
+				   value="찾 기"></input>
 		</div>
-		<!-- // 찾기 버튼 -->
+		<!-- 찾기 버튼 끝 -->
 		
 	</div>
-	<!-- 양식 상자 -->
+	<!-- 양식 상자 끝 -->
+	
+	<!-- 완료 버튼 -->
+	<!--div id="btn_wrap">
+		<input type="submit"
+			   id="sid_submit_btn"
+			   name="sid_submit_btn"
+			   value="완 료">
+	</div-->
+	<!-- // 완료 버튼 -->
 	
 </div>
-<!-- // 학번 찾기 양식 -->
+<!-- 학번 찾기 양식 끝 -->
 
 </body>
 </html>
