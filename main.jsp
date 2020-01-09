@@ -60,7 +60,7 @@
 		margin: 0;	
 	}
 
-	li {
+	ul li {
 		margin-left: 25px;
 		margin-right: 25px;
 		float: left;
