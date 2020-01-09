@@ -12,7 +12,7 @@
 	
 	
 	/*상단바*/
-	#header {
+	div#header {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -25,7 +25,7 @@
 	
 	
 	/*상단바 제외 섹션*/
-	#wrap{
+	div#wrap{
 		background-image: url('D:/HJ/PROJECT/castle.jpg');
 		background-size: 100% 130%;
 		width: 100%; 
@@ -37,7 +37,7 @@
 	}
 	
 	/*하단바 메뉴*/
-	#footer_menu{
+	div#footer_menu{
 		overflow-x: auto;
 		overflow-y: hidden;
 		width: 100%;
