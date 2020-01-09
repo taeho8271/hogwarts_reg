@@ -15,13 +15,13 @@
    	/*상단바*/
 	#prs_header {
 		/*
-		position : fixed;
-		top : 0;
-		left : 0;
+		position: fixed;
+		top: 0;
+		left: 0;
 		*/
-		height : 40px;
-		background-color :#522808;
-		padding : 10px 0 20px;
+		height: 40px;
+		background-color: #522808;
+		padding: 10px 0 20px;
 	}
       
     /* 전체 패널 박스(login_box) */
@@ -36,14 +36,14 @@
 	
 	/* 좌측 박스 */
     #login_box {  
-        width:850px;
-        height:500px;        		
-      /*padding-top:100px;
+        width: 850px;
+        height: 500px;        		
+      /*padding-top: 100px;
 		position: absolute;
 		top: 170px;
 		left: 300px; */
-        background : #E7E3DE;
-		font-family:Nanum Gothic;
+        background: #E7E3DE;
+		font-family: Nanum Gothic;
     }  
  
 	/* 로고 위치 조정 width: 370px */
@@ -64,14 +64,14 @@
 
     /* 전송/로그인 버튼 */
     .submit_btn {
-        width:420px;
-        height:40px;
-        background-color:#B59263;
+        width: 420px;
+        height: 40px;
+        background-color: #B59263;
         border: 3px solid #B59263;
-        font-size:13pt;
-        letter-spacing:0.2em;          
-        color:#fff; 
-        padding-bottom:7px;
+        font-size: 13pt;
+        letter-spacing: 0.2em;          
+        color: #fff; 
+        padding-bottom: 7px;
 		border-radius: 7px;
     }
  
@@ -98,26 +98,26 @@
 	 
     /* 로그인 버튼 */
     div#submit_box {
-      /*margin:10px 0;
-        height:58px;*/
-		width: 530px;
-		height: 70px;
+      /*margin: 10px 0;
+        height: 58px;*/
+		width: 480px;
+		height: 80px;
     }
 	
     /* 학번/비밀번호 필드 */
     input#id {
-        width:310px;
-        height:30px;
-        font-size:15pt;
-        border:1px solid #ccc;   
-        text-indent:1em;
-        color:brown;
-		margin:5px 0;
+        width: 310px;
+        height: 30px;
+        font-size: 15pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
 	}
 	
 	/* id pw 필드 영역 */
 	div#login_box div[id$=_label] {
-		width : 100px;
+		width: 100px;
 		float: left;
 		height: 48px;
 		text-align: right;
@@ -134,22 +134,22 @@
 	}
 		
 	input#pw {
-        width:310px;
-        height:30px;
-        font-size:15pt;
-        border:1px solid #ccc;   
-        text-indent:1em;
-        color:brown;
-		margin:5px 0;
+        width: 310px;
+        height: 30px;
+        font-size: 15pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
     }
    
     /* 학번/비밀번호 필드 미리보기(placeholder)
-	   글자색 : 초콜릿색
-       투명도 : 0.5
+	   글자색: 초콜릿색
+       투명도: 0.5
     */
     input::placeholder {
-        color:chocolate;
-        opacity:0.5;
+        color: chocolate;
+        opacity: 0.5;
     }
 	
 	/* 학번 찾기, 비밀번호 찾기, 비밀번호 변경 링크 */
@@ -158,18 +158,22 @@
 	}
 	
 	div#search_id {
-		width: 152px;
+		width: 140px;
 		float: left;
+		padding-left: 25px;
+		/*background-color: red;*/
 	}
 	
 	div#search_pw {
-		width: 162px;
+		width: 160px;
 		float: left;
+		/*background-color: orange;*/
 	}
 	
 	div#change_pw {
 		width: 150px;
-		float: left;
+		float: right;
+		/*background-color: yellow;*/
 	}
 
 	
@@ -177,21 +181,22 @@
 </style>
 </head>
 <body>
-	<!-- 상단바 -->
+	<!-- 상단바 시작 -->
  	<div id="prs_header">&nbsp;&nbsp;
-	<img src = "E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-	<img src = "E:\KTH\Project\typography2.png" width="150px" height="50px">
+	<img src="E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
+	<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
 	</div>
- 
+	<!-- 상단바 끝 -->
+	
 	<!-- 상단바 제외한 로그인 모든 부분 시작 -->
 	<div id="login_wrap">
  
-	<!-- 좌측 부분 로고 -->
+	<!-- 좌측 부분 로고 시작 -->
 	<div id="login_box">
 		<div id="logo">
-			<img src = "E:\KTH\Project\hogwartslogo.png" width="230px" height="200px" align="left">
+			<img src="E:\KTH\Project\hogwartslogo.png" width="230px" height="200px" align="left">
 		</div>
-	
+	<!-- 좌측 부분 로고 끝 -->
 	
 	<!-- 우측 부분 시작 -->
 	<div id="field_box">
