@@ -3,14 +3,14 @@
 <head> 
 <meta charset="UTF-8"> 
 
-<title>시간표</title> 
+<title>장바구니</title> 
 
 <style>
 
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 	
 	/* 상단바 */
-	#prs_header {
+	div#prs_header {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -23,7 +23,7 @@
 	}
 	
 	/*과목 검색 영역 전체*/
-	#search_wrap {
+	div#search_wrap {
 		height: 50px;
 		margin: 20px 0 20px 30px;
 		padding-top: 90px;
@@ -32,7 +32,7 @@
 	}
 	
 	/* 목록 전체 */
-	#list_wrap {
+	div#list_wrap {
 		width: 100%;
 		height: 230px;
 		margin: 0 30px 20px 30px;
@@ -46,7 +46,7 @@
 	}
 	
 	/* 개설강의 구역 전체 */
-	#subject_wrap {
+	div#subject_wrap {
 		width: 1000px;
 		font-size: 1em;
 		font-family: 나눔 고딕;
@@ -55,7 +55,7 @@
 	}
 	
 	/* 수강 구역 전체 */
-	#lecture_wrap {
+	div#lecture_wrap {
 		width: 1000px;
 		font-size: 1em;
 		font-family: 나눔 고딕;
@@ -65,7 +65,7 @@
 
 	/* 과목 검색 영역 */
 	/* 검색어 선택 */
-	#select_box
+	select#prs_select_box
 	{ 
 	   width: 80px;
 	   height: 30px;
@@ -83,7 +83,7 @@
 	
 	
 	/* 과목 검색 입력필드 */
-	#list_search_word {
+	input#list_search_word {
 		width: 200px;
 		height: 30px;
 		border: 1px solid #ccc;
@@ -94,7 +94,7 @@
 	
 
 	/*검색 버튼*/
-	.search_btn {	
+	input.search_btn {	
 		font-size: 1em;
 		border-radius: 5px;
 		border-width: 1px;
@@ -109,14 +109,14 @@
 	}
 	
 	/* 검색 버튼: 롤오버 효과 */
-	.search_btn:hover {
+	input.search_btn:hover {
 		background-color: rgba(181,146,99,0.5);
 		color: #fff;
 	}
 	
 	/* 목록(개설 강의, 수강예정) 영역*/
 	/* 목록 헤더*/
-	.list_header {
+	div.list_header {
 		width: 1000px;
 		height: 30px;
 		background-color: #E7E3DE;
@@ -126,14 +126,14 @@
 	}
 	
 	/* 레이어 정렬 : 중앙정렬 */
-	.div_align_center {
+	div.div_align_center {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 	
 	/* 목록 본체 */
-	.list_body {
+	div.list_body {
 		width: 1000px;
 		height: 230px;
 		overflow-x: hidden;
@@ -142,7 +142,7 @@
 	}
 	
 	/* 긴 속성명(과목코드, 과목명, 강사명, 요일/시간) */
-	.list_column_l {
+	div.list_column_l {
 		float: left;
 		width: 160px;
 		margin-left: 10px;
@@ -150,26 +150,26 @@
 	
 	
 	/* 짧은 속성명(학점, 제한인원, 버튼) */
-	.list_column_s {
+	div.list_column_s {
 		float: left;
 		width: 80px;
 		margin-left: 10px;
 	}
 	
 	/* 강의(한줄) */
-	.list_row {
+	div.list_row {
 		height: 30px;
 		padding: 10px 0 10px ;
 		border-bottom: 1px solid #ccc;
 	}
 	
 	/* 강의(한줄) : 롤오버 효과(rollover)*/
-	.list_row:hover {
+	div.list_row:hover {
 	background-color: rgba(177,146,101,0.2);
 	}
 	
 	/* 담기/빼기 버튼 */
-	.list_btn {
+	input.list_btn {
 		font-size: 1em;
 		border-radius: 5px;
 		width: auto;
@@ -181,12 +181,12 @@
 		justify-content: center;
 	}
 	
-	.btn_blue {
+	input.btn_blue {
 		background-color: #522808;
 		color: #fff;
 	}
 	
-	.btn_blue:hover {
+	input.btn_blue:hover {
 		background-color: rgba(181,146,99,0.5);
 		color: #fff;
 	}
@@ -195,7 +195,7 @@
 	
 	/* 시간표 영역 */
 	/*시간표*/
-	.prs_tbl {
+	div.prs_tbl {
 		margin: 20px 20px ;
 		position: absolute;
 		left: 1050px;
@@ -212,44 +212,18 @@
 	}
 	
 	/* 시간표 내부 */
-	.time {
+	td.time {
 		width: 50px;
 		height : 40px;
 		font-weight: bold;
 	}
 	
-	.date {
+	td.date {
 		width: 100px;
 		height : 50px;
 		font-weight: bold;
 	}
 	
-	input[type="checkbox"] {
-		display: none;
-	}
-
-	input[type="checkbox"] + label {
-		width: 15px; 
-		height: 15px; 
-		background: #B59263; 
-		cursor: pointer; 
-		border-radius: 3px;
-		margin: 0 20px 0 0;
-		vertical-align: middle;		
-	}
-	
-	
-	input[type="checkbox"]:checked + label {
-		background: url(check_mark.png) #B59263 no-repeat center/20px 20px; 
-	}
-
-	input[type="checkbox"] + label span {
-		position: absolute; 
-		/*position: relative;*/
-		/*right: 10px;*/
-		right: 10px;	
-		display: block;
-	}
 
 </style>
 </head> 
@@ -265,7 +239,7 @@
 	<!-- 검색 구역 시작 -->
 	<div id="search_wrap">
 	
-		<select id="select_box" name="select_box">
+		<select id="prs_select_box" name="prs_select_box">
 			<option>선택</option>
 			<option>과목명</option>
 			<option>강사명</option>
