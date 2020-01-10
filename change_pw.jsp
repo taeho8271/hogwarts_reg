@@ -41,14 +41,7 @@
 		font-family: Nanum Gothic;
 		color: #4A2B10;
 	}
-	
-	/* 상자 상단바 */
-	div#bar_box{
-		width: 100%
-		height: 10px;
-		background-color: #522808;
-	}
-	
+
 	/* 로고+입력 영역 */
 	div#wrap_logo_input_box {
 		width: 100%;
