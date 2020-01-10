@@ -30,14 +30,23 @@
 	/* 전체 상자 */
 	div#wrap_box {
 		width: 850px;
-		height: 650px;	
-		border: 3px solid #ccc;
+		height: 650px;
+		border-top: 15px solid #4f2a08;
+		/* border: 3px solid #ccc; */
 		background-color: #E7E3DE;
 		/* display:flex;
 		align-items:center;
 		justify-content:center; */
 		font-size: 1.2em;
 		font-family: Nanum Gothic;
+		color: #4A2B10;
+	}
+	
+	/* 상자 상단바 */
+	div#bar_box{
+		width: 100%
+		height: 10px;
+		background-color: #522808;
 	}
 	
 	/* 로고+입력 영역 */
@@ -101,39 +110,39 @@
 	 
 	/* 폼필드(각종 입력 필드)들 외곽선 효과 */
 	input[type='text'], input[type='password'] {
-		border:1px solid #999;
-		font-size:1.2em;
-		padding:5px;
+		border: 1px solid #4A2B10;
+		font-size: 1.2em;
+		padding: 5px;
 	}
 
 	 
 	/* 완료 버튼  */
 	input[id^=cpw][id$=btn] {    
-		font-size:1em;
-		font-weight:bold;
-		color:#fff;
-		width:140px;
-		height:50px;
-		background-color:#522808;
-		border:3px solid #522808;
-		border-radius:10px;
-		margin:0 5px;
-		letter-spacing:2px;
+		font-size: 1em;
+		font-weight: bold;
+		color: #fff;
+		width: 140px;
+		height: 50px;
+		background-color: #522808;
+		border: 3px solid #522808;
+		border-radius: 10px;
+		margin: 0 5px;
+		letter-spacing: 2px;
 	   
 		transition: all .2s ease;
 	}
 	 
 	/*  완료 버튼: 롤 오버 효과 */
 	input[id^=cpw][id$=btn]:hover {
-		font-size:1em;
-		font-weight:bold;
-		width:140px;
-		height:50px;
-		background-color:#B59263;
-		border:3px solid #B59263;
-		border-radius:10px;
-		margin:0 5px;
-		letter-spacing:2px;
+		font-size: 1em;
+		font-weight: bold;
+		width: 140px;
+		height: 50px;
+		background-color: #B59263;
+		border: 3px solid #B59263;
+		border-radius: 10px;
+		margin: 0 5px;
+		letter-spacing: 2px;
 	}
 </style>  
 
@@ -151,7 +160,7 @@
 
 	<!-- 양식 상자 시작 -->
 	<div id="wrap_box">
-    
+    	
 		<!-- 상단(로고+입력) 영역 시작 -->
 		<div id="wrap_logo_input_box">
 		
