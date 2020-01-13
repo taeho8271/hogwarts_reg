@@ -248,11 +248,11 @@
 		<input type="text" id="list_search_word" name="list_search_word"> &nbsp;&nbsp;
 		
 		
-		<input type="checkbox" id="mon"><label for="mon"></label>월
-		<input type="checkbox" id="tue"><label for="tue"><span></span>화</label>
-		<input type="checkbox" id="wed" ><label for="wed"><span></span>수</label>
-		<input type="checkbox" id="thu"><label for="thu"><span></span>목</label>
-		<input type="checkbox" id="fri"><label for="fri"><span></span>금</label>&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" id="mon" value="월"><label for="mon"></label>월
+		<input type="checkbox" id="tue" value="화"><label for="tue"><span></span>화</label>
+		<input type="checkbox" id="wed" value="수"><label for="wed"><span></span>수</label>
+		<input type="checkbox" id="thu" value="목"><label for="thu"><span></span>목</label>
+		<input type="checkbox" id="fri" value="금"><label for="fri"><span></span>금</label>&nbsp;&nbsp;&nbsp;
 		
 		<!--
 		<input type="checkbox" id = "mon" name="mon" value="3">월
