@@ -13,7 +13,7 @@
 	}
 
    	/*상단바*/
-	#prs_header {
+	div#prs_header {
 		/*
 		position: fixed;
 		top: 0;
@@ -35,7 +35,7 @@
 	}
 	
 	/* 좌측 박스 */
-    #login_box {  
+    div#login_box {  
         width: 850px;
         height: 500px;        		
       /*padding-top: 100px;
@@ -47,7 +47,7 @@
     }  
  
 	/* 로고 위치 조정 width: 370px */
-	#logo {
+	div#logo {
 		padding: 100px 0 0 70px;
 		/*background-color: orange;*/
 		width: 300px;
@@ -63,7 +63,7 @@
 	}
 
     /* 전송/로그인 버튼 */
-    .submit_btn {
+    input.submit_btn {
         width: 420px;
         height: 40px;
         background-color: #B59263;
@@ -108,7 +108,7 @@
     input#id {
         width: 310px;
         height: 30px;
-        font-size: 15pt;
+        font-size: 12pt;
         border: 1px solid #ccc;   
         text-indent: 1em;
         color: brown;
@@ -136,7 +136,7 @@
 	input#pw {
         width: 310px;
         height: 30px;
-        font-size: 15pt;
+        font-size: 12pt;
         border: 1px solid #ccc;   
         text-indent: 1em;
         color: brown;
