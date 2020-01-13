@@ -220,7 +220,7 @@
 	<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
 	</div>
 	<!-- 상단바 끝 -->
-	<figcaption><b>아이디 찾기</figcaption>
+	<figcaption><b>학번 찾기</figcaption>
 
 	<!-- 상단바 제외한 로그인 모든 부분 시작 -->
 	<div id="login_wrap">
@@ -240,7 +240,7 @@
 	
     <!-- 학번 필드 섹션 시작 -->
     <div id="id_box">
-		<div id="id_label">
+		<div id="name_label">
 			<label for="id">이름 :</label>
 		</div>
 		<div id="id_field">
