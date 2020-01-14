@@ -126,8 +126,7 @@
 <body> 
 	<!--상단바 시작-->
 	<div id="header">&nbsp;&nbsp;
-		<img src="D:\HJ\PROJECT/logo.png" width="60px" height="55px" >
-		<img src="D:\HJ\PROJECT/hogwarts.png" width="150px" height="50px" >
+		<img src="D:\HJ\PROJECT\header_logo.png" width="191px" height="55px" >
 	</div>
 	<!--상단바 끝-->
 	
