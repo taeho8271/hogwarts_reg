@@ -13,8 +13,7 @@
 <body>
 	<!-- 상단바 시작 -->
  	<div id="prs_header">&nbsp;&nbsp;
-	<img src="E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-	<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
+		<img src="E:\KTH\Project\header_logo.png" width="191px" height="55px">
 	</div>
 	<!-- 상단바 끝 -->
 </body>
