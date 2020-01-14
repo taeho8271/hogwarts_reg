@@ -199,7 +199,7 @@
 		margin: 20px 20px ;
 		position: absolute;
 		left: 1050px;
-		top: 143px;
+		top: 142px;
 	}
 	
 	table{
@@ -224,6 +224,9 @@
 		font-weight: bold;
 	}
 	
+	td{
+    color: #522808;
+    }
 
 </style>
 </head> 
@@ -231,8 +234,7 @@
 <body>
 	<!-- 상단바 시작 -->
 	<div id="prs_header">&nbsp;&nbsp;
-		<img src="D:\HJ\PROJECT/logo.png" width="60px" height="55px">
-		<img src="D:\HJ\PROJECT/hogwarts.png" width="150px" height="50px">
+		<img src="E:\KTH\Project\header_logo.png" width="191px" height="55px">
 	</div>
 	<!-- 상단바 끝 -->
 	
@@ -248,11 +250,11 @@
 		<input type="text" id="list_search_word" name="list_search_word"> &nbsp;&nbsp;
 		
 		
-		<input type="checkbox" id="mon" value="월"><label for="mon"></label>월
-		<input type="checkbox" id="tue" value="화"><label for="tue"><span></span>화</label>
-		<input type="checkbox" id="wed" value="수"><label for="wed"><span></span>수</label>
-		<input type="checkbox" id="thu" value="목"><label for="thu"><span></span>목</label>
-		<input type="checkbox" id="fri" value="금"><label for="fri"><span></span>금</label>&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" id="mon"><label for="mon"></label>월
+		<input type="checkbox" id="tue"><label for="tue"><span></span>화</label>
+		<input type="checkbox" id="wed" ><label for="wed"><span></span>수</label>
+		<input type="checkbox" id="thu"><label for="thu"><span></span>목</label>
+		<input type="checkbox" id="fri"><label for="fri"><span></span>금</label>&nbsp;&nbsp;&nbsp;
 		
 		<!--
 		<input type="checkbox" id = "mon" name="mon" value="3">월
@@ -319,6 +321,39 @@
 					<div class="list_column_l div_align_center">수 / 1,2,3,4,5,6</div>
 					<div class="list_column_s div_align_center">3</div>
 					<div class="list_column_s div_align_center">5/45</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="담기"></input>
+					</div>
+				</div>
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">약초학</div>
+					<div class="list_column_l div_align_center">포모나 스프라우트</div>
+					<div class="list_column_l div_align_center">화 / 4,5,6,7,8,9</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">2/30</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="담기"></input>
+					</div>
+				</div>
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">약초학</div>
+					<div class="list_column_l div_align_center">포모나 스프라우트</div>
+					<div class="list_column_l div_align_center">화 / 4,5,6,7,8,9</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">2/30</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="담기"></input>
+					</div>
+				</div>
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">약초학</div>
+					<div class="list_column_l div_align_center">포모나 스프라우트</div>
+					<div class="list_column_l div_align_center">화 / 4,5,6,7,8,9</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">2/30</div>
 					<div class="list_column_s div_align_center">&emsp;&nbsp;
 						<input class="list_btn btn_blue" type="submit" value="담기"></input>
 					</div>
@@ -419,6 +454,36 @@
 					</div>
 				</div>	
 				<!-- 목록 게시글(한줄) 끝 -->
+				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="빼기"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->
+
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="빼기"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->
+
+          				
 				
 			</div>
 			<!-- 목록 바디 끝 -->
