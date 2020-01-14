@@ -26,6 +26,7 @@
 	
 	/*상단바 제외 섹션*/
 	div#wrap{
+		/*
 		background-image: url('D:/HJ/PROJECT/castle.jpg');
 		background-size: 100% 130%;
 		width: 100%; 
@@ -34,6 +35,7 @@
 		left: 0;
 		right: 0;
 		overflow-y: hidden;
+		*/
 	}
 	
 	/*하단바 메뉴*/
@@ -52,7 +54,7 @@
 	
 	/*하단바 섹션*/
 	ul {	
-		list-style-type: none;
+		list-style: none;
 		background-color: #522808;
 		width: 1600px;
 		height: 120px;
@@ -61,6 +63,7 @@
 	}
 
 	ul li {
+		list-style: none;
 		margin-left: 25px;
 		margin-right: 25px;
 		float: left;
@@ -86,6 +89,33 @@
 		top: 0;	
 	}
 	
+	div.slide{
+		width: 100%; 
+		height: 800px;
+		overflow:hidden;
+		background-size: 1600px 800px;
+		position: fixed;
+		left: 0;
+		right: 0;
+		overflow-y: hidden;
+	}
+	
+    div.slide ul{position:absolute;height:100%;}
+    div.slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 16s infinite;}
+    div.slide li:nth-child(1){background:url('D:/HJ/PROJECT/wallpapers.png'); animation-delay:0s}
+    div.slide li:nth-child(2){background:url('D:/HJ/PROJECT/campus.jpg');animation-delay:4s}
+    div.slide li:nth-child(3){background:url('D:/HJ/PROJECT/castle.jpg');animation-delay:8s}
+    div.slide li:nth-child(4){background:url('D:/HJ/PROJECT/cafe.jpg');animation-delay:12s}
+    
+	@keyframes fade {
+      0% {opacity:0;}
+      5% {opacity:1;}
+      25% {opacity:1;}
+      30% {opacity:0;}
+      100% {opacity:0;}
+    }
+
+	
 	/*아이콘 크기*/
 	.material-icons { font-size: 48px; }
 	
@@ -96,13 +126,22 @@
 <body> 
 	<!--상단바 시작-->
 	<div id="header">&nbsp;&nbsp;
-		<img src="E:\KTH\Project\header_logo.png" width="191px" height="55px">
+		<img src="D:\HJ\PROJECT/logo.png" width="60px" height="55px" >
+		<img src="D:\HJ\PROJECT/hogwarts.png" width="150px" height="50px" >
 	</div>
 	<!--상단바 끝-->
 	
 	<!--하단바 시작-->
 	<div id="wrap">
-	
+		<div class="slide">
+			
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			
+		</div>
+		
 		<div id="footer_menu">
 	
 			<ul>
