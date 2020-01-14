@@ -206,7 +206,7 @@
 		cellspacing: 1px;
 		align: right;  
 		cellpadding: 8px; 
-		width: 500px; 
+		width: 480px; 
 		height: 500px;
 	
 	}
@@ -219,7 +219,7 @@
 	}
 	
 	td.date {
-		width: 100px;
+		width: 90px;
 		height : 50px;
 		font-weight: bold;
 	}
