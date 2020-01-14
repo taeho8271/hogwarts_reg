@@ -148,19 +148,19 @@
 				<li id="pre_submit_btn">
 				<a onclick = "window.open('pre_submit.html')">
 					<i class="material-icons">add_shopping_cart</i><br>
-					장바구니</a>	
+					<b>장바구니</a>	
 				</li>
 				<li id="submit_btn">
 				<a onclick = "window.open('submit.html')">
-					<i class="material-icons">access_time</i><br>수강신청</a>
+					<i class="material-icons">access_time</i><br><b>수강신청</a>
 				</li>
 				<li id="table_btn">
 				<a onclick = "window.open('table.html')">
-					<i class="material-icons">view_list</i><br>내 수강목록</a>
+					<i class="material-icons">view_list</i><br><b>내 수강목록</a>
 				</li>
 				<li id="homeAppliances_btn">
 				<a href="#">
-					<i class="material-icons">map</i><br>오시는 길</a>
+					<i class="material-icons">map</i><br><b>오시는 길</a>
 				</li>
 			</ul>
 		
