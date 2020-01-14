@@ -10,7 +10,7 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 	
 	/* 상단바 */
-	#prs_header {
+	div#prs_header {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -25,36 +25,41 @@
 	
 	/* 시간표 영역 */
 	/*시간표*/
-	.prs_tbl {
+	div.prs_tbl {
 		margin:20px 10px;
 		position: absolute;
-		left: 60px;
-		top: 112px;
+		left: 5px;
+		top: 70px;
 	}
 	
 	table{
 		cellspacing: 1px;
 		align: right;  
 		cellpadding: 8px; 
-		width: 2000px; 
+		width: 2100px; 
 		height: 500px;
 	}
 	
 	/* 시간표 내부 */
-	.time {
-		width: 100px;
+	td.time {
+		width: 120px;
 		height: 50px;
 		font-weight: bold;
 	}
 	
-	.date {
-		width: 250px;
+	td.date {
+		width: 282px;
 		font-weight: bold;
 	}
 	
 	td{
     color: #522808;
     }
+	
+	figcaption{
+      font-size : 20px;
+      color : #522808;
+   }
 
 </style>
 </head> 
@@ -62,8 +67,7 @@
 <body>
 	<!-- 상단바 시작 -->
 	<div id="prs_header">&nbsp;&nbsp;
-		<img src="E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-		<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
+		<img src="E:\KTH\Project\header_logo.png" width="191px" height="55px">
 	</div>
 	<!-- 상단바 끝 -->	
 	
@@ -71,7 +75,8 @@
 	
 		<!-- 시간표 시작 -->
 		<div class="prs_tbl">		
-			<table> 
+			<table>
+				<figcaption><b>&nbsp;내 수강목록</figcaption>
 				<p></p> 			
 			<tr align="center"> 
 				<td class="time" bgcolor="#E7E3DE"></td> 
