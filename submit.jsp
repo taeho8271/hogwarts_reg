@@ -43,7 +43,7 @@
 		font-size: 1em;
 		font-family: 나눔 고딕;
 		margin: 0 30px 50px 10px;
-		padding-top: 42px;
+		padding: 72px 0 0 10px;
 		/* background-color: yellow; */
 	}
 	
@@ -53,6 +53,7 @@
 		font-size: 1em;
 		font-family: 나눔 고딕;
 		margin: 50px 30px 0 10px;
+		padding-left: 10px;
 		/* background-color:magenta; */
 	}
 
@@ -86,7 +87,7 @@
 	}
 	
 	/* 긴 속성명(과목코드, 과목명, 강사명, 요일/시간) */
-	.list_column_l {
+	div.list_column_l {
 		float: left;
 		width: 160px;
 		margin-left: 10px;
@@ -94,26 +95,26 @@
 	
 	
 	/* 짧은 속성명(학점, 제한인원, 버튼) */
-	.list_column_s {
+	div.list_column_s {
 		float: left;
 		width: 80px;
 		margin-left: 10px;
 	}
 	
 	/* 강의(한줄) */
-	.list_row {
+	div.list_row {
 		height: 30px;
 		padding: 10px 0 10px;
 		border-bottom: 1px solid #ccc;
 	}
 	
 	/* 강의(한줄): 롤오버 효과(rollover)*/
-	.list_row: hover {
+	div.list_row:hover {
 	background-color: rgba(177,146,101,0.2);
 	}
 	
 	/* 신청/취소 버튼 */
-	.list_btn {
+	input.list_btn {
 		font-size: 1em;
 		border-radius: 5px;
 		width: auto;
@@ -125,24 +126,24 @@
 		justify-content: center;
 	}
 	
-	.btn_blue {
+	input.btn_blue {
 		background-color: #522808;
 		color: #fff;
 	}
 	
-	.btn_blue: hover {
+	input.btn_blue:hover {
 		background-color: rgba(181,146,99,0.5);
-		color:#fff;
-	}
+		color: #fff;
+	}	
+	
 	
 	/* 시간표 영역 */
 	/*시간표*/
-	.prs_tbl {
-		margin: 20px 10px;
+	div.prs_tbl {
+		margin: 20px 20px ;
 		position: absolute;
 		left: 1050px;
-		top: 70px;	
-		padding-top: 42px;
+		top: 142px;
 	}
 	
 	table{
@@ -151,19 +152,22 @@
 		cellpadding: 8px; 
 		width: 500px; 
 		height: 500px;
+	
 	}
 	
 	/* 시간표 내부 */
-	.time {
+	td.time {
 		width: 50px;
+		height : 40px;
 		font-weight: bold;
 	}
 	
-	.date {
+	td.date {
 		width: 100px;
+		height : 50px;
 		font-weight: bold;
 	}
-	
+		
 	td{
     color: #522808;
     }
@@ -174,8 +178,7 @@
 <body>
 	<!-- 상단바 시작 -->
 	<div id="prs_header">&nbsp;&nbsp;
-		<img src="E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-		<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
+		<img src="E:\KTH\Project\header_logo.png" width="191px" height="55px">
 	</div>
 	<!-- 상단바 끝 -->
 	
