@@ -119,17 +119,17 @@ CREATE OR REPLACE VIEW CartView
 AS
 SELECT            
 
-    	a.sub_code,
-	a.sub_name,
-	a.professor,
-	a.daytime,
-	a.grade,
-	a.limit_num,
-	b.stu_id
+    	subject.sub_code,
+	subject.sub_name,
+	subject.professor,
+	subject.daytime,
+	subject.grade,
+	subject.limit_num,
+	student.stu_id
 	
 	
-			FROM subject a, student b
-            WHERE a.sub_code = 524840 and b.stu_id = 20191005;
+			FROM subject, student
+            WHERE subject.sub_code =? and student.stu_id = ?;
             
             
             
