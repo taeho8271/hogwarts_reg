@@ -163,7 +163,7 @@ CREATE TABLE MyLec
 (
 
     sequence int,
-    stu_id int NOT NULL primary key,  --학번
+    stu_id int NOT NULL,  --학번
     sub_code int NOT NULL  -- 과목코드
     
 );
