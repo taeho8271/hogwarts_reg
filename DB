@@ -140,15 +140,12 @@ DROP View CartView;
 
 CREATE TABLE lecture 
 (
-  	sequence int,
+   	sequence int,
 	sub_code int NOT NULL primary key,  -- 과목코드
-   	stu_id int NOT NULL,  -- 학번 
-	sub_name   VARCHAR2(50) NOT NULL,   --과목명
-	professor 	 VARCHAR2(50) NOT NULL,   --교수명
+    	stu_id int NOT NULL,  -- 학번 
 	daytime    VARCHAR2(50) NOT NULL,   --요일, 시간
-  	reg_time     date default sysdate,   --신청시간
-	grade       int NOT NULL,    --학점
-   	reg_num    int default 0, --신청인원
+   	reg_time     date default sysdate,   --신청시간
+	reg_num    int default 0, --신청인원
 	limit_num  int NOT NULL   --제한인원
 
 );
