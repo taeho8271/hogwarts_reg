@@ -175,3 +175,7 @@ MINVALUE 1
 MAXVALUE 1000
 NOCYCLE;
         
+SELECT lecture.* from lecture, MyLec
+    where lecture.sub_code = mylec.sub_code and MyLec.stu_id = lecture.stu_id and MyLec.stu_id=20191002;
+    
+    
