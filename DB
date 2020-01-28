@@ -141,7 +141,7 @@ DROP View CartView;
 CREATE TABLE lecture 
 (
   	sequence int,
-	sub_code int NOT NULL primary key,  -- 과목코드
+	sub_code int NOT NULL,  -- 과목코드
    	stu_id int NOT NULL,  -- 학번 
 	sub_name   VARCHAR2(50) NOT NULL,   --과목명
 	professor 	 VARCHAR2(50) NOT NULL,   --교수명
