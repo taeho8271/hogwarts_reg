@@ -133,4 +133,22 @@ CREATE TABLE lecture
 	limit_num  int NOT NULL   --제한인원
 
 );
+
+
+
+CREATE TABLE MyLec
+(
+
+    sequence int,
+    stu_id int NOT NULL primary key,  --학번
+    sub_code int NOT NULL  -- 과목코드
+    
+);
+
+CREATE SEQUENCE sequence
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 1000
+NOCYCLE;
         
