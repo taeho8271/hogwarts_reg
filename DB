@@ -120,15 +120,14 @@ AS
 SELECT            
 
     	subject.sub_code,
+	student.stu_id,
 	subject.sub_name,
 	subject.professor,
 	subject.daytime,
 	subject.grade,
-	subject.limit_num,
-	student.stu_id
-	
-	
-			FROM subject, student
+	subject.limit_num
+
+	   FROM subject, student
             WHERE subject.sub_code =? and student.stu_id = ?;
             
             
@@ -152,6 +151,11 @@ CREATE TABLE lecture
 	limit_num  int NOT NULL   --제한인원
 
 );
+
+
+
+INSERT INTO lecture(sub_code,stu_id,sub_name,professor,daytime,grade,limit_num)
+SELECT * FROM cartview;
 
 
 
