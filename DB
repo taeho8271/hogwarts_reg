@@ -119,7 +119,7 @@ CREATE OR REPLACE VIEW CartView
 AS
 SELECT            
 
-    a.sub_code,
+    	a.sub_code,
 	a.sub_name,
 	a.professor,
 	a.daytime,
