@@ -115,10 +115,26 @@ EXECUTE name_update_proc;
 
 
 
-CREATE or REPLACE VIEW CartView AS
-            SELECT subject.* 
-			FROM subject, student 
-            WHERE subject.sub_code = 524840 and student.stu_id = 20191005;
+CREATE OR REPLACE VIEW CartView
+AS
+SELECT            
+
+    a.sub_code,
+	a.sub_name,
+	a.professor,
+	a.daytime,
+	a.grade,
+	a.limit_num,
+	b.stu_id
+	
+	
+			FROM subject a, student b
+            WHERE a.sub_code = 524840 and b.stu_id = 20191005;
+            
+            
+            
+SELECT * FROM CartView;
+DROP View CartView;
 
 
 
