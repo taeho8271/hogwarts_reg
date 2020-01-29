@@ -194,4 +194,99 @@ SELECT lecture.* from lecture, MyLec
     where lecture.sub_code = mylec.sub_code and MyLec.stu_id = lecture.stu_id and MyLec.stu_id=20191002;
     
 
+
+
+create or replace view lec_daytime_view          --  시간 중복 검사 위해 시간 분할해 저장할 VIEW 생성
+as
+   SELECT
+       sub_code
+       ,daytime
+       ,substr(daytime,1,1) as lec_day
+       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 1) as col1
+       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 2) as col2
+       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 3) as col3
+       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 4) as col4
+       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 5) as col5
+       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 6) as col6
+   from subject
+   where substr(daytime,1,1) = '목';
+
+----------------------------------------------------------
+ 
+SET SERVEROUTPUT ON; 
+ 
+ 
+create or replace function getEqualTime                 -- lec_daytime_view 안에 시간 중복 검사 함수
+(v_sub_code in number)
+return number
+is 
+
+    TYPE Time_array_type IS TABLE OF number(5,0) INDEX BY PLS_INTEGER; 
+    v_time_array Time_array_type;
     
+   v_counter number := 0;
+    v_temp_counter number := 0;
+   v_array_len number;
+    v_col_name varchar2(5);
+    v_sql_stmt varchar2(1000);
+begin
+
+   -- v_sub_code의 레코드의 시간대 추출
+   select  CAST(nvl(col1, '0') AS number),
+            CAST(nvl(col2, '0') AS number),
+            CAST(nvl(col3, '0') AS number),
+            CAST(nvl(col4, '0') AS number),
+            CAST(nvl(col5, '0') AS number),
+            CAST(nvl(col6, '0') AS number)
+        into v_time_array(1), v_time_array(2), v_time_array(3), 
+             v_time_array(4), v_time_array(5), v_time_array(6)
+   from LEC_DAYTIME_VIEW 
+   where sub_code = v_sub_code;   
+    
+    -- 추출한 시간대들이 다른 레코드에 존재하는지 점검
+    
+    for i in 1..6 loop
+        
+        v_col_name := 'col' || i;
+        
+        DBMS_OUTPUT.put_line('v_col_name : ' || v_col_name);
+        
+        v_sql_stmt:= 'select count(*) as counter from LEC_DAYTIME_VIEW where '
+                     || v_col_name || 
+                     ' in (' || v_time_array(1) ||
+                         ',' || v_time_array(2) ||
+                         ',' || v_time_array(3) || 
+                         ',' || v_time_array(4) ||
+                         ',' || v_time_array(5) ||
+                         ',' || v_time_array(6) || ') and sub_code != ' || v_sub_code ;
+    
+        EXECUTE IMMEDIATE v_sql_stmt INTO v_temp_counter;
+        
+        dbms_output.put_line(' counter : ' || v_temp_counter);
+      
+        v_counter := v_counter + v_temp_counter;
+        
+        dbms_output.put_line('  v_counter : ' || v_counter);
+        
+   end loop;
+    
+    for i in v_time_array.FIRST .. v_time_array.LAST loop
+        DBMS_OUTPUT.put_line('배열 : ' || v_time_array(i)); 
+    end loop;
+    
+    DBMS_OUTPUT.put_line('총 중복 시간 개수 : ' || v_counter); 
+   
+    return v_counter;
+   -- return v_array_len;
+end;
+/
+
+---------------------------------------
+var temp number;
+exec :temp:=getEqualTime(378260);                         -- 프로시저 실행
+
+
+select getEqualTime(378260) from lec_daytime_view;        --  함수 실행 방법
+
+
+
