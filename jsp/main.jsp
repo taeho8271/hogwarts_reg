@@ -102,10 +102,10 @@
 	
     div.slide ul{position:absolute;height:100%;}
     div.slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 16s infinite;}
-    div.slide li:nth-child(1){background:url('D:/HJ/PROJECT/wallpapers.png'); animation-delay:0s}
-    div.slide li:nth-child(2){background:url('D:/HJ/PROJECT/campus.jpg');animation-delay:4s}
-    div.slide li:nth-child(3){background:url('D:/HJ/PROJECT/castle.jpg');animation-delay:8s}
-    div.slide li:nth-child(4){background:url('D:/HJ/PROJECT/images.jpg');animation-delay:12s}
+    div.slide li:nth-child(1){background:url('https://github.com/Heejunng/final-Project/blob/master/img/wallpapers.png?raw=true'); animation-delay:0s}
+    div.slide li:nth-child(2){background:url('https://github.com/Heejunng/final-Project/blob/master/img/campus.jpg?raw=true');animation-delay:4s}
+    div.slide li:nth-child(3){background:url('https://github.com/Heejunng/final-Project/blob/master/img/castle.jpg?raw=true');animation-delay:8s}
+    div.slide li:nth-child(4){background:url('https://github.com/Heejunng/final-Project/blob/master/img/images.jpg?raw=true');animation-delay:12s}
     
 	@keyframes fade {
       0% {opacity:0;}
