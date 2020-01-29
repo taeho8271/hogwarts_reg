@@ -131,10 +131,6 @@ SELECT
             WHERE subject.sub_code =? and student.stu_id = ?;
             
             
-            
-SELECT * FROM CartView;
-DROP View CartView;
-
 
 
 CREATE TABLE lecture 
