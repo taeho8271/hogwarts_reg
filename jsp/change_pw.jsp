@@ -30,7 +30,7 @@
 	/* 전체 상자 */
 	div#wrap_box {
 		width: 850px;
-		height: 650px;
+		height: 570px;
 		border-top: 15px solid #4f2a08;
 		/* border: 3px solid #ccc; */
 		background-color: #E7E3DE;
@@ -40,13 +40,13 @@
 		font-size: 1.2em;
 		font-family: Nanum Gothic;
 		color: #4A2B10;
+		margin-top: 100px;
 	}
-
+	
 	/* 로고+입력 영역 */
 	div#wrap_logo_input_box {
 		width: 100%;
 		/* background: purple; */
-		
 	}
 
 	/* 로고 영역 */
@@ -61,7 +61,7 @@
 	/* 버튼 영역 */
 	div#btn_wrap{
 		width: 100%;
-		height: 150px;
+		height: 30px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -73,7 +73,7 @@
 		float: left;
 		width: 500px;
 		height: 300px;
-		padding: 100px 20px 20px 20px;
+		padding: 60px 20px 20px 20px;
 		/* background-color: yellow; */
 	}
 
@@ -100,10 +100,10 @@
 	}
 
 
-	 
+	
 	/* 폼필드(각종 입력 필드)들 외곽선 효과 */
 	input[type='text'], input[type='password'] {
-		border: 1px solid #4A2B10;
+		border: 1px solid #ccc;
 		font-size: 1.2em;
 		padding: 5px;
 	}
@@ -114,12 +114,12 @@
 		font-size: 1em;
 		font-weight: bold;
 		color: #fff;
-		width: 140px;
+		width: 420px;
 		height: 50px;
 		background-color: #522808;
 		border: 3px solid #522808;
 		border-radius: 10px;
-		margin: 0 5px;
+		margin: 5px 0 5px 270px;
 		letter-spacing: 2px;
 	   
 		transition: all .2s ease;
@@ -129,24 +129,35 @@
 	input[id^=cpw][id$=btn]:hover {
 		font-size: 1em;
 		font-weight: bold;
-		width: 140px;
+		width: 420px;
 		height: 50px;
 		background-color: #B59263;
 		border: 3px solid #B59263;
 		border-radius: 10px;
-		margin: 0 5px;
+		margin: 5px 0 5px 270px;
 		letter-spacing: 2px;
 	}
+	
+	figcaption {
+		position: absolute;
+		top: 120px;
+		left: 415px;
+		font-size: 1.2em;
+	}
+	
 </style>  
 
 </head>
 <body>
 <!-- 상단바 시작 -->
 <div id="prs_header">&nbsp;&nbsp;
-	<img src = "E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-	<img src = "E:\KTH\Project\typography2.png" width="150px" height="50px">
+	<img src="img/header_logo.png" width="191px" height="55px">
 </div>
 <!-- 상단바 끝 -->
+
+<!-- 제목 시작 -->
+<figcaption><b>비밀번호 변경</figcaption>
+<!-- 제목 끝 -->
 
 <!-- 비번 바꾸기 양식 시작 -->
 <div id="wrap">
@@ -159,7 +170,7 @@
 		
 			<!-- 로고 영역 시작 -->
 			<div id="logo">
-				<img src = "E:\KTH\Project\hogwartslogo.png" width="230px" height="200px">
+				<img src = "img/hogwartslogo.png" width="230px" height="200px">
 			</div>
 			<!-- 로고 영역 끝 -->			
 						
@@ -250,21 +261,12 @@
 			<input type="submit"
 				   id="cpw_submit_btn"
 				   name="cpw_submit_btn"
-				   value="완 료"></input>
+				   value="변 경"></input>
 		</div>
 		<!-- 완료 버튼 끝 -->
 		
 	</div>
 	<!-- 양식 상자 끝 -->
-	
-	<!-- 완료 버튼 -->
-	<!--div id="btn_wrap">
-		<input type="submit"
-			   id="cpw_submit_btn"
-			   name="cpw_submit_btn"
-			   value="완 료">
-	</div-->
-	<!-- // 완료 버튼 -->
 	
 </div>
 <!-- 비번 바꾸기 양식 끝 -->
