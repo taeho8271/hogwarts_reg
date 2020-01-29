@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>학번찾기</title>
+<title>비밀번호 찾기</title>
 <script src="prefixfree.min.js"></script>  
 <style>
     @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -44,6 +44,7 @@
 		left: 300px; */
         background: #E7E3DE;
 		font-family: Nanum Gothic;
+		border-top: 15px solid #522808;
     }  
  
 	/* 로고 위치 조정 width: 370px */
@@ -66,14 +67,20 @@
     input.submit_btn {
         width: 420px;
         height: 40px;
-        background-color: #B59263;
-        border: 3px solid #B59263;
+        background-color: #522808;
+        border: 0px solid #522808;
         font-size: 13pt;
         letter-spacing: 0.2em;          
         color: #fff; 
         padding-bottom: 7px;
 		border-radius: 7px;
     }
+	
+	/* 찾기 버튼: 롤오버 효과 */
+	input.submit_btn:hover {
+		background-color: rgba(181,146,99,0.5);
+		color: #fff;
+	}	
  
     /* 학번/비밀번호 필드 */
     div#top_id_box {
@@ -88,18 +95,21 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		color: #522808;
 	}
 	
 	/* 비밀번호 입력 박스 */
 	div#pw_box {
 		width: 530px;
 		height: 70px;
+		color: #522808;
 	}
 	
 	/* 이메일 입력 박스 */
 	div#email_box {
 		width: 600px;
 		height: 70px;
+		color: #522808;
 	}
 	
 	
@@ -123,16 +133,7 @@
 		/* background : yellow; */
 	}
 	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	 
     /* 로그인 버튼 */
     div#submit_box {
@@ -197,30 +198,17 @@
 		position: absolute;
 		top: 150px;
 		left: 380px;
-		text-decoration: underline;
 	}
 	
-   
-    /* 학번/비밀번호 필드 미리보기(placeholder)
-	   글자색: 초콜릿색
-       투명도: 0.5
-    */
-    input::placeholder {
-        color: chocolate;
-        opacity: 0.5;
-    }
-	
-
 </style>
 </head>
 <body>
 	<!-- 상단바 시작 -->
  	<div id="prs_header">&nbsp;&nbsp;
-	<img src="E:\KTH\Project\hogwartslogo.png" width="60px" height="55px">
-	<img src="E:\KTH\Project\typography2.png" width="150px" height="50px">
+		<img src="D:\THK\Hogwarts_project\header_logo.png" width="191px" height="55px">
 	</div>
 	<!-- 상단바 끝 -->
-	<figcaption><b>비밀번호 찾기</figcaption>
+	<figcaption><li><b>비밀번호 찾기</li></figcaption>
 
 	<!-- 상단바 제외한 로그인 모든 부분 시작 -->
 	<div id="login_wrap">
@@ -228,7 +216,7 @@
 	<!-- 좌측 부분 로고 시작 -->
 	<div id="login_box">
 		<div id="logo">
-			<img src="E:\KTH\Project\hogwartslogo.png" width="230px" height="200px" align="left">
+			<img src="D:\THK\Hogwarts_project\hogwartslogo.png" width="230px" height="200px" align="left">
 		</div>
 	<!-- 좌측 부분 로고 끝 -->
 	
@@ -241,7 +229,7 @@
     <!-- 학번 필드 섹션 시작 -->
     <div id="id_box">
 		<div id="id_label">
-			<label for="id">학번 :</label>
+			<label for="id">학번 </label>
 		</div>
 		<div id="id_field">
 			<input type="text"
@@ -249,8 +237,7 @@
 				name="id"
 				size="30"
 				maxlength="20"
-				class="form-control"
-				placeholder="학번">
+				class="form-control">
 		</div>
 	</div>
     <!-- 학번 필드 섹션 끝 -->
@@ -258,15 +245,14 @@
     <!-- 비밀번호 필드 섹션 시작 -->
     <div id="pw_box"> 
 		<div id="name_label">
-			<label for="pw">이름 :</label>
+			<label for="pw">이름 </label>
 		</div>
 		<div id="pw_field">
 			<input type="password"
 				id="pw"
 				name="pw"
 				size="30"
-				maxlength="20"
-				placeholder="이름">
+				maxlength="20">
 		</div>	   
 	</div>
     <!-- 비밀번호 필드 섹션 끝 -->
@@ -274,15 +260,14 @@
     <!-- 이메일 필드 섹션 시작 -->
     <div id="email_box"> 
 		<div id="email_label">
-			<label for="pw">이메일 :</label>
+			<label for="pw">이메일 </label>
 		</div>
 		<div id="email_field">
 			<input type="text"
 				id="sid_mail"  
 				name="sid_mail"
 				maxlength="20"
-				pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}"
-				placeholder="이메일">
+				pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}">
 				
 			</input>
 							   
@@ -310,7 +295,7 @@
     <div id="submit_box"> 
         <input type="submit"
             class="submit_btn"
-            value="확인"
+            value="찾기"
     </div>
 	<!-- 로그인 버튼 섹션 끝 -->
 	
