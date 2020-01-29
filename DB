@@ -1,4 +1,4 @@
-CREATE TABLE subject 
+CREATE TABLE subject    --과목 목록 
 (	
 	
 	sub_code int NOT NULL primary key,  -- 과목코드
@@ -36,7 +36,7 @@ insert into subject values(403480,'호그와트 오케스트라','오로라 시�
 
 
 
-CREATE TABLE student 
+CREATE TABLE student    --학생 
 (	
 	stu_id int NOT NULL PRIMARY KEY,  --학번 
 	stu_name VARCHAR2(20) NOT NULL,   -- 이름
@@ -115,7 +115,7 @@ EXECUTE name_update_proc;
 
 
 
-CREATE OR REPLACE VIEW CartView
+CREATE OR REPLACE VIEW CartView         --장바구니 목록인 CartView 뷰 생성
 AS
 SELECT            
 
@@ -133,7 +133,7 @@ SELECT
             
 
 
-CREATE TABLE lecture 
+CREATE TABLE lecture        -- 수강신청 완료 테이블 생성
 (
   	lecture_seq int default 1,
 	sub_code int NOT NULL,  -- 과목코드
@@ -160,17 +160,17 @@ update lecture
   
   
 
-CREATE TABLE MyLec
+CREATE TABLE MyLec        -- 개인 수강신청 테이블 생성
 (
 
-    sequence int,
+    MyLec_seq int default 1,
     stu_id int NOT NULL,  --학번
     sub_code int NOT NULL  -- 과목코드
     
 );
 
 
-CREATE SEQUENCE lecture_seq
+CREATE SEQUENCE lecture_seq   -- lecture 시퀀스 생성
 START WITH 1
 INCREMENT BY 1
 MINVALUE 1
@@ -179,7 +179,7 @@ NOCYCLE;
 
 
 
-CREATE SEQUENCE MyLec_seq
+CREATE SEQUENCE MyLec_seq   --myLec 
 START WITH 1
 INCREMENT BY 1
 MINVALUE 1
