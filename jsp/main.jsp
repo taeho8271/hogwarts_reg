@@ -50,6 +50,9 @@
 		right: 0;
 		bottom: 0;
 		opacity: 0.9;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	
 	/*하단바 섹션*/
