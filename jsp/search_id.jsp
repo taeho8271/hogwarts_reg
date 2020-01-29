@@ -217,7 +217,7 @@
 	<!-- 좌측 부분 로고 시작 -->
 	<div id="login_box">
 		<div id="logo">
-			<img src="D:\THK\Hogwarts_project\hogwartslogo.png" width="230px" height="200px" align="left">
+			<img src="https://github.com/Heejunng/final-Project/blob/master/img/hogwartslogo.png?raw=true" width="230px" height="200px" align="left">
 		</div>
 	<!-- 좌측 부분 로고 끝 -->
 	
