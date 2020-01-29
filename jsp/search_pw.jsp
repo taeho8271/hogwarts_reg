@@ -295,7 +295,7 @@
     <div id="submit_box"> 
         <input type="submit"
             class="submit_btn"
-            value="찾기"
+            value="찾기">
     </div>
 	<!-- 로그인 버튼 섹션 끝 -->
 	
