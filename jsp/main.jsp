@@ -105,7 +105,7 @@
     div.slide li:nth-child(1){background:url('D:/HJ/PROJECT/wallpapers.png'); animation-delay:0s}
     div.slide li:nth-child(2){background:url('D:/HJ/PROJECT/campus.jpg');animation-delay:4s}
     div.slide li:nth-child(3){background:url('D:/HJ/PROJECT/castle.jpg');animation-delay:8s}
-    div.slide li:nth-child(4){background:url('D:/HJ/PROJECT/cafe.jpg');animation-delay:12s}
+    div.slide li:nth-child(4){background:url('D:/HJ/PROJECT/images.jpg');animation-delay:12s}
     
 	@keyframes fade {
       0% {opacity:0;}
