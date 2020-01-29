@@ -135,7 +135,7 @@ SELECT
 
 CREATE TABLE lecture 
 (
-  	sequence int default 1,
+  	lecture_seq int default 1,
 	sub_code int NOT NULL,  -- 과목코드
    	stu_id int NOT NULL,  -- 학번 
 	sub_name   VARCHAR2(50) NOT NULL,   --과목명
@@ -154,6 +154,11 @@ INSERT INTO lecture(sub_code,stu_id,sub_name,professor,daytime,grade,limit_num)
 SELECT * FROM cartview;
 
 
+    
+update lecture
+  set lecture_seq = lecture_seq.nextval;
+  
+  
 
 CREATE TABLE MyLec
 (
@@ -180,8 +185,13 @@ INCREMENT BY 1
 MINVALUE 1
 MAXVALUE 1000
 NOCYCLE;
-        
+  
+  
+  
+  
+  
 SELECT lecture.* from lecture, MyLec
     where lecture.sub_code = mylec.sub_code and MyLec.stu_id = lecture.stu_id and MyLec.stu_id=20191002;
     
+
     
