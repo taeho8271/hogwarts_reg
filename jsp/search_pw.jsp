@@ -205,7 +205,7 @@
 <body>
 	<!-- 상단바 시작 -->
  	<div id="prs_header">&nbsp;&nbsp;
-		<img src="D:\THK\Hogwarts_project\header_logo.png" width="191px" height="55px">
+		<img src="https://github.com/Heejunng/final-Project/blob/master/img/header_logo.png?raw=true" width="191px" height="55px">
 	</div>
 	<!-- 상단바 끝 -->
 	<figcaption><li><b>비밀번호 찾기</li></figcaption>
