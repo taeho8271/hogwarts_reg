@@ -151,7 +151,7 @@
 <body>
 <!-- 상단바 시작 -->
 <div id="prs_header">&nbsp;&nbsp;
-	<img src="img/header_logo.png" width="191px" height="55px">
+	<img src="https://github.com/Heejunng/final-Project/blob/master/img/header_logo.png?raw=true" width="191px" height="55px">
 </div>
 <!-- 상단바 끝 -->
 
