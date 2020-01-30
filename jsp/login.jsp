@@ -268,13 +268,13 @@
 	<!-- 학번 찾기, 비밀번호 찾기, 비밀번호 변경 필드 시작 -->	
 	<div id="links">
 		<div id="search_id"> 	 
-			<a href="#">학번 찾기</a>
+			<a href="search_id.html">학번 찾기</a>
 		</div>
 		<div id="search_pw">	 
-			<a href="#">비밀번호 찾기</a>
+			<a href="search_pw.html">비밀번호 찾기</a>
 		</div>
 		<div id="change_pw">	 
-			<a href="#">비밀번호 변경</a>
+			<a href="change_pw.html">비밀번호 변경</a>
 		</div>
 	</div>		
 	<!-- 학번 찾기, 비밀번호 찾기, 비밀번호 변경 필드 끝 -->
