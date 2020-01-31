@@ -29,7 +29,7 @@
 <body>
 	<!-- 상단바 시작 -->
  	<div id="prs_header">&nbsp;&nbsp;
-		<img src="https://github.com/Heejunng/final-Project/blob/master/img/header_logo.png?raw=true" width="191px" height="55px">
+		<a href="main.html"><img src="https://github.com/Heejunng/final-Project/blob/master/img/header_logo.png?raw=true" width="191px" height="55px"></a>
 	</div>
 	<!-- 상단바 끝 -->
 </body>
