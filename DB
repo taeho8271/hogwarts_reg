@@ -196,6 +196,7 @@ SELECT lecture.* from lecture, MyLec
 
 
 
+
 create or replace view lec_daytime_view          --  시간 중복 검사 위해 시간 분할해 저장할 VIEW 생성
 as
    SELECT
@@ -205,9 +206,6 @@ as
        ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 1) as col1
        ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 2) as col2
        ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 3) as col3
-       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 4) as col4
-       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 5) as col5
-       ,REGEXP_SUBSTR(daytime, '[^,]+', 3, 6) as col6
    from subject
    where substr(daytime,1,1) = '목';
 
@@ -234,18 +232,14 @@ begin
    -- v_sub_code의 레코드의 시간대 추출
    select  CAST(nvl(col1, '0') AS number),
             CAST(nvl(col2, '0') AS number),
-            CAST(nvl(col3, '0') AS number),
-            CAST(nvl(col4, '0') AS number),
-            CAST(nvl(col5, '0') AS number),
-            CAST(nvl(col6, '0') AS number)
-        into v_time_array(1), v_time_array(2), v_time_array(3), 
-             v_time_array(4), v_time_array(5), v_time_array(6)
+            CAST(nvl(col3, '0') AS number)
+        into v_time_array(1), v_time_array(2), v_time_array(3)
    from LEC_DAYTIME_VIEW 
    where sub_code = v_sub_code;   
     
     -- 추출한 시간대들이 다른 레코드에 존재하는지 점검
     
-    for i in 1..6 loop
+    for i in 1..3 loop
         
         v_col_name := 'col' || i;
         
@@ -255,10 +249,7 @@ begin
                      || v_col_name || 
                      ' in (' || v_time_array(1) ||
                          ',' || v_time_array(2) ||
-                         ',' || v_time_array(3) || 
-                         ',' || v_time_array(4) ||
-                         ',' || v_time_array(5) ||
-                         ',' || v_time_array(6) || ') and sub_code != ' || v_sub_code ;
+                         ',' || v_time_array(3) || ') and sub_code != ' || v_sub_code ;
     
         EXECUTE IMMEDIATE v_sql_stmt INTO v_temp_counter;
         
