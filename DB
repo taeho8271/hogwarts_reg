@@ -11,27 +11,27 @@ CREATE TABLE subject    --과목 목록
 );
 
 
-insert into subject values(524840,	'비행술','후치 부인','수 19,20,21',3,40);
-insert into subject values(524860,	'마법', '필리우스 플리트윅','화 1,2,3,4,5,6',3,40);
-insert into subject values(312550,	'마법약', '세베루스 스네이프','월 9,10,11,12,13,14',3,50);
-insert into subject values(448410,	'마법의 역사', '커스버트 빈스',	'화 19,20,21',3,40);
-insert into subject values(524880,	'변신술','미네르바 맥고나걸','수 1,2,3,4,5,6',3,45);
-insert into subject values(527850,	'약초학','포모나 스프라우트','화 4,5,6,7,8,9',3,30);
-insert into subject values(527820,	'어둠의 마법 방어술','세베루스 스네이프','월 4,5,6,7,8,9',3,40);
-insert into subject values(527200,	'천문학','오로라 시니스트라','수 1,2,3,4,5,6',3,10);
-insert into subject values(378260, '고대 룬 문자','배쉬다 배블링' ,'목 13,14,15,16,17,18', 3,30);
-insert into subject values(524890, '머글 연구','퀴리너스 퀴렐', '화 9,10,11,12,13,14',3,40);
-insert into subject values(524810,'산술점','셉티마 벡터', '금 9,10,11,12,13,14',3,40);
-insert into subject values(383280,'신비한 동물 돌보기','루베우스 해그리드', '화 1,2,3,4,5,6',3,50);
-insert into subject values(527860,'점술','사이빌 트릴로니','월 1,2,3,4,5,6',3,40);
-insert into subject values(527800,'연금술','미네르바 맥고나걸', '월 12,13,14,15,16,17',3,40);
-insert into subject values(418520,'순간이동','후치 부인', '월 9,10,11,12,13,14',3,40);
-insert into subject values(478500,'고대 연구','필리우스 플리트윅',  '금 1,2,3,4,5,6',3,40);
-insert into subject values(426630,'지구 마법', '커스버트 빈스',  '월 9,10,11,12,13,14',3,40);
-insert into subject values(524710,'악귀 연구', '포모나 스프라우트','화 1,2,3,4,5,6',3,40);
-insert into subject values(524870,'마법 이론','배쉬다 배블링',	'월 4,5,6,7,8,9',3,30);
-insert into subject values(403480,'호그와트 오케스트라','오로라 시니스트라',	'목 19,20,21',3,40);
 
+insert into subject values(524840,	'비행술','후치 부인','수 15,16,17',3,40);
+insert into subject values(524860,	'마법', '필리우스 플리트윅','화 1,2,3',3,40);
+insert into subject values(312550,	'마법약', '세베루스 스네이프','월 9,10,11',3,50);
+insert into subject values(448410,	'마법의 역사', '커스버트 빈스',	'화 16,17,18',3,40);
+insert into subject values(524880,	'변신술','미네르바 맥고나걸','수 4,5,6',3,45);
+insert into subject values(527850,	'약초학','포모나 스프라우트','화 4,5,6',3,30);
+insert into subject values(527820,	'어둠의 마법 방어술','세베루스 스네이프','월 7,8,9',3,40);
+insert into subject values(527200,	'천문학','오로라 시니스트라','수 4,5,6',3,10);
+insert into subject values(378260, '고대 룬 문자','배쉬다 배블링' ,'목 15,16,17', 3,30);
+insert into subject values(524890, '머글 연구','퀴리너스 퀴렐', '화 12,13,14',3,40);
+insert into subject values(524810,'산술점','셉티마 벡터', '금 10,11,12',3,40);
+insert into subject values(383280,'신비한 동물 돌보기','루베우스 해그리드', '화 3,4,5',3,50);
+insert into subject values(527860,'점술','사이빌 트릴로니','월 4,5,6',3,40);
+insert into subject values(527800,'연금술','미네르바 맥고나걸', '월 15,16,17',3,40);
+insert into subject values(418520,'순간이동','후치 부인', '월 9,10,11',3,40);
+insert into subject values(478500,'고대 연구','필리우스 플리트윅',  '금 2,3,4',3,40);
+insert into subject values(426630,'지구 마법', '커스버트 빈스',  '월 11,12,13',3,40);
+insert into subject values(524710,'악귀 연구', '포모나 스프라우트','화 2,3,4',3,40);
+insert into subject values(524870,'마법 이론','배쉬다 배블링',	'금 4,5,6',3,30);
+insert into subject values(403480,'호그와트 오케스트라','오로라 시니스트라',	'목 16,17,18',3,40);
 
 
 
