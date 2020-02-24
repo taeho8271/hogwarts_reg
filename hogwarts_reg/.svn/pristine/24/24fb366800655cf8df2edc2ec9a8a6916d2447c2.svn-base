@@ -1,0 +1,14 @@
+package edu.hogwarts.hogwartsreg.vo;
+
+import lombok.Data;
+
+@Data
+public class SubjectVO2 {
+	
+	private int subCode; 		 // 과목코드
+	private String subName;		 // 과목명
+	private String professor; 	 // 강사명
+	private String daytime; 	 // 요일 및 시간
+	private String day; 		 // 요일
+	
+}

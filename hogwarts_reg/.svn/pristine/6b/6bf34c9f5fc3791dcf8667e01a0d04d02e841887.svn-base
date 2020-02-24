@@ -1,0 +1,40 @@
+
+package edu.hogwarts.hogwartsreg.dao;
+
+import java.util.List;
+
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+
+/**
+ * @author Hogwarts
+ *
+ */
+public interface CartDAO {
+	
+	/**
+	 * 	전체 수강신청 과목정보  레코드 조회
+	 * 
+	 * @return 전체 과목정보
+	 * @throws Exception 예외처리
+	 */
+	List<CartVO> getAllSubject() throws Exception;
+	
+	/**
+	 * 	담기 눌렀을 때  뷰 생성
+	 * 
+	 * @param  subCode 과목 코드, stuId 학번
+	 * @return 장바구니 목록
+	 * @throws Exception 예외처리
+	 */
+	void addSubject(int subCode, int stuId) throws Exception;
+	
+	/**
+	 * 과목별 등록인원 조회
+	 * @param subCode 과목코드
+	 * @return 과목별 등록인원
+	 */
+	int getAllRegNumBySubCode(int subCode);
+}
+	
+	
+	

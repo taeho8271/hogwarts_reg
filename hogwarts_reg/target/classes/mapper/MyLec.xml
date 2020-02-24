@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MyLec">
+	<select id="getMyLec" resultType="edu.hogwarts.hogwartsreg.vo.MyLecVO">
+		SELECT lecture.* 
+		FROM lecture, MyLec
+		WHERE lecture.#{subCode} = MyLec.#{subCode} 
+			  AND lecture.#{stuId} = MyLec.#{stuId} AND MyLec.stu_id=#{stuId};
+	</select>
+</mapper>

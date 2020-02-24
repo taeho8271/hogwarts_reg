@@ -1,0 +1,110 @@
+package edu.hogwarts.hogwartsreg.dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import edu.hogwarts.hogwartsreg.vo.SearchVO2;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO2;
+import lombok.extern.slf4j.Slf4j;
+
+@Repository
+@Slf4j
+public final class SubjectDAOImpl implements SubjectDAO {
+
+	@Autowired
+	private SqlSession sqlSession;
+
+	@Override
+	public SubjectVO getSubject(String subName, String daytime){
+
+		log.info("SubjectDAOImpl.getSubject");
+		
+		SubjectVO2 subjectVO2 = new SubjectVO2();
+		subjectVO2.setSubName(subName);
+		subjectVO2.setDaytime(daytime);
+		subjectVO2.setDay(daytime.charAt(0)+"");
+		
+		return sqlSession.selectOne("subject.getSubject", subjectVO2);
+	}
+
+	@Override
+	public SubjectVO getProfessor(String professor, String daytime){
+		
+		log.info("SubjectDAOImpl.getProfessor");
+		
+		SubjectVO2 subjectVO2=new SubjectVO2();
+		subjectVO2.setProfessor(professor);
+		subjectVO2.setDaytime(daytime);
+		subjectVO2.setDay(daytime.charAt(0)+"");
+		return sqlSession.selectOne("subject.getProfessor", subjectVO2);
+	}
+
+	@Override
+	public SubjectVO getDaytime(String daytime){
+		
+		log.info("SubjectDAOImpl.getDaytime");
+		
+		SubjectVO2 subjectVO2=new SubjectVO2();
+		subjectVO2.setDaytime(daytime);
+		subjectVO2.setDay(daytime.charAt(0)+"");
+		return sqlSession.selectOne("subject.getDaytime", subjectVO2);
+	}
+
+	@Override
+	public List<SubjectVO> getAllSubject(){
+		
+		log.info("SubjectDAOImpl.getAllSubject");
+		return sqlSession.selectList("subject.getAllSubject");
+	}
+
+	@Override
+	public SubjectVO getSubjectBySubCode(int subCode) {
+		
+		log.info("SubjectDAOImpl.getSubjectBySubCode");
+		return sqlSession.selectOne("subject.getSubjectBySubCode", subCode);
+	}
+	
+	
+	@Override
+	public SubjectVO getSubjectBySubName(String subName){
+
+		log.info("SubjectDAOImpl.getSubject");
+		
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setSubName(subName);
+		return sqlSession.selectOne("subject.getSubjectBySubName", subjectVO);
+	}
+
+	@Override
+	public List<SubjectVO> searchSubjects(SearchVO2 searchVO2) {
+		
+		log.info("SubjectDAOImpl.searchSubjects");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prsSelectBox", searchVO2.getPrsSelectBox());
+		map.put("listSearchWord", searchVO2.getListSearchWord());
+		// 패치: 요일 미입력 시 NullPointer 공백 처리
+		map.put("days", searchVO2.getDays()==null ? "" : searchVO2.getDays());
+		
+		return sqlSession.selectList("subject.searchSubjects", map);
+	}
+	
+
+	@Override
+	public List<SubjectVO> searchSubjectsByWord(SearchVO2 searchVO2) {
+		log.info("SubjectDAOImpl.searchSubjectsByWord");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prsSelectBox", searchVO2.getPrsSelectBox());
+		map.put("listSearchWord", searchVO2.getListSearchWord());
+		
+		return sqlSession.selectList("subject.searchSubjects", map);
+	}
+
+}

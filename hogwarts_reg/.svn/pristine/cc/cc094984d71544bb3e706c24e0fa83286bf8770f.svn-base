@@ -1,0 +1,108 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.service;
+
+import java.util.List;
+
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+import edu.hogwarts.hogwartsreg.vo.LectureVO;
+import edu.hogwarts.hogwartsreg.vo.SearchVO2;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+
+/**
+ * 개설강의 관리: 장바구니, 수강신청, 시간표
+ * @author Hogwarts
+ *
+ */
+public interface CourseService {
+	
+	/**
+	 * 전체 과목정보  레코드 조회
+	 * 
+	 * @return 전체 과목정보
+	 * @throws Exception 예외처리
+	 */
+	List<SubjectVO> getAllSubject();
+	
+	/**
+	 * 개별 과목정보 레코드 조회
+	 * 
+	 * @param subCode 과목코드
+	 * @return 개별 과목정보
+	 */
+	SubjectVO getSubjectBySubCode(int subCode);
+	
+	/**
+	 * 장바구니에서 한 학생의 수강완료 과목 가져오기
+	 * 
+	 * @param subCode 과목코드
+	 * @return 과목정보
+	 */
+	LectureVO getLecture(int subCode, int stuId);
+
+	/**
+	 * 이미 담겨 있는 과목을 담으려고 할 때 중복으로 담지 못 하게
+	 * 
+	 * @param subCode 과목코드
+	 * @param stuId   학번
+	 * @return 중복 여부
+	 */
+	boolean checkLecture(int subCode, int stuId);
+	
+	/**
+	 * 신청인원 변경 시 현 신청인원을 실시간으로 반영
+	 * 
+	 * @param regNum 현 신청 인원
+	 * @param subCode 과목 코드
+	 * @param success 수강 완료 여부
+	 */
+	void updateRegNum(int regNum, int subCode, int success);
+	
+	/**
+	 * 과목 정보 생성
+	 * 
+	 * @param lecture 수강예정과목
+	 */
+	void insertLecture(SubjectVO lecture);
+
+	/**
+	 * 장바구니에서 과목코드로 수강완료 과목 가져오기
+	 * 
+	 * @param subCode 과목코드
+	 * @return 과목정보
+	 */
+	List<LectureVO> getLectureBySubCode(int subCode);
+	
+	/**
+	 * 	전체 수강신청 과목정보  레코드 조회
+	 * 
+	 * @return 전체 과목정보
+	 * @throws Exception 예외처리
+	 */
+	List<CartVO> getAllSubjects();
+	
+	/**
+	 * 검색
+	 * 
+	 * @param searchVO2  검색조건(과목명, 교수명, 요일)
+	 * @return 과목정보들
+	 */
+	List<SubjectVO> searchSubjects(SearchVO2 searchVO2);
+	
+	
+	/**
+	 * 검색
+	 * 
+	 * @param searchVO2  검색조건(과목명, 교수명, 요일)
+	 * @return 과목정보들
+	 */
+	List<SubjectVO> searchSubjectsByWord(SearchVO2 searchVO2);
+	
+	/**
+	 * 과목별 등록인원 조회
+	 * @param subCode 과목코드
+	 * @return 과목별 등록인원
+	 */
+	int getAllRegNumBySubCode(int subCode);
+}

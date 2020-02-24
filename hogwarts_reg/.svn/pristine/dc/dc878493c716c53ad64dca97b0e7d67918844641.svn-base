@@ -1,0 +1,670 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+
+<title>장바구니</title>
+
+<!-- contextPath -->
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script src="${contextPath}/js/prefixfree.min.js"></script>
+
+<!-- CSS 외장화 -->
+<link rel="stylesheet" href="${contextPath}/css/pre_submit.css">
+<link rel="stylesheet" href="${contextPath}/css/nanumgothic.css">
+
+<!-- jQuery -->
+<script src="${contextPath}/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+//쿠키 생성(cookie)
+function setCookie(cName, cValue, cDay){
+    var expire = new Date();
+    expire.setDate(expire.getDate() + cDay);
+    cookies = cName + '=' + escape(cValue) + '; path=/ ';
+    // 한글 깨짐을 막기위해 escape(cValue)를 합니다.
+    if(typeof cDay != 'undefined') cookies += ';expires='
+        + expire.toGMTString() + ';';
+    document.cookie = cookies;
+}
+ 
+// 쿠키 가져오기(cookie)
+function getCookie(cName) {
+    cName = cName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cName);
+    var cValue = '';
+    if(start != -1){
+        start += cName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cValue = cookieData.substring(start, end);
+    }
+    return unescape(cValue);
+}
+</script>
+
+
+<script>
+// 시간표 과목별 색상 선정
+function matchColor(subCode){
+	var bgColor = "";
+	
+	switch (subCode) {
+		case "524840" : bgColor="#DEB887"; break;
+		case "524860" : bgColor="#FF7F50"; break;
+		case "312550" : bgColor="#6495ED"; break;
+		case "448410" : bgColor="#F08080"; break;
+		case "524880" : bgColor="#A9A9A9"; break;
+		case "527850" : bgColor="#BDB76B"; break;
+		case "527820" : bgColor="#FF8C00"; break;
+		case "527200" : bgColor="#8FBC8F"; break;
+		case "378260" : bgColor="#E9967A"; break;
+		case "524890" : bgColor="#F0E68C"; break;
+		case "524810" : bgColor="#FFDEAD"; break;
+		case "383280" : bgColor="#B0E0E6"; break;
+		case "527860" : bgColor="#E6E6FA"; break;
+		case "527800" : bgColor="#90EE90"; break;
+		case "418520" : bgColor="#66CDAA"; break;
+		case "478500" : bgColor="#DDA0DD"; break;
+		case "426630" : bgColor="#BC8F8F"; break;
+		case "524710" : bgColor="#F4A460"; break;
+		case "524870" : bgColor="#87CEEB"; break;
+		case "403480" : bgColor="#D8BFD8"; break;
+	}
+	return bgColor;
+}
+
+$(function(){
+	
+	const contextPath="/hogwarts_reg";
+	
+	//신청과목 집계 변수(배열-과목코드) : 쿠키화(광역화) - 페이지 전환시에도 상태 유지
+	var CHOSEN_SUBJECTS_ARR = [];
+	
+	
+	// 담기 버튼 누를 경우
+	$("[id^=addCart]").click(function(e){
+		
+		var id = e.currentTarget.id;
+		
+		// 과목코드
+		//배열형태 cookie - 중복확인
+	
+		// 장바구니 담기
+		var subCode = id.substring("addCart_".length, id.length);	
+		
+		// 기존 장바구니 현황 가져오기
+		var legacyCart = $("#chosen_subjects").html();
+		
+		// 개설강의 한줄
+		var subjectRow = "";
+		// 교시 중복 플래그
+		var doubleflag = 0; // 0이면 중복 안됨, 1 이상이면 중복 교시 존재
+		
+		// 과목별 세부 정보 가져오기: REST 방식
+		$.ajax ({
+ 
+             url : contextPath+'/course/courseRest/'+subCode,
+             type : 'post',
+             dataType:'text',
+             
+             success : function(data) {
+               
+                console.log("과목 정보 수신 성공");
+                console.log("data:"+data);
+                var subjectJSON = JSON.parse(data);
+                
+                console.log("강사명:"+subjectJSON.professor);
+                               
+                subjectRow = '<div id="subject_row_'+subCode+'" class="list_row">' +
+						   	 		'<div class="list_column_l div_align_center">'+subCode+'</div>' +
+									'<div class="list_column_l div_align_center">'+subjectJSON.subName+'</div>' +
+									'<div class="list_column_l div_align_center">'+subjectJSON.professor+'</div>' +
+									'<div class="list_column_l div_align_center">'+subjectJSON.daytime+'</div>' +
+									'<div class="list_column_s div_align_center">'+subjectJSON.grade+'</div>' +
+									'<div class="list_column_s div_align_center">'+subjectJSON.limitNum+'</div>' +
+									'<div class="list_column_s div_align_center">&emsp;&nbsp;' +
+										'<input id="cart_delete_btn_'+subCode+'" class="list_btn btn_blue" type="submit" value="빼기"></input>' +
+									'</div>' +
+							  '</div>';
+							  
+                console.log("#subjectRow:"+subjectRow);
+                
+            	//	console.log($("#chosen_subjects").html(legacyCart+subjectRow));
+        		
+        		// 신청과목 집계 변수(배열-과목코드): 예) cookie, 광역변수
+        		
+        		console.log("##subjectRow:"+subjectRow);
+				
+				// 요일 치환: 예) 수요일 -> wed
+				console.log("요일:"+subjectJSON.daytime.substring(0, 1));
+				var day = subjectJSON.daytime.substring(0, 1);
+				var eng_day = "";
+				
+				switch (day) {
+				  case '월': eng_day="mon"; break;
+				  case '화': eng_day="tue"; break;
+				  case '수': eng_day="wed"; break;
+				  case '목': eng_day="thu"; break;
+				  case '금': eng_day="fri"; break;
+				}
+				
+				console.log("요일:"+eng_day);
+				
+				// 교시 추출
+				var times = subjectJSON.daytime.substring(2, subjectJSON.daytime.length);
+				console.log("교시:"+times);
+				
+				var times = times.split(",");
+				console.log("교시 개수:"+times.length);
+				for(var i=0; i<times.length; i++)
+					console.log("교시:"+times[i]);
+				
+				// 교시 중복 검사
+				// 셀 내용(공백) 여부 검사
+				for(var i=0; i<times.length; i++){
+					var color = $("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor");
+					console.log("color:"+color);
+					
+					// 비었을 때
+					if(color=='rgba(0, 0, 0, 0)'){
+						console.log("공백");
+					}
+					else {
+						// 교시 중복 있을 때
+						console.log("교시 중복");
+						doubleflag++;
+						console.log("###doubleflag:"+doubleflag);
+					}
+					//console.log("셀 내용:"+$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).text());
+					console.log("셀 내용:"+$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor"));
+				}
+				
+				// 
+				console.log("###doubleflag:"+doubleflag);
+				
+				if(doubleflag > 0) { // 중복일 때
+					alert("중복 교시가 존재합니다.");
+				} else { // 중복 아닐 때
+					// 교시 추가
+					
+					// 동일 과목 추가 방지
+	        		if(CHOSEN_SUBJECTS_ARR.length == 0){
+	        			CHOSEN_SUBJECTS_ARR.push(subCode);	 
+	        			$("#chosen_subjects").html(legacyCart+subjectRow);
+	        		}
+	        		else{
+	        				var cnt=0;
+	        				for(var i=0; i<CHOSEN_SUBJECTS_ARR.length; i++){
+	        					if(CHOSEN_SUBJECTS_ARR[i]==subCode)
+	        							cnt++;		
+	        				}
+	        			 
+	        				if(cnt==0){
+	        					CHOSEN_SUBJECTS_ARR.push(subCode);
+	        					$("#chosen_subjects").html(legacyCart+subjectRow);
+	        				}
+	        				else
+	        					alert("동일한 과목이 존재합니다");
+	        			
+	        		}
+	        		// 동일 과목 추가 방지 끝
+					// 시간표 추가: 과목별 대표 배경색 선정
+					for(var i=0; i<times.length; i++){
+						if(times.length>=3){
+							var halftime = Math.round(times.length/2)-1;
+							$("div#prs_tbl table td#"+eng_day+"_t"+times[halftime]).html(subjectJSON.subName);
+						}
+						else {
+							$("div#prs_tbl table td#"+eng_day+"_t"+times[0]).html(subjectJSON.subName);
+						}
+						
+						// var bgColor = "orange";
+						var bgColor = matchColor(subCode);
+						// 과목별 색상 선정
+						
+						/* if(subCode=='524860') {
+							bgColor = "orange";
+						}
+						else if(subCode=='527850') {
+							bgColor = "cyan";
+						} */
+						$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor", bgColor);
+					} // for 끝
+					
+					// 장바구니 세션 저장/갱신
+					$.ajax ({
+ 
+			             url : contextPath+'/course/storeCartSess/'+subCode,
+			             type : 'post',
+			             dataType:'text',
+			             
+			             success : function(data) {
+			            	 
+			            	 console.log("data:"+data); // 장바구니에 성공적으로 저장했습니다.
+			            	 alert(data);
+			            	 //location.reload(); // 화면 갱신
+			             },
+			             error : function(xhr, status) {
+			                 
+			                 console.log(xhr+" : "+status); // 에러 코드
+			             }
+			  
+			        }); // 장바구니 세션 저장/갱신 끝
+					
+				} // 중복 아닐 때 끝
+				
+        		for(var i=0; i<CHOSEN_SUBJECTS_ARR.length; i++)
+        			console.log("신청과목 집계 변수(배열-과목코드) :"+i+"="+CHOSEN_SUBJECTS_ARR[i]);    
+            }, // success
+             
+             error : function(xhr, status) {
+                 
+                console.log(xhr+" : "+status); // 에러 코드
+            }
+ 
+     }); // $.ajax
+	
+	});// 담기 버튼 누를 경우 끝
+	
+	   // 장바구니에서 과목 빼기
+	   $("#chosen_subjects").on("click","input[id^=cart_delete_btn]",function(e){
+		   
+		  	// alert("빼기");
+			var id = e.currentTarget.id; 
+			console.log("id:"+id);
+			//과목코드
+			var subCode = id.substring("cart_delete_btn_".length, id.length);
+			
+			// 과목별 세부 정보 가져오기: REST 방식
+			$.ajax ({
+	 
+	             url : contextPath+'/course/courseRest/'+subCode,
+	             type : 'post',
+	             dataType:'text',
+	             
+	             success : function(data) {
+	               
+	                console.log("과목 정보 수신 성공");
+	                console.log("data:"+data);
+	                var subjectJSON = JSON.parse(data);
+	                
+	                console.log("강사명:"+subjectJSON.professor);
+	                
+	                // 시간표에서 빼기
+	    				
+	    			// 요일 치환: 예) 수요일 -> wed
+	    			console.log("요일:"+subjectJSON.daytime.substring(0, 1));
+	    			var day = subjectJSON.daytime.substring(0, 1);
+	    			var eng_day = "";
+	    			
+	    			switch (day) {
+	    				case '월': eng_day="mon"; break;
+	    				case '화': eng_day="tue"; break;
+	    				case '수': eng_day="wed"; break;
+	    				case '목': eng_day="thu"; break;
+	    				case '금': eng_day="fri"; break;
+	    			}
+	    			
+	    			console.log("요일:"+eng_day);
+	    			
+	    			// 교시 추출
+	    			var times = subjectJSON.daytime.substring(2, subjectJSON.daytime.length);
+	    			console.log("교시:"+times);
+	    			
+	    			var times = times.split(",");
+	    			console.log("교시 개수:"+times.length);
+	    			
+	    			for(var i=0; i<times.length; i++){
+	    				console.log("교시:"+times[i]);
+	    				$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor","rgba(0, 0, 0, 0)");
+	    				 console.log("셀 내용:"+$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor"));
+	    				 $("div#prs_tbl table td#"+eng_day+"_t"+times[i]).html(""); // 초기화
+	    			}
+	                
+	             }, // success
+	             
+	             error : function(xhr, status) {
+	                 
+	                console.log(xhr+" : "+status); // 에러 코드
+	            }
+	 
+	     }); // $.ajax
+	     
+	     // 장바구니 삭제
+		$.ajax ({
+
+             url : contextPath+'/course/modifyCartSess/'+subCode,
+             type : 'post',
+             dataType:'text',
+             
+             success : function(data) {
+            	 
+            	 console.log("data:"+data); // 장바구니에 성공적으로 저장했습니다.
+            	 //location.reload(); // 화면 갱신
+            	 alert(data);
+             },
+             error : function(xhr, status) {
+                 
+                 console.log(xhr+" : "+status); // 에러 코드
+             }
+	  
+		}); // 장바구니 세션 삭제 끝
+			
+			//신청과목 집계 변수(배열-과목코드)에서 해당 과목 코드 삭제
+			//div#subject_row_과목코드  삭제
+						  
+			//if 
+			CHOSEN_SUBJECTS_ARR.splice(CHOSEN_SUBJECTS_ARR.indexOf(subCode), 1);
+			
+			var subjectRow=[""];
+			$("div#subject_row_"+subCode).html();
+			console.log("과목 빼기:"+$("div#lecture div.list_body").html());
+			 
+			console.log("삭제");
+			$("div#chosen_subjects div#subject_row_"+subCode).remove();
+			 
+			/* // 시간표에서 빼기
+			console.log("##subjectRow:"+subjectRow);
+				
+			// 요일 치환: 예) 수요일 -> wed
+			console.log("요일:"+subjectJSON.daytime.substring(0, 1));
+			var day = subjectJSON.daytime.substring(0, 1);
+			var eng_day = "";
+			
+			switch (day) {
+				case '월': eng_day="mon"; break;
+				case '화': eng_day="tue"; break;
+				case '수': eng_day="wed"; break;
+				case '목': eng_day="thu"; break;
+				case '금': eng_day="fri"; break;
+			}
+			
+			console.log("요일:"+eng_day);
+			
+			// 교시 추출
+			var times = subjectJSON.daytime.substring(2, subjectJSON.daytime.length);
+			console.log("교시:"+times);
+			
+			var times = times.split(",");
+			console.log("교시 개수:"+times.length);
+			
+			for(var i=0; i<times.length; i++){
+				console.log("교시:"+times[i]);
+				$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor","rgba(0, 0, 0, 0)");
+				 console.log("셀 내용:"+$("div#prs_tbl table td#"+eng_day+"_t"+times[i]).css("backgroundColor"));
+			} */
+				
+			 // $("div[id='subject_row_'+subCode").remove();
+			 //if(CHOSEN_SUBJECTS_ARR.length==0)
+		  			/* $("#chosen_subjects").html(subjectRow); */
+		  			
+			 //else{
+				
+				 
+				 
+				 	/*  for(var i=0; i<CHOSEN_SUBJECTS_ARR.length; i++){
+				  		 subjectRow[i] = '<div id="subject_row_'+CHOSEN_SUBJECTS_ARR[i]+'" class="list_row">' +
+			  	 		'<div class="list_column_l div_align_center">'+CHOSEN_SUBJECTS_ARR[i]+'</div>' +
+						'<div class="list_column_l div_align_center">'+subjectJSON.subName+'</div>' +
+						'<div class="list_column_l div_align_center">'+subjectJSON.subName+'</div>' +
+						'<div class="list_column_l div_align_center">'+subjectJSON.subName+'</div>' +
+						'<div class="list_column_s div_align_center">'+subjectJSON.subName+'</div>' +
+						'<div class="list_column_s div_align_center">'+subjectJSON.subName+'</div>' +
+						'<div class="list_column_s div_align_center">&emsp;&nbsp;' +
+							'<input id="cart_delete_btn_'+CHOSEN_SUBJECTS_ARR[i]+'" class="list_btn btn_blue" type="submit" value="빼기"></input>' +
+							'</div>' +
+				  		'</div>'; 
+				  
+			  		$("#chosen_subjects").html(subjectRow);
+				 } */
+			 //}
+			  
+			for(var i=0; i<CHOSEN_SUBJECTS_ARR.length; i++)
+				console.log("신청과목 집계 변수(배열-과목코드) :"+i+"="+CHOSEN_SUBJECTS_ARR[i]);
+			
+	   }); // 장바구니에서 과목 빼기 끝
+	   
+	   // 검색
+	   $("#search_btn").click(function(e){
+		  console.log("검색");
+		  // 인자
+		  console.log("검색 구분:"+$("#prs_select_box").val());
+		  console.log("검색어:"+$("#list_search_word").val());
+		  
+		  //console.log("월:"+$("#mon").prop("checked"));
+		  console.log("월:"+$("#mon").prop("checked")); // 
+		  console.log("화:"+$("#tue").prop("checked"));
+		  console.log("수:"+$("#wed").prop("checked"));
+		  console.log("목:"+$("#thu").prop("checked"));
+		  console.log("금:"+$("#fri").prop("checked"));
+		  
+		  // 폼 점검
+		  var prsSelectBox = $("#prs_select_box").val();
+		  var listSearchWord = $("#list_search_word").val();
+		  
+		  if(prsSelectBox == '선택'){
+			  alert("검색 구분을 선택하십시오.");
+		  } else if(listSearchWord.trim() == '') {   //아무것도 없으면 전체 검색 
+			  alert("검색어를 입력하십시오.");
+		  } else { // 정상 입력
+		  
+		  /* if(prsSelectBox == '선택'){
+			  alert("검색 구분을 선택하십시오.");
+		  } else if(listSearchWord.trim() == '') {
+			  alert("검색어를 입력하십시오.");
+		  } else { // 정상 입력 */
+			 
+			  // 전송
+			  $.ajax ({
+	             url : contextPath+'/course/search_presubmit.do',
+	             type : 'post',
+	             dataType:'text',
+	             
+	             data : {
+	            	 prsSelectBox : prsSelectBox,
+	            	 listSearchWord : listSearchWord,
+	            	 mon: $("#mon").prop("checked")==true ? $("#mon").val() : '',
+	            	 tue: $("#tue").prop("checked")==true ? $("#tue").val() : '',
+	            	 wed: $("#wed").prop("checked")==true ? $("#wed").val() : '',
+           			 thu: $("#thu").prop("checked")==true ? $("#thu").val() : '',
+   					 fri: $("#fri").prop("checked")==true ? $("#fri").val() : '',
+	             },
+	              
+	             success : function(data) {
+	            	 
+	                     console.log("과목 정보 수신 성공");
+	                     console.log("data "+data);
+	                     var subjectJSON = JSON.parse(data);
+	                     
+	                     console.log("강사명:"+subjectJSON.professor);
+	                                    
+	                     subjectRow = '<div id="subject_row_'+subCode+'" class="list_row">' +
+	     						   	 		'<div class="list_column_l div_align_center">'+subCode+'</div>' +
+	     									'<div class="list_column_l div_align_center">'+subjectJSON.subName+'</div>' +
+	     									'<div class="list_column_l div_align_center">'+subjectJSON.professor+'</div>' +
+	     									'<div class="list_column_l div_align_center">'+subjectJSON.daytime+'</div>' +
+	     									'<div class="list_column_s div_align_center">'+subjectJSON.grade+'</div>' +
+	     									'<div class="list_column_s div_align_center">'+subjectJSON.limitNum+'</div>' +
+	     									'<div class="list_column_s div_align_center">&emsp;&nbsp;' +
+	     										'<input id="cart_delete_btn_'+subCode+'" class="list_btn btn_blue" type="submit" value="빼기"></input>' +
+	     									'</div>' +
+	     							  '</div>';
+	     							  
+	                     console.log("#subjectRow:"+subjectRow);
+	             },
+	             error : function(xhr, status) {
+	                 
+	                 console.log(xhr+" : "+status); // 에러 코드
+	             }
+		  
+			}); // 전송 끝
+		  } // if 끝
+	   });
+	
+});
+</script>
+
+</head> 
+<body>
+	
+	<!-- 상단바 시작 -->
+	<%@ include file="header.jsp" %>
+	<!-- 상단바 끝 -->
+	
+	<!-- 검색 구역 시작 -->
+	<div id="search_wrap">
+	
+		<select id="prs_select_box" name="prs_select_box">
+			<option>선택</option>
+			<option>과목명</option>
+			<option>강사명</option>
+		</select>&nbsp;&nbsp;
+
+		<input type="text" id="list_search_word" name="list_search_word"> &nbsp;&nbsp;
+		
+		
+		<input type="checkbox" id="mon" name="mon" value="월" checked><label for="mon"></label>월
+		<input type="checkbox" id="tue" name="tue" value="화"><label for="tue"><span></span>화</label>
+		<input type="checkbox" id="wed" name="wed" value="수"><label for="wed"><span></span>수</label>
+		<input type="checkbox" id="thu" name="thu" value="목"><label for="thu"><span></span>목</label>
+		<input type="checkbox" id="fri" name="fri" value="금"><label for="fri"><span></span>금</label>&nbsp;&nbsp;&nbsp;
+		
+		<!--
+		<input type="checkbox" id = "mon" name="mon" value="3">월
+		<input type="checkbox" id = "tue" name="tue" value="3">화
+		<input type="checkbox" id = "wed" name="wed" value="3">수
+		<input type="checkbox" id = "thu" name="thu" value="3">목
+		<input type="checkbox" id = "fri" name="fri" value="3">금&nbsp;&nbsp;
+		-->
+		<input type="button" id="search_btn" class="search_btn" value="검색">
+		<%-- <span>
+		장바구니 과목 수: ${sessionScope.CART_SESSION.size()}
+		</span> --%>
+	</div>
+	<!-- 검색 구역 끝 -->
+	
+	
+	<!-- 목록 전체 구역 시작 -->
+	<div id="list_wrap">
+	
+		<!-- 개설 강의 구역 시작 -->
+		<div id="subject_wrap">
+		
+			<!-- 목록 헤더 시작 -->
+			<div class="list_header">
+				
+				<div class="list_column_l div_align_center">과목코드</div>
+				<div class="list_column_l div_align_center">과목명</div>
+				<div class="list_column_l div_align_center">강사명</div>
+				<div class="list_column_l div_align_center">요일/시간</div>
+				<div class="list_column_s div_align_center">학점</div>
+				<div class="list_column_s div_align_center">제한인원</div>
+				<div class="list_column_s div_align_center">&emsp;&nbsp;담기</div>
+				
+			</div>
+			<!-- 목록 헤더 끝 -->
+			
+			<!-- 목록 바디 시작 -->
+			<div class="list_body">
+			
+				<!-- 목록 게시글(한줄) 시작 -->
+				<!--  -->    <!--장바구니에 담을 때 중복 검사 -->
+				<c:forEach var="subject" items="${subjects}">
+					<div class="list_row">
+						<div class="list_column_l div_align_center">${subject.subCode}</div>
+						<div id="subName" class="list_column_l div_align_center">${subject.subName}</div>
+						<div id="professor" class="list_column_l div_align_center">${subject.professor}</div>
+						<div id="daytime" class="list_column_l div_align_center">${subject.daytime}</div>
+						<div id="grade" class="list_column_s div_align_center">${subject.grade}</div>
+						<div id="limitNum" class="list_column_s div_align_center">${subject.limitNum}</div>
+						<div class="list_column_s div_align_center">&emsp;&nbsp;
+							<input id="addCart_${subject.subCode}" class="list_btn btn_blue" type="submit" value="담기"></input>
+						</div>
+					</div>
+				</c:forEach>
+				<!-- 목록 게시글(한줄) 끝 -->
+
+			</div>
+			
+			<!-- 목록 바디 끝 -->
+			
+		</div>
+		<!-- 개설 강의 구역 끝 -->
+	   	
+		<!-- 수강 구역 시작 -->
+		<div id="lecture_wrap">
+		
+			<!-- 목록 헤더 시작 -->
+			<div class="list_header">
+				
+				<div class="list_column_l div_align_center">과목코드</div>
+				<div class="list_column_l div_align_center">과목명</div>
+				<div class="list_column_l div_align_center">강사명</div>
+				<div class="list_column_l div_align_center">요일/시간</div>
+				<div class="list_column_s div_align_center">학점</div>
+				<div class="list_column_s div_align_center">제한인원</div>
+				<div class="list_column_s div_align_center">&emsp;&nbsp;빼기</div>
+				
+			</div>
+			<!-- 목록 헤더 끝 -->
+			
+			<!-- 목록 바디 시작 -->
+			<div id="chosen_subjects" class="list_body">
+			
+				<!-- 목록 게시글(한줄) 시작 -->
+				<!-- <div class="list_row">
+					<div class="list_column_l div_align_center"></div>
+					<div class="list_column_l div_align_center"></div>
+					<div class="list_column_l div_align_center"></div>
+					<div class="list_column_l div_align_center"></div>
+					<div class="list_column_s div_align_center"></div>
+					<div class="list_column_s div_align_center"></div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="빼기"></input>
+					</div>
+				</div> -->
+				<!-- 목록 게시글(한줄) 끝 -->
+				
+			</div>
+			<!-- 목록 바디 끝 -->
+			
+		</div>
+		<!-- 수강 구역 끝 -->
+	</div>
+	<!-- 목록 전체 구역 끝 -->
+	
+	
+	<!-- 시간표 시작 -->
+	<div id="prs_tbl" class="prs_tbl">
+		<table> 
+				<p></p> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE"></td> 
+				<td class="date" bgcolor="#E7E3DE">월</td> 
+				<td class="date" bgcolor="#E7E3DE">화</td> 
+				<td class="date" bgcolor="#E7E3DE">수</td> 
+				<td class="date" bgcolor="#E7E3DE">목</td> 
+				<td class="date" bgcolor="#E7E3DE">금</td> 
+			</tr>
+			
+			<c:forEach begin="1" end="21" step="1" varStatus="st">
+			<tr align="center"> 
+				<td id="t${st.count}" class="time" bgcolor="#E7E3DE">${st.count}</td> 
+				<td id="mon_t${st.count}"></td>
+				<td id="tue_t${st.count}"></td>
+				<td id="wed_t${st.count}"></td>
+				<td id="thu_t${st.count}"></td>
+				<td id="fri_t${st.count}"></td>
+			</tr>
+			</c:forEach>
+			
+		</table> 
+	</div>
+	<!-- 시간표 끝 -->
+	</body> 
+</html>

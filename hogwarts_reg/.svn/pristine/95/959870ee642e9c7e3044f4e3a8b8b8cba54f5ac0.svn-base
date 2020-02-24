@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+
+	<select id="getStudent" parameterType="int"
+		resultType="edu.hogwarts.hogwartsreg.vo.StudentVO">
+		SELECT * FROM student WHERE stu_id=#{stuId}
+	</select>
+
+	<update id="updateStudent"
+		parameterType="edu.hogwarts.hogwartsreg.vo.StudentVO">
+		UPDATE student SET password=#{password} WHERE stu_id=#{stuId}
+	</update>
+
+	<select id="getAllStudent" resultType="edu.hogwarts.hogwartsreg.vo.StudentVO">
+		SELECT * FROM student
+	</select>
+
+	<select id="isStudent" parameterType="int" resultType="int">
+		SELECT count(*) FROM student WHERE stu_id=#{stuId}
+	</select>
+	
+	<select id="isPassword" parameterType="String" resultType="int">
+		SELECT count(*) FROM student WHERE password=#{password}
+	</select>
+
+	<select id="checkLogin" resultType="edu.hogwarts.hogwartsreg.vo.StudentVO">
+		SELECT * FROM student WHERE stu_id=#{stuId} AND password=#{password}
+	</select>
+	
+	<select id="getStudentIdByStudentInfo" resultType="String">
+		SELECT stu_id FROM student WHERE stu_name=#{stuName} AND birth=#{birth} AND email=#{email}
+	</select>
+   
+	<select id="getStudentPwByStudentInfo" resultType="String">
+		SELECT password FROM student WHERE stu_id=#{stuId} AND stu_name=#{stuName} AND email=#{email}
+	</select>
+
+</mapper>

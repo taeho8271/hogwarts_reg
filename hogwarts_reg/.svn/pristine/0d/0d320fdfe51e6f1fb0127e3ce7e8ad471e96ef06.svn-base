@@ -1,0 +1,80 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.service;
+
+import java.util.List;
+
+import edu.hogwarts.hogwartsreg.vo.SearchVO2;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+
+/**
+ * 개설강의 관리: 장바구니, 수강신청, 시간표
+ * @author Hogwarts
+ *
+ */
+public interface CourseService {
+	
+	/**
+	 * 전체 과목정보  레코드 조회
+	 * 
+	 * @return 전체 과목정보
+	 * @throws Exception 예외처리
+	 */
+	List<SubjectVO> getAllSubject();
+	
+	/**
+	 * 개별 과목정보 레코드 조회
+	 * 
+	 * @param subCode 과목코드
+	 * @return 개별 과목정보
+	 */
+	SubjectVO getSubjectBySubCode(int subCode);
+
+	/*
+	 * 과목명으로 불러오기
+	 * 
+	 * @param subName 과목명, daytime 요일 및 시간
+	 * @return 과목정보
+	 * @throws Exception 예외처리
+	 */
+	//SubjectVO getSubject(String subName, String daytime);
+	
+	/*
+	 * 강사명으로 불러오기
+	 * 
+	 * @param professor 교수명, daytime 요일 및 시간
+	 * @return 과목정보
+	 * @throws Exception 예외처리
+	 */
+	//SubjectVO getProfessor(String professor, String daytime);
+	
+	
+	/*
+	 * 요일로 불러오기
+	 * 
+	 * @param  daytime 요일 및 시간
+	 * @return 과목정보
+	 * @throws Exception 예외처리
+	 */
+	//SubjectVO getDaytime(String daytime);
+	
+	
+	/*
+	 * 과목이름 레코드 조회
+	 * 
+	 * @param subName 과목이름
+	 * @return 개별 과목정보
+	 */
+	//SubjectVO getSubjectBySubName(String subName);
+	
+
+	/**
+	 * 검색
+	 * 
+	 * @param searchVO2  검색조건(과목명, 교수명, 요일)
+	 * @return 과목정보들
+	 */
+	List<SubjectVO> searchSubjects(SearchVO2 searchVO2);
+
+}

@@ -1,0 +1,11 @@
+package edu.hogwarts.hogwartsreg.vo;
+
+import lombok.Data;
+
+@Data
+public class CartViewVO {
+	
+	private int stuId; // 학번
+	private int subCode; // 과목코드
+
+}

@@ -1,0 +1,7 @@
+-- 전체 개설강의 조회: getAllSubject
+SELECT *
+  FROM subject;
+  
+-- 개별 과목 조회
+SELECT * FROM subject
+WHERE sub_name='비행술' AND substr('수 19,20,21', 1,1)='수';

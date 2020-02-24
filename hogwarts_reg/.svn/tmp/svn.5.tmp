@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subject">
+
+	<select id="getSubject" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE sub_name=#{subName} AND substr(daytime, 1,1)=#{day}
+	</select>
+	
+	<select id="getProfessor" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE professor=#{professor} AND substr(daytime, 1,1)=#{day}
+	</select>
+	
+	<select id="getDaytime" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE substr(daytime, 1,1)=#{day}
+	</select>
+	
+	<select id="getAllSubject"  resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">     
+		SELECT * FROM subject
+	</select>
+	
+	<select id="getSubjectBySubCode" parameterType="int" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE sub_code=#{subCode}
+	</select>
+	
+	
+	<select id="getSubjectBySubName" parameterType="String" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE sub_name=#{subName}
+	</select>
+	
+	<select id="searchSubjects" parameterType="java.util.Map" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject
+		
+		<if test="prsSelectBox != '선택'">
+		WHERE 	${prsSelectBox}=#{listSearchWord} AND
+		</if>
+		<if test="day != ''" >
+			<foreach collection="days" item="day" open="(" close=")" separator="OR">
+				substr(daytime, 1,1)=#{day}
+			</foreach>
+		</if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,164 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+
+<title>내 수강목록</title>
+
+<!-- contextPath -->
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script src="${contextPath}/js/prefixfree.min.js"></script>
+
+<!-- CSS 외장화 -->
+<link rel="stylesheet" href="${contextPath}/css/course.css">
+<link rel="stylesheet" href="${contextPath}/css/nanumgothic.css">
+
+</head>
+<body>
+	<!-- 상단바 시작 -->
+	<%@ include file="header.jsp" %>
+	<!-- 상단바 끝 -->	
+	
+	<!-- 시간표 구역 시작 -->
+	
+		<!-- 시간표 시작 -->
+		<div class="prs_tbl">		
+			<table>
+				<figcaption><b>&nbsp;내 수강목록</figcaption>
+				<p></p> 			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE"></td> 
+				<td class="date" bgcolor="#E7E3DE">월</td> 
+				<td class="date" bgcolor="#E7E3DE">화</td> 
+				<td class="date" bgcolor="#E7E3DE">수</td> 
+				<td class="date" bgcolor="#E7E3DE">목</td> 
+				<td class="date" bgcolor="#E7E3DE">금</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">1</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE"  rowspan="2" >전산실무</td> 
+				<td></td> 
+				<td></td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">2</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE">포토샾</td> 
+				<td></td> <td></td> <td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">3</td> 
+				<td bgcolor="#E7E3DE" rowspan="3" >플레시</td> 
+				<td bgcolor="#E7E3DE">포토샾</td> 
+				<td bgcolor="#E7E3DE">플래시</td> <td></td> 
+				<td bgcolor="#E7E3DE" rowspan="3">컴퓨터그래픽</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">4</td> 
+				<td bgcolor="#E7E3DE">전산개론</td> 
+				
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">5</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE">전산개론</td> 
+				<td></td> 
+				<td></td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">6</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE">전산개론</td> 
+				<td bgcolor="#E7E3DE" rowspan="3">웹디자인</td> 
+				<td bgcolor="#E7E3DE">웹디자인</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">7</td>  
+				<td bgcolor="#E7E3DE" rowspan="3">운영체제</td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">8</td> 
+			</tr>			
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">9</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">10</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">11</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">12</td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">13</td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">14</td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">15</td> 
+				<td></td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">16</td> 
+				<td></td> <td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">17</td> 
+				<td></td> <td></td> <td></td> 
+				<td bgcolor="#E7E3DE" rowspan="3">알고리즘</td> 
+				<td></td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">18</td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">19</td> 
+				<td></td> 
+			</tr> 
+						
+			<tr align="center">
+				<td class="time" bgcolor="#E7E3DE">20</td>
+				<td></td>
+			</tr>
+			
+			<tr align="center">
+				<td class="time" bgcolor="#E7E3DE">21</td> 
+				<td></td> <td></td>
+			</tr>
+						
+			</table>
+		</div>
+		<!-- 시간표 끝 -->
+	</div>
+	<!-- 시간표 구역 끝 -->
+</body>
+</html>

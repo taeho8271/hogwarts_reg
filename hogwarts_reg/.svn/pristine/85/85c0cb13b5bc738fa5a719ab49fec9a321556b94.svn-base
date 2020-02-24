@@ -1,0 +1,102 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.dao;
+
+import java.util.List;
+
+import edu.hogwarts.hogwartsreg.vo.StudentVO;
+
+/**
+ * @author Hogwarts
+ *
+ */
+public interface StudentDAO {
+
+	/**
+	 * 개별 학번 레코드(튜플) 조회(read)
+	 * 
+	 * @param stuId 학번
+	 * @return 학생정보
+	 * @throws Exception 예외처리
+	 */
+	StudentVO getStudent(int stuId);
+
+	/**
+	 * 개별 학번 레코드(튜플) 수정(갱신) (update)
+	 * 
+	 * @param stuId 학번
+ 	 * @return 저장 오류 메시지 
+	 * @throws Exception 예외처리
+	 */
+	void updateStudent(int stuId, String password);
+
+	/**
+	 * 전체 학번 레코드(튜플) 조회(read)
+	 * 
+	 * @return 전체 학생정보
+	 * @throws Exception 예외처리
+	 */
+	List<StudentVO> getAllStudent();
+
+	/**
+	 * 주어진 학번의 학생정보가 있는지 점검
+	 * 
+	 * usage) 학번 중복 점검 등에서 사용
+	 * 
+	 * @param stuId 학번
+	 * @return 학생 존재 여부 
+	 * @throws Exception 예외처리
+	 */
+	boolean isStudent(int stuId);
+	
+	/**
+	 * 입력한 비밀번호가 일치하는지 점검
+	 * 
+	 * usage) 학번 중복 점검 등에서 사용
+	 * 
+	 * @param stuPw 비밀번호
+	 * @return 비밀번호 일치 여부
+	 * @throws Exception 예외처리
+	 */
+	boolean isPassword(String password);
+
+	/**
+	 * 학번과 패쓰워드를 활용하여 로그인을 점검
+	 * 
+	 * ex) 로그인 메시지는 아래와 같이 적용합니다.
+	 * 
+	 * 1) 학번이 없을 경우 : 해당되는 학생정보가 없습니다.
+	 * 2) 패쓰워드가 틀릴 경우 : 패쓰워드가 잘못되었습니다.
+	 * 3) 정상적인 로그인(모두 맞을 경우) : (학생이름) 님이 로그인 하셨습니다.
+	 * 
+	 * @param stuId 학번
+	 * @param password 학생 패쓰워드
+	 * @return 로그인 메시지
+	 * @throws Exception 예외처리
+	 */
+	StudentVO checkLogin(int stuId, String password);
+
+	/**
+	 * 학번 분실시 이름, 생년월일, 이메일로 학번 검색
+	 * 
+	 * @param stuName 학생 이름
+	 * @param birth 생년월일
+	 * @param email 이메일
+	 * @return 학번 혹은 메시지
+	 * @throws Exception 예외처리
+	 */
+	StudentVO getStudentIdByStudentInfo(String stuName, String birth, String email);
+
+	/**
+	 * 패쓰워드 분실시 학번, 학생이름, 이메일로 패쓰워드 검색
+	 * 
+	 * @param stuId 학번
+	 * @param stuName 학생이름
+	 * @param email 이메일
+	 * @return 패쓰워드 혹은 메시지
+	 * @throws Exception 예외처리
+	 */
+	StudentVO getStudentPwByStudentInfo(int stuId, String stuName, String email);
+
+}

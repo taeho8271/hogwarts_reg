@@ -1,0 +1,179 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+
+<title>내 수강목록</title>
+
+<!-- contextPath -->
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script src="${contextPath}/js/prefixfree.min.js"></script>
+
+<!-- CSS 외장화 -->
+<link rel="stylesheet" href="${contextPath}/css/table.css">
+<link rel="stylesheet" href="${contextPath}/css/nanumgothic.css">
+
+<!-- jQuery -->
+<script src="${contextPath}/jquery/3.4.1/jquery.min.js"></script>
+
+
+<script>
+//시간표 과목별 색상 선정
+function matchColor(subCode){
+	var bgColor = "";
+	console.log("##과목코드:"+subCode+"#");
+	
+	switch (subCode) {
+		case "524840" : bgColor="#DEB887"; break;
+		case "524860" : bgColor="#FF7F50"; break;
+		case "312550" : bgColor="#6495ED"; break;
+		case "448410" : bgColor="#F08080"; break;
+		case "524880" : bgColor="#A9A9A9"; break;
+		case "527850" : bgColor="#BDB76B"; break;
+		case "527820" : bgColor="#FF8C00"; break;
+		case "527200" : bgColor="#8FBC8F"; break;
+		case "378260" : bgColor="#E9967A"; break;
+		case "524890" : bgColor="#F0E68C"; break;
+		case "524810" : bgColor="#FFDEAD"; break;
+		case "383280" : bgColor="#B0E0E6"; break;
+		case "527860" : bgColor="#E6E6FA"; break;
+		case "527800" : bgColor="#90EE90"; break;
+		case "418520" : bgColor="#66CDAA"; break;
+		case "478500" : bgColor="#DDA0DD"; break;
+		case "426630" : bgColor="#BC8F8F"; break;
+		case "524710" : bgColor="#F4A460"; break;
+		case "524870" : bgColor="#87CEEB"; break;
+		case "403480" : bgColor="#D8BFD8"; break;
+	}
+	console.log("배경색:"+bgColor);
+	return bgColor;
+}
+
+$(function(){
+	
+	// contextPath
+	var contextPath = "/hogwarts_reg";
+	
+	$.ajax ({
+		 
+        url : contextPath+'/course/SubmitInit.do',   //#############################세션 들어있는 경로로 바꾸기
+        type : 'post',
+        dataType:'text',
+        
+        success : function(data) {
+        
+        	var sess = JSON.parse(data.trim());
+        	// 교시 추출
+			console.log("##################################");
+				var times = sess[i].daytime.substring(2, sess[i].daytime.length);
+				console.log("교시:"+times);
+				
+				console.log("-----요일:"+sess[i].daytime);
+				times = times.split(",");
+				console.log("교시 개수:"+times.length);
+				for(var j=0; j<times.length; j++){
+					console.log("교시:"+times[j]);
+				}
+				
+				console.log("--요일:"+sess[i].daytime);
+				// 요일 치환: 예) 수요일 -> wed
+			console.log("요일:"+sess[i].daytime.substring(0, 1));
+			var day = sess[i].daytime.substring(0, 1);
+				var eng_day = "";
+			
+			switch (day) {
+			  case '월': eng_day="mon"; break;
+			  case '화': eng_day="tue"; break;
+			  case '수': eng_day="wed"; break;
+			  case '목': eng_day="thu"; break;
+			  case '금': eng_day="fri"; break;
+			}
+			
+			console.log("요일:"+eng_day);
+				
+				// 교시 중복 검사
+				// 셀 내용(공백) 여부 검사
+				for(var k=0; k<times.length; k++){
+					var color = $("div#prs_tbl table td#"+eng_day+"_t"+times[k]).css("backgroundColor");
+					console.log("color:"+color);
+					
+					// 비었을 때
+					if(color=='rgba(0, 0, 0, 0)'){
+						console.log("공백");
+					}
+					
+					console.log("셀 내용:"+$("div#prs_tbl table td#"+eng_day+"_t"+times[k]).css("backgroundColor"));
+				} // for 끝
+				
+				// 시간표 출력
+				// 시간표 추가: 과목별 대표 배경색 선정
+			for(var l=0; l<times.length; l++){
+				if(times.length>=3){
+					var halftime = Math.round(times.length/2)-1;
+					$("div#prs_tbl table td#"+eng_day+"_t"+times[halftime]).html(sess[i].subName);
+				}
+				else {
+					$("div#prs_tbl table td#"+eng_day+"_t"+times[0]).html(sess[i].subName);
+				}
+				
+				// var bgColor = "orange";
+				console.log("과목코드:"+sess[i].subCode);
+				var bgColor = matchColor(String(sess[i].subCode));
+				// 과목별 색상 선정
+				console.log("시간표 배경색:"+bgColor);
+				
+				$("div#prs_tbl table td#"+eng_day+"_t"+times[l]).css("backgroundColor", bgColor);
+			} // for 끝
+		 
+        }, error : function(xhr, status) {
+            
+            console.log(xhr+" : "+status); // 에러 코드
+        }
+	});//ajax 끝
+	
+});//function 끝
+	
+</script>
+
+</head>
+<body>
+	<!-- 상단바 시작 -->
+	<%@ include file="header.jsp" %>
+	<!-- 상단바 끝 -->	
+	
+	<!-- 시간표 구역 시작 -->
+	
+		<!-- 시간표 시작 -->
+		<div id="prs_tbl"  class="prs_tbl">		
+			<table>
+				<figcaption><b>&nbsp;내 수강목록</figcaption>
+				<p></p> 			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE"></td> 
+				<td class="date" bgcolor="#E7E3DE">월</td> 
+				<td class="date" bgcolor="#E7E3DE">화</td> 
+				<td class="date" bgcolor="#E7E3DE">수</td> 
+				<td class="date" bgcolor="#E7E3DE">목</td> 
+				<td class="date" bgcolor="#E7E3DE">금</td> 
+			</tr> 
+			
+			<c:forEach begin="1" end="21" step="1" varStatus="st">
+			<tr align="center"> 
+				<td id="t${st.count}" class="time" bgcolor="#E7E3DE">${st.count}</td> 
+				<td id="mon_t${st.count}"></td>
+				<td id="tue_t${st.count}"></td>
+				<td id="wed_t${st.count}"></td>
+				<td id="thu_t${st.count}"></td>
+				<td id="fri_t${st.count}"></td>
+			</tr>
+			</c:forEach>
+						
+			</table>
+		</div>
+		<!-- 시간표 끝 -->
+	</div>
+	<!-- 시간표 구역 끝 -->
+</body>
+</html>

@@ -1,0 +1,53 @@
+package edu.hogwarts.hogwartsreg;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import lombok.extern.slf4j.Slf4j;
+
+import org.junit.Before;
+import org.junit.Test;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+        "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+        "file:src/main/webapp/WEB-INF/spring/root-context.xml"
+      })
+@WebAppConfiguration
+@Slf4j
+public class GetAllSubjectMapperTest {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	//@Autowired
+	//private SubjectDAO dao;
+	
+	SubjectVO subjectVO = null;
+	
+	@Before
+	public void setUp() throws Exception {
+		subjectVO = new SubjectVO();
+	}
+
+	@Test
+	public void test2() {
+		log.info("GetAllSubjectMapperTest");
+		List<SubjectVO> subjectResults = 
+				sqlSession.selectList("subject.getAllSubject");
+		//		dao.getAllSubject();
+		subjectVO = subjectResults.get(0);
+		
+		assertEquals(524840, subjectVO.getSubCode());
+		//assertEquals("후치 부인", subjectVO.getProfessor());
+	}
+
+}

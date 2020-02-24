@@ -1,0 +1,73 @@
+package edu.hogwarts.hogwartsreg;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import edu.hogwarts.hogwartsreg.vo.SearchVO2;
+import edu.hogwarts.hogwartsreg.vo.StudentVO;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import lombok.extern.slf4j.Slf4j;
+
+import org.junit.Before;
+import org.junit.Test;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+        "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+        "file:src/main/webapp/WEB-INF/spring/root-context.xml"
+      })
+@WebAppConfiguration
+@Slf4j
+public class SubjectMapperTest {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	SubjectVO subjectVO;
+	SearchVO2 searchVO2;
+	List<SubjectVO> subjects;
+	List<String> days = new ArrayList<>();
+	
+	@Before
+	public void setUp() throws Exception {
+		searchVO2 = new SearchVO2();
+		//searchVO2.setPrsSelectBox("sub_name");
+		//searchVO2.setListSearchWord("비행술");
+		searchVO2.setPrsSelectBox("professor");
+		searchVO2.setListSearchWord("후치 부인");
+		days.add("월");
+		days.add("수");
+		searchVO2.setDays(days);
+	}
+
+	/*
+	 * @Test public void test() { log.info("MapperTest");
+	 * assertNotNull("정보가 존재합니다.",sqlSession.selectOne("student.checkLogin",
+	 * studentVO)); }
+	 */
+	
+	@Test
+	public void test2() {
+		log.info("MapperTest2");
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("prsSelectBox", "professor");
+		map.put("listSearchWord", "후치 부인");
+		map.put("days", days);
+		
+		subjects = sqlSession.selectList("subject.searchSubjects", map);
+		assertEquals(2, subjects.size());
+		assertEquals("순간이동", subjects.get(1).getSubName());
+	}
+
+}

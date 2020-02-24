@@ -1,0 +1,645 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+
+<title>수강신청</title>
+
+<!-- contextPath -->
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script src="${contextPath}/js/prefixfree.min.js"></script>
+
+<!-- CSS 외장화 -->
+<link rel="stylesheet" href="${contextPath}/css/submit.css">
+<link rel="stylesheet" href="${contextPath}/css/nanumgothic.css">
+
+<!-- jQuery -->
+<script src="${contextPath}/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+//시간표 과목별 색상 선정
+function matchColor(subCode){
+	var bgColor = "";
+	console.log("##과목코드:"+subCode+"#");
+	
+	switch (subCode) {
+		case "524840" : bgColor="#DEB887"; break;
+		case "524860" : bgColor="#FF7F50"; break;
+		case "312550" : bgColor="#6495ED"; break;
+		case "448410" : bgColor="#F08080"; break;
+		case "524880" : bgColor="#A9A9A9"; break;
+		case "527850" : bgColor="#BDB76B"; break;
+		case "527820" : bgColor="#FF8C00"; break;
+		case "527200" : bgColor="#8FBC8F"; break;
+		case "378260" : bgColor="#E9967A"; break;
+		case "524890" : bgColor="#F0E68C"; break;
+		case "524810" : bgColor="#FFDEAD"; break;
+		case "383280" : bgColor="#B0E0E6"; break;
+		case "527860" : bgColor="#E6E6FA"; break;
+		case "527800" : bgColor="#90EE90"; break;
+		case "418520" : bgColor="#66CDAA"; break;
+		case "478500" : bgColor="#DDA0DD"; break;
+		case "426630" : bgColor="#BC8F8F"; break;
+		case "524710" : bgColor="#F4A460"; break;
+		case "524870" : bgColor="#87CEEB"; break;
+		case "403480" : bgColor="#D8BFD8"; break;
+	}
+	console.log("배경색:"+bgColor);
+	return bgColor;
+}
+
+// 과목코드별 등록인원 조회
+function getRegNumBySubCode(subCode){
+	
+	console.log("###getRegNumBySubCode:");
+	var returnRegNum = "";
+	var contextPath = "/hogwarts_reg";
+	
+
+	 $.ajax ({
+		 
+         url : contextPath+'/course/lectureRest/'+subCode,
+         type : 'post',
+         dataType:'text',
+         contentType : "application/json",
+         async: false,
+         
+         success : function(data) {
+        	console.log("@@@data:"+data);
+        	returnRegNum = data;
+         },
+         
+         error : function(xhr, status) {
+             console.log(xhr+" : "+status); // 에러 코드
+         }
+ 	 });
+	 
+	 console.log("$$returnRegNum:"+returnRegNum);
+ 	 return returnRegNum;
+}
+
+$(function(){
+	
+	// contextPath
+	var contextPath = "/hogwarts_reg";
+	
+	// session 장바구니 출력 시작
+	// 초기 session 설정(초기화) -> 장바구니 출력, 시간표 출력
+	// 화면 새로고침/이동할 경우 기존 장바구니 및 시간표 유지 
+	$.ajax ({
+ 
+             url : contextPath+'/course/cartInit.do',
+             type : 'post',
+             dataType:'text',
+             
+             success : function(data) {
+            	 
+            	 console.log("###data:"+data);
+            	 
+            	 console.log("session 초기 설정");
+            	 
+            	 if(data.trim() == ''){
+            		 var sess = "session 없음";
+            	 } else {
+            		 
+            		 var sess = JSON.parse(data.trim());
+            		 // 세션 과목 정보 변수
+            		 var subjectRow = "";
+            		 var inputSubCode = 0; // 과목코드
+            		 
+            		 if(sess == ""){
+            			 subjectRow = "";
+            		 } else {
+            			 
+            			 for(var i=0; i<sess.length; i++){ // 시간표 세션 과목들 출력
+            				 
+            				 //console.log("sess[i]:"+sess[i].);
+            				 inputSubCode = sess[i].subCode;
+            				 console.log("###--inputSubCode:"+inputSubCode);
+            			 
+            			 	 //////////////////////////////
+            			 	 // 각 과목별 신청현황 조회 시작
+            			 	 // 등록인원 출력 ex) 등록인원/제한인원
+            			 	 var regNum = getRegNumBySubCode(inputSubCode);
+            			 	 var regLimitNum = regNum+'/'+sess[i].limitNum; // 등록인원/제한인원
+            			 	 
+            			 	 console.log("등록인원:"+regNum);
+            			 	 console.log("regLimitNum:"+regLimitNum);
+            			 	 
+            			 	 // 각 과목별 신청현황 조회 끝
+            				 
+		            		 // 장바구니 초기화(세션 정보 반영)
+		            		 // 주의사항: 신청/제한인원 
+		            		 subjectRow = '<div id="subject_row_'+sess[i].subCode+'" class="list_row">' +
+									   	 		'<div class="list_column_l div_align_center">'+sess[i].subCode+'</div>' +
+												'<div class="list_column_l div_align_center">'+sess[i].subName+'</div>' +
+												'<div class="list_column_l div_align_center">'+sess[i].professor+'</div>' +
+												'<div class="list_column_l div_align_center">'+sess[i].daytime+'</div>' +
+												'<div class="list_column_s div_align_center">'+sess[i].grade+'</div>' +
+												'<div id="regNum_'+sess[i].subCode+'" class="list_column_s div_align_center">'+regLimitNum+'</div>' +
+												'<div class="list_column_s div_align_center">&emsp;&nbsp;' +
+													'<input id="cart_submit_btn_'+sess[i].subCode+'" class="list_btn btn_blue" type="button" value="신청" />' +
+												'</div>' +
+										  '</div>';
+										  
+							if(i==0){
+								$("#cart_subjects").html(subjectRow);
+							} else {
+								$("#cart_subjects").append(subjectRow);
+							}
+							 
+	            			 //////////////// 시간표 초기화
+	            			// 교시 추출
+	            			console.log("##################################");
+	            			console.log("과목:"+sess[i].subName);
+	         				var times = sess[i].daytime.substring(2, sess[i].daytime.length);
+	         				console.log("교시:"+times);
+	         				
+	         				console.log("-----요일:"+sess[i].daytime);
+	         				times = times.split(",");
+	         				console.log("교시 개수:"+times.length);
+	         				for(var j=0; j<times.length; j++){
+	         					console.log("교시:"+times[j]);
+	         				}
+	         				
+	         				console.log("--요일:"+sess[i].daytime);
+	         				// 요일 치환: 예) 수요일 -> wed
+	        				console.log("요일:"+sess[i].daytime.substring(0, 1));
+	        				var day = sess[i].daytime.substring(0, 1);
+	         				var eng_day = "";
+	        				
+	        				switch (day) {
+	        				  case '월': eng_day="mon"; break;
+	        				  case '화': eng_day="tue"; break;
+	        				  case '수': eng_day="wed"; break;
+	        				  case '목': eng_day="thu"; break;
+	        				  case '금': eng_day="fri"; break;
+	        				}
+	        				
+	        				console.log("요일:"+eng_day);
+	         				
+	         				// 교시 중복 검사
+	         				// 셀 내용(공백) 여부 검사
+	         				for(var k=0; k<times.length; k++){
+	         					var color = $("div#prs_tbl table td#"+eng_day+"_t"+times[k]).css("backgroundColor");
+	         					console.log("color:"+color);
+	         					
+	         					// 비었을 때
+	         					if(color=='rgba(0, 0, 0, 0)'){
+	         						console.log("공백");
+	         					}
+	         					
+	         					console.log("셀 내용:"+$("div#prs_tbl table td#"+eng_day+"_t"+times[k]).css("backgroundColor"));
+	         				} // for 끝
+	         				
+	         				// 시간표 출력
+	         				// 시간표 추가: 과목별 대표 배경색 선정
+	    					for(var l=0; l<times.length; l++){
+	    						if(times.length>=3){
+	    							var halftime = Math.round(times.length/2)-1;
+	    							$("div#prs_tbl table td#"+eng_day+"_t"+times[halftime]).html(sess[i].subName);
+	    						}
+	    						else {
+	    							$("div#prs_tbl table td#"+eng_day+"_t"+times[0]).html(sess[i].subName);
+	    						}
+	    						
+	    						// var bgColor = "orange";
+	    						console.log("과목코드:"+sess[i].subCode);
+	    						var bgColor = matchColor(String(sess[i].subCode));
+	    						// 과목별 색상 선정
+	    						console.log("시간표 배경색:"+bgColor);
+	    						
+	    						$("div#prs_tbl table td#"+eng_day+"_t"+times[l]).css("backgroundColor", bgColor);
+	    					} // for 끝
+            			 
+            			}// for 끝(시간표 세션 과목들 출력 끝)
+            			 // 시간표 초기화 끝
+            		 }
+            		 
+            	 }
+            	 //console.log("sess:"+sess);
+            	 
+			}, // success
+             
+             error : function(xhr, status) {
+                 
+                console.log(xhr+" : "+status); // 에러 코드
+            }
+ 
+    }); // $.ajax
+	// session 장바구니 출력 끝
+	
+	// 수강신청 버튼 클릭 핸들러
+	$("div#cart_subjects").on("click", "input[id^=cart_submit_btn_]", function(e){
+		alert("신청");
+		var id = e.currentTarget.id;
+		var subCode = id.substring("cart_submit_btn_".length, id.length);
+		console.log(subCode);
+		
+		$.ajax ({
+			 
+            url : contextPath+'/course/submit.do',
+            type : 'post',
+            dataType:'text',
+            data: {
+            	subCode: subCode;
+            },
+            
+            success : function(data) {
+            	
+            }, // success
+            
+            error : function(xhr, status) {
+               console.log(xhr+" : "+status); // 에러 코드
+           }
+		}); // ajax 끝
+	
+	}); // 수강신청 버튼 클릭 핸들러 끝
+	
+}); // jQuery 끝
+</script>
+
+</head>
+<body>
+	
+	<!-- 상단바 시작 -->
+	<%@ include file="header.jsp" %>
+	<!-- 상단바 끝 -->
+	
+
+	<!-- 목록 전체 구역 시작 -->
+	<div id="list_wrap">
+	
+		<!-- 담겨진 강의(신청가능) 구역 시작 -->
+		<div id="subject_wrap">
+		
+			<!-- 목록 헤더 시작 -->
+			<div class="list_header">
+				<div class="list_column_l div_align_center">과목코드</div>
+				<div class="list_column_l div_align_center">과목명</div>
+				<div class="list_column_l div_align_center">강사명</div>
+				<div class="list_column_l div_align_center">요일/시간</div>
+				<div class="list_column_s div_align_center">학점</div>
+				<div class="list_column_s div_align_center">제한인원</div>
+				<div class="list_column_s div_align_center">&emsp;&nbsp;신청</div>
+			</div>
+			<!-- 목록 헤더 끝 -->
+			
+			<!-- 목록 바디 시작 -->
+			<div id="cart_subjects" class="list_body">
+			
+<<<<<<< .mine
+||||||| .r52
+=======
+				<!-- 목록 게시글(한줄) 시작 -->
+				<!-- <div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">비행술</div>
+					<div class="list_column_l div_align_center">후치 부인</div>
+					<div class="list_column_l div_align_center">수 / 19,20,21</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">10/40</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="신청"></input>
+					</div>
+				</div> -->
+				<!-- 목록 게시글(한줄) 끝 -->
+				
+				<!-- 목록 게시글(한줄) 시작
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">마법</div>
+					<div class="list_column_l div_align_center">필리우스 플리트윅</div>
+					<div class="list_column_l div_align_center">화 / 1,2,3,4,5,6</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">20/40</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="신청"></input>
+					</div>
+				</div>
+				목록 게시글(한줄) 끝
+				
+				목록 게시글(한줄) 시작
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">변신술</div>
+					<div class="list_column_l div_align_center">미네르바 맥고나걸</div>
+					<div class="list_column_l div_align_center">수 / 1,2,3,4,5,6</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">5/45</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="신청"></input>
+					</div>
+				</div>
+				목록 게시글(한줄) 끝
+				
+				목록 게시글(한줄) 시작
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">약초학</div>
+					<div class="list_column_l div_align_center">포모나 스프라우트</div>
+					<div class="list_column_l div_align_center">화 / 4,5,6,7,8,9</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">2/30</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="신청"></input>
+					</div>
+				</div>
+				목록 게시글(한줄) 끝
+>>>>>>> .r54
+				
+<<<<<<< .mine
+||||||| .r52
+=======
+				목록 게시글(한줄) 시작
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">약초학</div>
+					<div class="list_column_l div_align_center">포모나 스프라우트</div>
+					<div class="list_column_l div_align_center">화 / 4,5,6,7,8,9</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">2/30</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="신청"></input>
+					</div>
+				</div>
+				목록 게시글(한줄) 끝
+				
+				목록 게시글(한줄) 시작
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">약초학</div>
+					<div class="list_column_l div_align_center">포모나 스프라우트</div>
+					<div class="list_column_l div_align_center">화 / 4,5,6,7,8,9</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">2/30</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="신청"></input>
+					</div>
+				</div> -->
+				<!-- 목록 게시글(한줄) 끝 -->				
+
+>>>>>>> .r54
+			</div>			
+			<!-- 목록 바디 끝 -->
+			
+		</div>
+		<!-- 담겨진 강의(신청가능) 구역 끝 -->
+	   
+		<!-- 신청완료 강의(취소가능) 구역 시작 -->
+		<div id="lecture_wrap">		
+			<!-- 목록 헤더 시작 -->
+			<div class="list_header">				
+				<div class="list_column_l div_align_center">과목코드</div>
+				<div class="list_column_l div_align_center">과목명</div>
+				<div class="list_column_l div_align_center">강사명</div>
+				<div class="list_column_l div_align_center">요일/시간</div>
+				<div class="list_column_s div_align_center">학점</div>
+				<div class="list_column_s div_align_center">제한인원</div>
+				<div class="list_column_s div_align_center">&emsp;&nbsp;취소</div>				
+			</div>
+			<!-- 목록 헤더 끝 -->
+			
+			<!-- 목록 바디 시작 -->
+			<div class="list_body">			
+				<!-- 목록 게시글(한줄) 시작 -->				
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+				<!-- 목록 게시글(한줄) 시작 -->
+				<div class="list_row">
+					<div class="list_column_l div_align_center">123456</div>
+					<div class="list_column_l div_align_center">과목명</div>
+					<div class="list_column_l div_align_center">강사명</div>
+					<div class="list_column_l div_align_center">요일/시간</div>
+					<div class="list_column_s div_align_center">3</div>
+					<div class="list_column_s div_align_center">제한인원</div>
+					<div class="list_column_s div_align_center">&emsp;&nbsp;
+						<input class="list_btn btn_blue" type="submit" value="취소"></input>
+					</div>
+				</div>	
+				<!-- 목록 게시글(한줄) 끝 -->				
+			</div>
+			<!-- 목록 바디 끝 -->			
+		</div>
+		<!-- 신청완료 강의(취소가능) 구역 끝 -->
+	</div>
+	<!-- 목록 전체 구역 끝 -->
+	
+	<!-- 시간표 구역 시작 -->
+	
+		<!-- 시간표 시작 -->
+		<div class="prs_tbl">		
+			<table> 
+				<p></p> 			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE"></td> 
+				<td class="date" bgcolor="#E7E3DE">월</td> 
+				<td class="date" bgcolor="#E7E3DE">화</td> 
+				<td class="date" bgcolor="#E7E3DE">수</td> 
+				<td class="date" bgcolor="#E7E3DE">목</td> 
+				<td class="date" bgcolor="#E7E3DE">금</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">1</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE"  rowspan="2" >전산실무</td> 
+				<td></td> 
+				<td></td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">2</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE">포토샾</td> 
+				<td></td> <td></td> <td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">3</td> 
+				<td bgcolor="#E7E3DE" rowspan="3" >플레시</td> 
+				<td bgcolor="#E7E3DE">포토샾</td> 
+				<td bgcolor="#E7E3DE">플래시</td> <td></td> 
+				<td bgcolor="#E7E3DE" rowspan="3">컴퓨터그래픽</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">4</td> 
+				<td bgcolor="#E7E3DE">전산개론</td> 
+				
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">5</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE">전산개론</td> 
+				<td></td> 
+				<td></td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">6</td> 
+				<td></td> 
+				<td bgcolor="#E7E3DE">전산개론</td> 
+				<td bgcolor="#E7E3DE" rowspan="3">웹디자인</td> 
+				<td bgcolor="#E7E3DE">웹디자인</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">7</td>  
+				<td bgcolor="#E7E3DE" rowspan="3">운영체제</td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">8</td> 
+			</tr>			
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">9</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">10</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">11</td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">12</td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">13</td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">14</td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">15</td> 
+				<td></td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">16</td> 
+				<td></td> <td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">17</td> 
+				<td></td> <td></td> <td></td> 
+				<td bgcolor="#E7E3DE" rowspan="3">알고리즘</td> 
+				<td></td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">18</td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">19</td> 
+				<td></td> 
+			</tr> 
+						
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">20</td> 
+				<td></td> 
+			</tr> 
+			
+			<tr align="center"> 
+				<td class="time" bgcolor="#E7E3DE">21</td> 
+				<td></td> <td></td>  
+			</tr> 
+						
+			</table> 
+		</div>
+		<!-- 시간표 끝 -->
+	</div>
+	<!-- 시간표 구역 끝 -->
+</body> 
+</html>
+    

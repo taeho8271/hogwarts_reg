@@ -1,0 +1,219 @@
+@charset "UTF-8";
+	
+	body {
+		margin: 0
+	}
+	
+	/* 전체 레이어/테이블 레이아웃 */
+	div#cpw_wrap {
+		width: 100%;
+		height: calc(100vh - 70px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* background-color: orange; */
+	}
+	
+	/* 상단바 박스 */
+    div#logo_box {  
+        width: 850px;
+        height: 500px;        		
+		position: absolute;
+		top: 172px;
+		left: 375px; 
+        background: #E7E3DE;
+		font-family: Nanum Gothic;
+		border-top: 15px solid #522808;
+    }  
+
+	/* 로고 영역 */
+	div#logo{
+		padding: 100px 0 0 70px;
+		/*background-color: orange;*/
+		width: 300px;
+		float: left;
+	}
+	
+	/* 로고 */
+	img#logo {
+		width: 230px;
+		height: 200px;
+		align: left;
+	}
+	
+	/*입력 영역*/
+	div#cpw_field_box {
+		width: 480px;
+		height: 500px;
+		/* background-color: pink; */
+		float: left;
+	}
+	
+	/* 입력 필드 */
+    div#top_id_box {
+		width: 530px;
+		height: 50px;
+	}
+
+	/* 학번 영역 */
+	div#id_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808; 
+	}
+	
+	/* 이름 영역 */
+	div#name_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808; 
+	}
+	
+	/* 비밀번호 영역 */
+	div#cpw_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808;
+	}
+	
+	/* 새 비밀번호 영역 */
+	div#cnpw_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808;
+	}
+	
+	/* 새 비밀번호 확인 영역 */
+	div#cnpwf_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808;
+		padding-bottom : 20px;
+	}
+
+
+	
+	/* 폼필드(각종 입력 필드)들 외곽선 효과 */
+	input[type='text'], input[type='password'] {
+		border: 1px solid #ccc;
+		font-size: 12pt;
+		padding: 5px;
+	}
+
+	 
+	/* 완료 버튼  */
+	input.cpw_btn {    
+		width: 430px;
+        height: 40px;
+        background-color: #522808;
+        border: 0px solid #522808;
+        font-size: 13pt;
+        letter-spacing: 0.2em;          
+        color: #fff; 
+        padding-top: 7px;
+        padding-bottom: 7px;
+        display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 7px;
+	}
+	 
+	/*  완료 버튼: 롤 오버 효과 */
+	input.cpw_btn:hover {
+		background-color: rgba(181,146,99,0.5);
+		color: #fff;
+	}
+	
+	/* 이름 필드 */
+    input#cpwName {
+        width: 310px;
+        height: 25px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+	}
+	
+	/*학번 필드*/
+	input#cpwId {
+        width: 310px;
+        height: 25px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+	}
+	
+	input#cpwPw {
+        width: 310px;
+        height: 25px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+    
+    input#cpwNpw {
+        width: 310px;
+        height: 25px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+    
+    input#cpwCf {
+        width: 310px;
+        height: 25px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+	
+	/* 입력 필드 영역 */
+	div#logo_box div[id^=label_] {
+		width: 100px;
+		float: left;
+		height: 48px;
+		text-align: right;
+		padding-top: 12px;
+		font-weight: bold;
+	}
+	
+	div#logo_box div[id^=field_] {
+		width: 430px;
+		float: left;
+		height: 60px;
+		text-indent: 10px;
+		text-align: left;
+	}
+		
+	
+	figcaption {
+		position: absolute;
+		top: 135px;
+		left: 375px;
+		font-size : 20px;
+		color : #522808;
+	}

@@ -1,0 +1,671 @@
+@charset "UTF-8";
+
+/* login.jsp */
+
+body {
+		margin: 0
+	}
+
+   	/* 빈 상단바 */
+	div#prs_header {
+		/*
+		position: fixed;
+		top: 0;
+		left: 0;
+		*/
+		height: 40px;
+		background-color: #522808;
+		padding: 10px 0 20px;
+	}
+      
+    /* 전체 패널 박스(login_box) */
+	div#login_wrap {
+		width: 100%;
+		height: calc(100vh - 70px);
+		/* 중앙정렬	*/
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	/* 좌측 박스 */
+    div#login_box {  
+        width: 850px;
+        height: 500px;        		
+      /*padding-top: 100px;
+		position: absolute;
+		top: 170px;
+		left: 300px; */
+        background: #E7E3DE;
+		font-family: Nanum Gothic;
+		border-top: 15px solid #522808;
+    }  
+ 
+	/* 로고 위치 조정 width: 370px */
+	div#logo {
+		padding: 100px 0 0 70px;
+		/*background-color: orange;*/
+		width: 300px;
+		float: left;
+	}
+	
+	/* 우측 영역 */
+	div#field_box {
+		width: 430px;
+		height: 400px;
+		/*background-color: pink;*/
+		float: left;
+	}
+
+    /* 전송/로그인 버튼 */
+    input.submit_btn {
+        width: 420px;
+        height: 40px;
+        background-color: #522808;
+        border: 0px solid #522808;
+        font-size: 13pt;
+        letter-spacing: 0.2em;          
+        color: #fff; 
+        padding-bottom: 7px;
+		border-radius: 7px;
+    }
+	
+	/* 로그인 버튼: 롤오버 효과 */
+	input.submit_btn:hover {
+		background-color: rgba(181,146,99,0.5);
+		color: #fff;
+	}
+ 
+    /* 학번/비밀번호 필드 */
+    div#top_id_box {
+		width: 530px;
+		height: 120px;
+	}
+	
+	/* 학번 입력 박스 */
+	div#id_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808;
+	}
+	
+	/* 비밀번호 입력 박스 */
+	div#pw_box {
+		width: 530px;
+		height: 70px;
+		color: #522808;
+	}
+	 
+    /* 로그인 버튼 */
+    div#submit_box {
+      /*margin: 10px 0;
+        height: 58px;*/
+		width: 480px;
+		height: 80px;
+    }
+	
+    /* 학번/비밀번호 필드 */
+    input#id {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+	}
+	
+	/* id pw 필드 영역 */
+	div#login_box div[id$=_label] {
+		width: 100px;
+		float: left;
+		height: 48px;
+		text-align: right;
+		padding-top: 12px;
+		font-weight: bold;
+	}
+	
+	div#login_box div[id$=_field] {
+		width: 430px;
+		float: left;
+		height: 60px;
+		text-indent: 10px;
+		text-align: left;
+	}
+		
+	input#pw {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+	
+	/* 학번 찾기, 비밀번호 찾기, 비밀번호 변경 링크 */
+	div#links {
+		width: 480px;
+	}
+	
+	/* unvisited link */
+	a {
+		color: #522808;
+	}
+	
+	/* visited link */
+	a:visited {
+		color: #522808;
+	}
+	
+	/* mouse over link */
+	a:hover {
+		color: #95490F;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	
+	/* selected link */
+	a:active {
+		color: #95490F;
+	}
+
+	
+	div#search_id {
+		width: 140px;
+		float: left;
+		padding-left: 25px;
+		/*background-color: red;*/
+	}
+	
+	div#search_pw {
+		width: 160px;
+		float: left;
+		/*background-color: orange;*/
+	}
+	
+	div#change_pw {
+		width: 150px;
+		float: right;
+		/*background-color: yellow;*/
+	}
+
+
+/* search_id.jsp */
+
+    /* 전체 패널 박스(login_box) */
+	div#login_wrap {
+		width: 100%;
+		height: calc(100vh-70px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	/* 좌측 박스 */
+    div#login_box {  
+        width: 850px;
+        height: 500px;        		
+      /*padding-top: 100px;
+		position: absolute;
+		top: 170px;
+		left: 300px; */
+        background: #E7E3DE;
+		font-family: Nanum Gothic;
+		border-top: 15px solid #522808;
+    }  
+ 
+	/* 로고 위치 조정 width: 370px */
+	div#logo {
+		padding: 100px 0 0 70px;
+		/*background-color: orange;*/
+		width: 300px;
+		float: left;
+	}
+	
+	/* 우측 영역 */
+	div#field_box {
+		width: 480px;
+		height: 500px;
+		/* background-color: pink; */
+		float: left;
+	}
+
+    /* 전송/로그인 버튼 */
+    input.submit_btn {
+        width: 420px;
+        height: 40px;
+        background-color: #522808;
+        border: 0px solid #522808;
+        font-size: 13pt;
+        letter-spacing: 0.2em;          
+        color: #fff; 
+        padding-bottom: 7px;
+		border-radius: 7px;
+    }
+	
+	/* 찾기 버튼: 롤오버 효과 */
+	input.submit_btn:hover {
+		background-color: rgba(181,146,99,0.5);
+		color: #fff;
+	}	
+ 
+    /* 학번/비밀번호 필드 */
+    div#top_id_box {
+		width: 530px;
+		height: 120px;
+	}
+	
+	/* 학번 입력 박스 */
+	div#id_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808; 
+	}
+	
+	/* 비밀번호 입력 박스 */
+	div#birth_box {
+		width: 530px;
+		height: 70px;
+		color: #522808;
+	}
+	
+	/* 이메일 입력 박스 */
+	div#email_box {
+		width: 600px;
+		height: 70px;
+		color: #522808;
+	}
+	
+	/* 이메일 제공자 선택 */
+	select#sid_sb_msv {
+        width: 138px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: black;
+		margin: 5px 0;
+	}	
+
+	/* 이메일 제공자 직접입력 
+	input#sid_msv {
+		width: 160px;
+		/* float: left; */
+		/* background : yellow; */
+	}
+	*/
+	 
+    /* 로그인 버튼 */
+    div#submit_box {
+      /*margin: 10px 0;
+        height: 58px;*/
+		width: 480px;
+		height: 80px;
+    }
+	
+    /* 학번/비밀번호 필드 */
+    input#id {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+	}
+	
+	/* id birth 필드 영역 */
+	div#login_box div[id$=_label] {
+		width: 100px;
+		float: left;
+		height: 48px;
+		text-align: right;
+		padding-top: 12px;
+		font-weight: bold;
+	}
+	
+	div#login_box div[id$=_field] {
+		width: 430px;
+		float: left;
+		height: 60px;
+		text-indent: 10px;
+		text-align: left;
+	}
+		
+	input#birth {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+	
+	input#sid_mail{
+        width: 150px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }		
+	
+	figcaption {
+		position: absolute;
+		top: 135px;
+		left: 375px;
+		font-size : 20px;
+		color : #522808;
+	}
+
+
+/* search_pw.jsp */
+
+    /* 전체 패널 박스(login_box) */
+	div#login_wrap {
+		width: 100%;
+		height: calc(100vh - 70px);
+		/* 중앙정렬	*/
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	/* 좌측 박스 */
+    div#login_box {  
+        width: 850px;
+        height: 500px;        		
+      /*padding-top: 100px;
+		position: absolute;
+		top: 170px;
+		left: 300px; */
+        background: #E7E3DE;
+		font-family: Nanum Gothic;
+		border-top: 15px solid #522808;
+    }  
+ 
+	/* 로고 위치 조정 width: 370px */
+	div#logo {
+		padding: 100px 0 0 70px;
+		/*background-color: orange;*/
+		width: 300px;
+		float: left;
+	}
+	
+	/* 우측 영역 */
+	div#field_box {
+		width: 480px;
+		height: 500px;
+		/* background-color: pink; */
+		float: left;
+	}
+
+    /* 전송/로그인 버튼 */
+    input.submit_btn {
+        width: 420px;
+        height: 40px;
+        background-color: #522808;
+        border: 0px solid #522808;
+        font-size: 13pt;
+        letter-spacing: 0.2em;          
+        color: #fff; 
+        padding-bottom: 7px;
+		border-radius: 7px;
+    }
+	
+	/* 찾기 버튼: 롤오버 효과 */
+	input.submit_btn:hover {
+		background-color: rgba(181,146,99,0.5);
+		color: #fff;
+	}	
+ 
+    /* 학번/비밀번호 필드 */
+    div#top_id_box {
+		width: 530px;
+		height: 120px;
+	}
+	
+	/* 학번 입력 박스 */
+	div#id_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808;
+	}
+	
+	/* 비밀번호 입력 박스 */
+	div#name_box {
+		width: 530px;
+		height: 70px;
+		color: #522808;
+	}
+	
+	/* 이메일 입력 박스 */
+	div#email_box {
+		width: 600px;
+		height: 70px;
+		color: #522808;
+	}
+	
+	/* 이메일 제공자 선택 */
+	select#sid_sb_msv {
+        width: 138px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: black;
+		margin: 5px 0;
+	}	
+
+	/* 이메일 제공자 직접입력 
+	input#sid_msv {
+		width: 160px;
+		/* float: left; */
+		/* background : yellow; */
+	}
+	*/
+
+    /* 로그인 버튼 */
+    div#submit_box {
+      /*margin: 10px 0;
+        height: 58px;*/
+		width: 480px;
+		height: 80px;
+    }
+	
+    /* 학번/비밀번호 필드 */
+    input#id {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+	}
+	
+	/* id name 필드 영역 */
+	div#login_box div[id$=_label] {
+		width: 100px;
+		float: left;
+		height: 48px;
+		text-align: right;
+		padding-top: 12px;
+		font-weight: bold;
+	}
+	
+	div#login_box div[id$=_field] {
+		width: 430px;
+		float: left;
+		height: 60px;
+		text-indent: 10px;
+		text-align: left;
+	}
+		
+	input#name {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+	
+	input#sid_mail{
+        width: 150px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }		
+	
+	figcaption {
+		position: absolute;
+		top: 135px;
+		left: 375px;
+		font-size : 20px;
+		color : #522808;
+	}
+
+
+/* change_pw.jsp */
+
+	/* 전체 레이어/테이블 레이아웃 */
+	div#wrap {
+		width: 100%;
+		height: calc(100vh - 70px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* background-color: orange; */
+	}
+
+	/* 전체 상자 */
+	div#wrap_box {
+		width: 850px;
+		height: 570px;
+		border-top: 15px solid #4f2a08;
+		/* border: 3px solid #ccc; */
+		background-color: #E7E3DE;
+		/* display:flex;
+		align-items:center;
+		justify-content:center; */
+		font-size: 1.2em;
+		font-family: Nanum Gothic;
+		color: #4A2B10;
+		margin-top: 100px;
+	}
+	
+	/* 로고+입력 영역 */
+	div#wrap_logo_input_box {
+		width: 100%;
+		/* background: purple; */
+	}
+
+	/* 로고 영역 */
+	div#logo{
+		width: 250px;
+		height: 300px;
+		padding: 160px 0 20px 60px;
+		float: left;
+		/* background-color: red; */
+	}
+
+	/* 버튼 영역 */
+	div#btn_wrap{
+		width: 100%;
+		height: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* background-color: green; */
+	}
+
+	/* 입력 영역 */
+	div#input_wrap {
+		float: left;
+		width: 500px;
+		height: 300px;
+		padding: 60px 20px 20px 20px;
+		/* background-color: yellow; */
+	}
+
+	/* 이름 영역 */
+	div#input_wrap div[id^=label_] {
+		width: 130px;
+		float: left;
+		/* background: cyan; */
+		height: 48px;
+		text-align: right;
+		padding: 12px 0 10px 0;
+		font-weight: bold;
+	}
+	
+	/* 입력 영역 속성 */
+	div#input_wrap div[id^=field_] {
+		width: 350px;
+		float: left;
+		height: 60px;
+		text-indent: 10px;
+		text-align: left;
+		padding: 5px 0 10px 0;
+		/* background: blue; */
+	}
+
+	/* 폼필드(각종 입력 필드)들 외곽선 효과 */
+	input[type='text'], input[type='password'] {
+		border: 1px solid #ccc;
+		font-size: 1.2em;
+		padding: 5px;
+	}
+
+	/* 완료 버튼  */
+	input[id^=cpw][id$=btn] {    
+		font-size: 1em;
+		font-weight: bold;
+		color: #fff;
+		width: 420px;
+		height: 50px;
+		background-color: #522808;
+		border: 3px solid #522808;
+		border-radius: 10px;
+		margin: 5px 0 5px 270px;
+		letter-spacing: 2px;
+	   
+		transition: all .2s ease;
+	}
+	 
+	/* 완료 버튼: 롤 오버 효과 */
+	input[id^=cpw][id$=btn]:hover {
+		font-size: 1em;
+		font-weight: bold;
+		width: 420px;
+		height: 50px;
+		background-color: #B59263;
+		border: 3px solid #B59263;
+		border-radius: 10px;
+		margin: 5px 0 5px 270px;
+		letter-spacing: 2px;
+	}
+
+	figcaption {
+		position: absolute;
+		top: 120px;
+		left: 415px;
+		font-size: 1.2em;
+	}

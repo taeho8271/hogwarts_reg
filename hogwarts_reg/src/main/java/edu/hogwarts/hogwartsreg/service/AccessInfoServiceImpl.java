@@ -1,0 +1,97 @@
+package edu.hogwarts.hogwartsreg.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import edu.hogwarts.hogwartsreg.dao.StudentDAO;
+import edu.hogwarts.hogwartsreg.vo.CartViewVO;
+import edu.hogwarts.hogwartsreg.vo.StudentVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class AccessInfoServiceImpl implements AccessInfoService {
+
+	@Autowired
+	private StudentDAO studentDAO;
+
+	@Override
+	public String checkLogin(int stuId, String password) {
+		log.info("LoginService.checkLogin");
+		String msg ="";
+		@SuppressWarnings("unused")
+		StudentVO studentVO = null;
+		CartViewVO cartViewVO = null;
+		
+		if (studentDAO.isStudent(stuId) == true) {
+			try {
+				studentVO = studentDAO.checkLogin(stuId, password);
+				if(studentVO != null) {
+					msg = "올바른 정보입니다";
+					cartViewVO.setStuId(stuId);
+				}else {
+					throw new NullPointerException();
+				}
+				
+			} catch (NullPointerException e) {
+				msg = "비밀번호가 일치하지 않습니다";
+			}
+		} else {
+			msg = "회원정보가 존재하지 않습니다";
+		}
+		
+		return msg;
+	}
+
+	@Override
+	public String changePassword(int cpwId, String cpwName, String cpwPw, String cpwNpw, String cpwCf) {
+		log.info("LoginService.changePassword");
+		String msg ="";
+		@SuppressWarnings("unused")
+		StudentVO studentVO = studentDAO.checkLogin(cpwId, cpwPw);
+		
+		if (studentVO !=null) {
+			
+			studentDAO.updateStudent(cpwId, cpwNpw);
+			msg = "비밀번호가 변경되었습니다.";
+		} else {
+			msg = "입력하신 정보가 일치하지 않습니다.";
+		}
+		
+		return msg;
+	}
+
+	@Override
+	public String getStudentIdByStudentInfo(String stuName, String birth, String email) {
+		log.info("LoginService.getStudentIdByStudentInfo");
+		String msg ="";
+		
+		StudentVO studentVO = studentDAO.getStudentIdByStudentInfo(stuName, birth, email);
+	
+		if (studentVO != null) {
+					msg = "회원님의 학번은 "+ studentVO.getStuId()+" 입니다";
+		} else {
+			msg = "회원정보가 존재하지 않습니다";
+		}
+		
+		return msg;
+	}
+
+	
+	@Override
+	public String getStudentPwByStudentInfo(int stuId, String stuName, String email) {
+		log.info("LoginService.getStudentPwByStudentInfo");
+		String msg ="";
+		
+		StudentVO studentVO = studentDAO.getStudentPwByStudentInfo(stuId, stuName, email);
+	
+		if (studentVO != null) {
+					msg = "회원님의 비밀번호는 "+ studentVO.getPassword()+" 입니다";
+		} else {
+			msg = "회원정보가 존재하지 않습니다";
+		}
+		
+		return msg;
+	}
+	
+}

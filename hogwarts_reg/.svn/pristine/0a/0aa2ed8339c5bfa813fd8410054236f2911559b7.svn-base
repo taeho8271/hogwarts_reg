@@ -1,0 +1,9 @@
+SELECT *
+	FROM subject
+	WHERE professor = '후치 부인' AND substr(daytime, 1,1)='수';
+	
+SELECT *
+	FROM subject
+	WHERE professor = '후치 부인' 
+  	AND (substr(daytime, 1,1)='월'
+  	OR substr(daytime, 1,1)='수');

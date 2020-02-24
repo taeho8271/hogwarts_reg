@@ -1,0 +1,22 @@
+package edu.hogwarts.hogwartsreg.action.course;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import edu.hogwarts.hogwartsreg.action.course.SubmitAction;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Controller
+@Slf4j
+@RequestMapping("/course")
+public class SubmitAction {
+
+	@RequestMapping("submit.do")
+	public String submit() {
+		log.info("/course/submit.do"); // 경로 정하기
+		return "submit";
+	}
+	
+}
+

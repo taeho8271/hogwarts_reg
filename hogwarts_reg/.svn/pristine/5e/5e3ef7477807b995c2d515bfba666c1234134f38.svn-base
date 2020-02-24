@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart">
+
+	<select id="getAllSubject"  resultType="edu.hogwarts.hogwartsreg.vo.CartVO">
+		SELECT * FROM CartView
+	</select>
+
+	
+	
+	<select id="addSubject" parameterType="edu.hogwarts.hogwartsreg.vo.CartViewVO">
+		CREATE or REPLACE VIEW CartView AS 
+					SELECT  subject.sub_code,
+							student.stu_id,
+							subject.sub_name,
+							subject.professor,
+							subject.daytime,
+							subject.grade,
+							subject.limit_num
+	   				FROM subject, student
+            		WHERE subject.sub_code = #{subCode} and student.stu_id = #{stuId}  
+	</select>
+	
+	
+	
+</mapper>

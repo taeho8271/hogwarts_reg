@@ -1,0 +1,127 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>로그인</title>
+
+<!-- contextPath -->
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script src="${contextPath}/js/prefixfree.min.js"></script>
+
+<!-- CSS 외장화 -->
+<link rel="stylesheet" href="${contextPath}/css/login.css">
+<link rel="stylesheet" href="${contextPath}/css/nanumgothic.css">
+
+</head>
+<body>
+
+	<!-- 로그인 에러 메시지 -->
+	<c:if test="${not empty msg}">
+		<script>
+		alert("${msg}");
+		</script>
+	</c:if>
+	
+	<!-- 상단바 시작 -->
+ 	<div id="prs_header">&nbsp;&nbsp;
+		<img id="header_logo" src="${contextPath}/img/header_logo.png">
+	</div>
+	<!-- 상단바 끝 -->
+	
+	<!-- 상단바 제외한 로그인 모든 부분 시작 -->
+	<div id="login_wrap">
+ 
+	<!-- 좌측 부분 로고 시작 -->
+	<div id="login_box">
+		<div id="logo">
+			<img id="logo" src="${contextPath}/img/hogwartslogo.png">
+		</div>
+	<!-- 좌측 부분 로고 끝 -->
+	
+	<!-- 우측 부분 시작 -->
+	<div id="field_box">
+	
+	<form id="login_form" name="login_form" method="post" action="${contextPath}/accessinfo/loginProc.do">
+	
+	<!-- 학번/비밀번호 필드 -->
+	<div id="top_id_box"></div>
+	
+    <!-- 학번 필드 섹션 시작 -->
+    <div id="id_box">
+		<div id="id_label">
+			<label for="id">학번 </label>
+		</div>
+		<div id="id_field">
+			<input type="text"
+				id="id"
+				name="id"
+				size="30"
+				maxlength="8"
+				pattern="\d{8}"
+				required
+				title="학번은 반드시 8자리 숫자로만 입력해야 합니다."
+				class="form-control">
+		</div>
+	</div>
+    <!-- 학번 필드 섹션 끝 -->
+ 
+    <!-- 비밀번호 필드 섹션 시작 -->
+    <div id="pw_box"> 
+		<div id="pw_label">
+			<label for="pw">비밀번호 </label>
+		</div>
+		<div id="pw_field">
+			<input type="password"
+				id="pw"
+				name="pw"
+				size="30"
+				pattern = "(?=.*[a-z])|(?=.*[A-Z])|((?=.*\d)|(?=.*\W)).{6,20}"
+				required
+				title="비밀번호는 8~20 영문 대소문자 및 최소 1개의 숫자 혹은 특수 문자를 포함해야 합니다"
+				maxlength="20">
+				<!-- pattern="(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,20}" 
+				title="비밀번호는 8~20 영문 대소문자 및 최소 1개의 숫자 혹은 특수 문자를 포함해야 합니다."-->
+				
+		</div>	   
+	</div>
+    <!-- 비밀번호 필드 섹션 끝 -->
+ 
+    <!-- 로그인 버튼 섹션 시작 -->
+    <div id="submit_box"> 
+        <input type="submit"
+            class="submit_btn"
+            value="로그인">
+    </div>
+	<!-- 로그인 버튼 섹션 끝 -->
+	
+	</form>
+	
+	<!-- 학번 찾기, 비밀번호 찾기, 비밀번호 변경 필드 시작 -->	
+	<div id="links">
+		<div id="search_id">
+			<a onclick="location.href='${contextPath}/accessinfo/searchId.do'">
+			학번 찾기</a>
+		</div>
+		<div id="search_pw">
+			<a onclick = "location.href='${contextPath}/accessinfo/searchPw.do'">
+			비밀번호 찾기</a>
+		</div>
+		<div id="change_pw">
+			<a onclick = "location.href='${contextPath}/accessinfo/changePw.do'">
+			비밀번호 변경</a>
+		</div>
+	</div>		
+	<!-- 학번 찾기, 비밀번호 찾기, 비밀번호 변경 필드 끝 -->
+    </div>
+	<!-- 우측 부분 끝 -->
+	</div>
+	<!-- 로그인 박스 끝 -->
+	</div>
+	<!-- 상단바 제외한 로그인 모든 부분 끝 -->
+
+</body>
+</html>

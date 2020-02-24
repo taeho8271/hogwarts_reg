@@ -1,0 +1,145 @@
+package edu.hogwarts.hogwartsreg.action.course;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.NavigableSet;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.hogwarts.hogwartsreg.action.course.PresubmitAction;
+import edu.hogwarts.hogwartsreg.service.CourseService;
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+import edu.hogwarts.hogwartsreg.vo.SearchVO;
+import edu.hogwarts.hogwartsreg.vo.SearchVO2;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO2;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+public class PresubmitAction {
+	
+	@Autowired
+	private CourseService courseService;
+	
+	@RequestMapping("/course/presubmit.do")
+	public String presubmit(Model model) {
+		
+		//전체 개설강의 조회
+		List<SubjectVO> subjects = courseService.getAllSubject();
+				
+		//인자 인쇄 
+		for (SubjectVO subjectVO : subjects) {
+			log.info("subjectVO:"+subjectVO);
+		}
+				
+		// 인자 생성: 전체 개설강의
+		model.addAttribute("subjects", subjects);
+		
+		return "pre_submit";
+	}
+
+	
+	@RequestMapping(value="/course/search_presubmit.do", produces="application/json; charset=UTF-8")
+	public ResponseEntity<String> presubmit(@RequestParam Map<String, String> map) {
+		log.info("/course/presubmit"); // 경로 정하기
+		//log.info("SearchVO:"+searchVO);
+		
+		// 인자 인쇄
+		map.forEach((x,y)->{log.info("x,y:"+x+"="+y);});
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+				
+		List<SubjectVO> subjects = null;
+		String json="";
+		ObjectMapper mapper = new ObjectMapper();
+		SearchVO2 searchVO2 = new SearchVO2();
+		//인자조합
+		List<String> days = new ArrayList<>();
+		
+		days.add(map.get("mon"));
+		days.add(map.get("tue"));
+		days.add(map.get("wed"));
+		days.add(map.get("thu"));
+		days.add(map.get("fri"));
+
+		searchVO2.setDays(days);
+		searchVO2.setPrsSelectBox(map.get("prsSelectBox"));
+		searchVO2.setListSearchWord(map.get("listSearchWord"));
+		
+		subjects = courseService.searchSubjects(searchVO2);
+		
+		
+		
+		
+		/*
+		 * // HTTP Header 정보 setting HttpHeaders responseHeaders = new HttpHeaders();
+		 * responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		 * 
+		 * SubjectVO subjectVO = null; String json = ""; ObjectMapper mapper = new
+		 * ObjectMapper();
+		 * 
+		 * try { subjectVO = courseService.getSubjectsafdsf(<String, String> map,
+		 * SearchVO searchVO, Model model); json = mapper.writeValueAsString(subjectVO);
+		 * } catch (JsonProcessingException e) { log.error("json exception !");
+		 * e.printStackTrace(); }
+		 * 
+		 * return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK); }
+		 */
+		
+		
+		
+		 try { 
+			 
+			 if(subjects != null) { 
+				 json = mapper.writeValueAsString(subjects); 
+			 }
+			 
+		 } catch (Exception e) { 
+			 log.error("cartsession exception !");
+			 e.printStackTrace(); 
+		 }
+		
+
+		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+	}
+	
+	
+	/*
+	public String getSubject(@RequestParam("subName")String subName, @RequestParam("daytime")String daytime
+								,Model model) {
+		log.info("/course/presubmit.do"); // 경로 정하기
+		
+		// 전체 개설강의 조회
+		SubjectVO getSubject = courseService.getSubject(subName, daytime);
+		SubjectVO2 subjectVO2 = new SubjectVO2();
+		subjectVO2.setSubName(subName);
+		subjectVO2.setDaytime(daytime);
+		subjectVO2.setDay(daytime.charAt(0)+"");
+		
+		model.addAttribute("subjectVO2", subjectVO2);
+        model.addAttribute("getSubject", getSubject);
+        
+		model.addAttribute("subName", subName);
+        model.addAttribute("daytime", daytime);
+        
+		return "pre_submit";
+		
+	}
+	*/
+}

@@ -1,0 +1,31 @@
+package edu.hogwarts.hogwartsreg.service;
+
+import edu.hogwarts.hogwartsreg.vo.StudentVO;
+
+/**
+ * 계정 접속 및 정보 관리: 로그인, 로그아웃, 학번/비번 찾기 및 변경
+ * @author Hogwarts
+ *
+ */
+public interface AccessInfoService {
+
+	/**
+	 * login check
+	 * @param stuId 학번
+	 * @param password 비밀번호
+	 * @return 에러메시지
+	 */
+	public String checkLogin(int stuId, String password);
+	
+	/**
+	 * change password
+	 * @param cpwId 학번
+	 * @param cpwName 이름
+	 * @param cpwPw 기존 비밀번호
+	 * @param cpwNpw 새 비밀번호
+	 * @param cpwCf 새 비밀번호 확인
+	 * @return 에러메시지
+	 * 
+	 */
+	public String changePassword(int cpwId, String cpwName, String cpwPw, String cpwNpw, String cpwCf);
+}

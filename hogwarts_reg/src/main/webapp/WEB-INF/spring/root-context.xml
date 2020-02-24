@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd 
+						http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- Spring Form Validation messages.properties file -->
+    <!-- <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/WEB-INF/messages" />
+        <property name="cacheSeconds" value="0" />
+    </bean> -->
+	
+	<!-- DBCP -->
+	<bean p:maxWaitMillis="-1" p:maxIdle="5" p:maxTotal="10"
+		p:password="java" p:username="java"
+		p:url="jdbc:oracle:thin:@localhost:1521:xe"
+		p:driverClassName="oracle.jdbc.OracleDriver" destroy-method="close"
+		class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource" />
+		
+	<!-- myBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property ref="dataSource" name="dataSource" />
+		<property name="typeAliasesPackage"
+			value="edu.hogwarts.hogwartsreg.vo" />
+		<property name="mapperLocations"
+			value="classpath:/mapper/*.xml" />
+			
+		<!-- Transaction 참조 -->
+		<!-- <property name="transactionFactory">
+    		<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory" />
+  		</property> -->
+  		
+		<!-- myBatis 외부 설정 파일 -->
+		<property name="configLocation"
+			value="classpath:/config/mybatis-config.xml" />
+
+		<!-- MyBatis date format 문제 해결 -->
+		<property name="typeHandlersPackage" value="edu.hogwarts.hogwartsreg.typehandler"/>
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate"
+		id="sqlSession">
+		<constructor-arg ref="sqlSessionFactory"
+			name="sqlSessionFactory" />
+	</bean>
+	
+	<!-- MyBatis -->
+	<bean
+		id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property ref="dataSource" name="dataSource" />
+	</bean>
+	
+	<!-- @Transactional -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+		
+	<bean
+		class="org.springframework.transaction.support.TransactionTemplate"
+		id="transactionTemplate" p:transactionManager-ref="transactionManager" />
+		
+	<context:annotation-config />
+	
+	<context:component-scan
+		base-package="edu.hogwarts.hogwartsreg.aop" />
+		
+	<!-- AOP ready -->
+	<!--<aop:aspectj-autoproxy />-->
+	
+	<!-- Transaction Advices -->
+	<!-- tx:advice id="txAdvice"
+		transaction-manager="transactionManager"-->
+		
+		<!-- tx:attributes -->
+			<!--메서드들 -->
+			<!-- <tx: method name="getSubject" read-only="true" />
+			<tx: method name="getProfessor" read-only="true" /> -->
+			<!-- <tx:method name="getAllReservations" read-only="true" /> <tx:method 
+				name="getReservation" read-only="true" /> <tx:method name="updateReservation" 
+				propagation="REQUIRED" /> -->
+		<!-- </tx:attributes> -->
+	<!-- /tx:advice-->
+	
+	<!-- AOP Transaction config -->
+	<!-- <aop:config>
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(* *..서비스명.*(..))" />
+	</aop:config> -->
+	
+</beans>

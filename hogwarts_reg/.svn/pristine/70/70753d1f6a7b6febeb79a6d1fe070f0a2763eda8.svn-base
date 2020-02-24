@@ -1,0 +1,80 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.dao;
+
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import edu.hogwarts.hogwartsreg.vo.LectureVO;
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+
+/**
+ * @author Hogwarts
+ *
+ */
+public interface LectureDAO {
+
+	/**
+	 * 과목 정보 생성
+	 * 
+	 * @param lecture 수강예정과목
+	 */
+	void insertLecture(CartVO lecture);
+
+	
+	/**
+	 * 장바구니에서 한 학생의 수강완료 과목 가져오기
+	 * 
+	 * @param subCode 과목코드
+	 * @return 과목정보
+	 */
+	LectureVO getLecture(int subCode, int stuId);
+
+	/**
+	 * 이미 담겨 있는 과목을 담으려고 할 때 중복으로 담지 못 하게
+	 * 
+	 * @param subCode 과목코드
+	 * @param stuId   학번
+	 * @return 중복 여부
+	 */
+	boolean checkLecture(int subCode, int stuId);
+
+	/**
+	 * 수강완료 과목 취소
+	 * 
+	 * @param subCode 과목코드
+	 */
+	void cancelLecture(int subCode, int stuId);
+
+	/**
+	 * 신청인원 변경 시 현 신청인원을 실시간으로 반영
+	 * 
+	 * @param RegNum 현 신청인원
+	 */
+	void updateRegNum(int RegNum,int subCode);
+
+	/**
+	 * 시간 및 요일 뷰 생성
+	 * 
+	 * @param daytime 요일/시간
+	 * @return ?
+	 */
+	void selectDaytime(String daytime);
+	
+	/**
+	 * 시간 중복 검사
+	 * 
+	 * @param daytime 요일/시간
+	 * @return ?
+	 */
+	int checkDaytime(int subCode);
+
+	/**
+	 * 신청 완료한 학생 수 count
+	 * 
+	 * @param RegNum    현 신청인원
+	 * @param limitNum 제한인원
+	 * @return ?
+	 */
+	boolean checkLimitNum(int RegNum, int LimitNum);
+}
+

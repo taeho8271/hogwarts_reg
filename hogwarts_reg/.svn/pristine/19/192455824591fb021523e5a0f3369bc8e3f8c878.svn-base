@@ -1,0 +1,191 @@
+@charset "UTF-8";
+
+	body {
+		margin: 0
+	}
+
+    /* 전체 패널 영역(sid_box) */
+	div#sid_wrap {
+		width: 100%;
+		height: calc(100vh - 70px);
+		/* 중앙정렬	*/
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	/* 좌측 박스 */
+    div#sid_box {  
+        width: 850px;
+        height: 500px;        		
+      /*padding-top: 100px;
+		position: absolute;
+		top: 170px;
+		left: 300px; */
+        background: #E7E3DE;
+		font-family: Nanum Gothic;
+		border-top: 15px solid #522808;
+    }  
+ 
+	/* 로고 위치 조정 width: 370px */
+	div#logo {
+		padding: 100px 0 0 70px;
+		/*background-color: orange;*/
+		width: 300px;
+		float: left;
+	}
+	
+	/* 로고 */
+	img#logo {
+		width: 230px;
+		height: 200px;
+		align: left;
+	}
+	
+	/* 우측 영역 */
+	div#sid_field_box {
+		width: 480px;
+		height: 500px;
+		/* background-color: pink; */
+		float: left;
+	}
+
+    /* 찾기 버튼 */
+    input.submit_btn {
+        width: 420px;
+        height: 40px;
+        background-color: #522808;
+        border: 0px solid #522808;
+        font-size: 13pt;
+        letter-spacing: 0.2em;          
+        color: #fff; 
+        padding-bottom: 7px;
+		border-radius: 7px;
+    }
+	
+	/* 찾기 버튼: 롤오버 효과 */
+	input.submit_btn:hover {
+		background-color: rgba(181,146,99,0.5);
+		color: #fff;
+	}	
+ 
+    /* 입력 필드 */
+    div#top_id_box {
+		width: 530px;
+		height: 120px;
+	}
+	
+	/* 이름 입력 영역 */
+	div#name_box {
+		width: 530px;
+		height: 70px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #522808; 
+	}
+	
+	/* 생년월일 입력 영역 */
+	div#birth_box {
+		width: 530px;
+		height: 70px;
+		color: #522808;
+	}
+	
+	/* 이메일 입력 영역 */
+	div#email_box {
+		width: 600px;
+		height: 70px;
+		color: #522808;
+	}
+	
+	/* 이메일 제공자 선택 */
+	select#sb_msv {
+        width: 138px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: black;
+		margin: 5px 0;
+	}	
+
+	/* 이메일 제공자 직접입력 
+	input#sid_msv {
+		width: 160px;
+		/* float: left; */
+		/* background : yellow; */
+	}
+	*/
+	
+	/* 폼필드(각종 입력 필드)들 외곽선 효과 */
+	input[type='text'], input[type='password'] {
+		border: 1px solid #ccc;
+		font-size: 1.2em;
+		padding: 5px;
+	}
+	 
+    /* 버튼 영역 */
+    div#submit_box {
+      /*margin: 10px 0;
+        height: 58px;*/
+		width: 480px;
+		height: 80px;
+    }
+	
+    /* 이름 필드 */
+    input#sidName {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+	}
+	
+	/* 입력 필드 영역 */
+	div#sid_box div[id^=label_] {
+		width: 100px;
+		float: left;
+		height: 48px;
+		text-align: right;
+		padding-top: 12px;
+		font-weight: bold;
+	}
+	
+	div#sid_box div[id^=field_] {
+		width: 430px;
+		float: left;
+		height: 60px;
+		text-indent: 10px;
+		text-align: left;
+	}
+		
+	input#sidBirth {
+        width: 310px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }
+	
+	input#sidMail{
+        width: 150px;
+        height: 30px;
+        font-size: 12pt;
+        border: 1px solid #ccc;   
+        text-indent: 1em;
+        color: brown;
+		margin: 5px 0;
+    }		
+	
+	figcaption {
+		position: absolute;
+		top: 135px;
+		left: 375px;
+		font-size : 20px;
+		color : #522808;
+	}

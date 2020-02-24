@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.service;
+
+import java.util.List;
+
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+
+/**
+ * 개설강의 관리: 장바구니, 수강신청, 시간표
+ * @author Hogwarts
+ *
+ */
+public interface CourseService {
+	
+	/**
+	 * 전체 과목정보  레코드 조회
+	 * 
+	 * @return 전체 과목정보
+	 * @throws Exception 예외처리
+	 */
+	List<SubjectVO> getAllSubject();
+	
+	/**
+	 * 개별 과목정보 레코드 조회
+	 * 
+	 * @param subCode 과목코드
+	 * @return 개별 과목정보
+	 */
+	SubjectVO getSubjectBySubCode(int subCode);
+
+}

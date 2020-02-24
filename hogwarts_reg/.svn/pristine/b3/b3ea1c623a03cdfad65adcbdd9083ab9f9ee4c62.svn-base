@@ -1,0 +1,39 @@
+package edu.hogwarts.hogwartsreg.action.course;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import edu.hogwarts.hogwartsreg.action.course.PresubmitAction;
+import edu.hogwarts.hogwartsreg.service.CourseService;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+@RequestMapping("/course")
+public class PresubmitAction {
+	
+	@Autowired
+	private CourseService courseService;
+
+	@RequestMapping("presubmit.do")
+	public String presubmit(Model model) {
+		log.info("/course/presubmit.do"); // 경로 정하기
+		
+		// 전체 개설강의 조회
+		List<SubjectVO> subjects = courseService.getAllSubject();
+		
+		// 인자 인쇄 
+		for (SubjectVO subjectVO : subjects) {
+			log.info("subjectVO:"+subjectVO);
+		}
+		// 인자 생성: 전체 개설강의
+		model.addAttribute("subjects", subjects);
+		return "pre_submit";
+	}
+	
+}

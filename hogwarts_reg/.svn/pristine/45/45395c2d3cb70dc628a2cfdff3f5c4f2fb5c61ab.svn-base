@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lecture">
+	
+	<insert id="insertLecture" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		INSERT INTO lecture
+			(sub_code, stu_id,sub_name, professor, daytime, grade, limit_num)
+			SELECT * FROM subject
+	</insert>
+	
+	<select id="getLecture" parameterType="int" resultType="edu.hogwarts.hogwartsreg.vo.LectureVO">
+		SELECT * FROM lecture WHERE sub_code=#{subCode} AND stu_id=#{stuId}
+	</select>
+	
+	<select id="getLectureBySubCode" parameterType="int" resultType="edu.hogwarts.hogwartsreg.vo.LectureVO">
+		SELECT * FROM lecture WHERE sub_code=#{subCode}
+	</select>
+	
+	<select id="checkLecture" parameterType="edu.hogwarts.hogwartsreg.vo.LectureVO" resultType="int">
+		SELECT count(*) FROM lecture WHERE stu_id=#{stuId} AND sub_code=#{subCode}
+	</select>
+	
+	<delete id="cancelLecture" parameterType="int">
+		DELETE FROM lecture WHERE stu_id=#{stuId} AND sub_code=#{subCode}
+	</delete>
+	
+	<update id="updateRegNum" parameterType="int">
+		UPDATE lecture SET reg_num = #{regNum}, success = #{success} 
+				WHERE sub_code=#{subCode}
+	</update>
+	
+	
+	<select id="selectDaytime" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2">
+		CREATE OR REPLACE VIEW lec_daytime_view     
+		AS SELECT   sub_code
+       			   ,daytime
+       			   ,substr(#{daytime},1,1) as lec_day
+			       ,REGEXP_SUBSTR(#{daytime}, '[^,]+', 3, 1) as col1
+			       ,REGEXP_SUBSTR(#{daytime}, '[^,]+', 3, 2) as col2
+			       ,REGEXP_SUBSTR(#{daytime}, '[^,]+', 3, 3) as col3
+			       ,REGEXP_SUBSTR(#{daytime}, '[^,]+', 3, 4) as col4
+			       ,REGEXP_SUBSTR(#{daytime}, '[^,]+', 3, 5) as col5
+			       ,REGEXP_SUBSTR(#{daytime}, '[^,]+', 3, 6) as col6
+			FROM   subject
+   			WHERE substr(#{daytime}, 1,1)=#{day}
+	
+	</select>
+	
+	
+	<select id="checkDaytime" parameterType="int" resultType="int">
+		SELECT getEqualTime(#{subCode}) FROM lec_daytime_view
+	</select>
+	
+	<select id="checkLimitNum" parameterType="int" resultType="int">
+			SELECT DECODE(#{regNum}, #{limitNum}, 1, 0) result FROM lecture
+	</select>
+	
+</mapper>

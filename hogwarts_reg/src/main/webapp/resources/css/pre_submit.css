@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+	/* 과목 검색 영역 전체 */
+	div#search_wrap {
+		height: 50px;
+		margin: 20px 0 20px 30px;
+		padding-top: 90px;
+		width: 100%;
+		/* background-color:yellow; */
+	}
+	
+	/* 목록 전체 */
+	div#list_wrap {
+		width: 100%;
+		height: 230px;
+		margin: 0 30px 20px 30px;
+		font-size: 1em;
+		font-family: nanumgothic;
+		/* background-color:red; */
+	}
+	
+	/* 개설강의 구역 전체 */
+	div#subject_wrap {
+		width: 1000px;
+		font-size: 1em;
+		font-family: nanumgothic;
+		margin: 0 30px 50px 0;
+		/* background-color:yellow; */
+	}
+	
+	/* 수강 구역 전체 */
+	div#lecture_wrap {
+		width: 1000px;
+		font-size: 1em;
+		font-family: nanumgothic;
+		margin: 50px 30px 0 0px;
+		/* background-color:magenta; */
+	}
+
+	/* 과목 검색 영역 */
+	/* 검색어 선택 */
+	select#prs_select_box { 
+	   width: 80px;
+	   height: 30px;
+	   text-indent: 0.5em;
+	   font-size: 1em;
+	   font-family: nanumgothic;
+	   -webkit-appearance: none;
+	   -moz-appearance: none;
+	   appearance: none;
+	   background-color: white;
+	   border-radius: 0;
+	   opacity: 0.5;
+	   filter: alpha(opacity=0.5);
+	}
+	
+	/* 과목 검색 입력필드 */
+	input#list_search_word {
+		width: 200px;
+		height: 30px;
+		border: 1px solid #ccc;
+		text-indent: 0.5em;
+        font-size: 1em;
+		font-family: nanumgothic;
+	}
+	
+
+	/* 검색 버튼 */
+	input.search_btn {	
+		font-size: 1em;
+		border-radius: 5px;
+		border-width: 1px;
+		border-style: solid;
+		border-color: #ccc;
+		padding: 6px 12px;
+		font-style: bold;
+		width: auto;
+		background-color: #522808;
+		color:#fff;
+	}
+	
+	/* 검색 버튼: 롤오버 효과 */
+	input.search_btn:hover {
+		background-color:rgba(181,146,99,0.5);
+		color:#fff;
+	}
+	
+	/* 목록(개설 강의, 수강예정) 영역*/
+		/* 목록 헤더*/
+		div.list_header {
+			width: 1000px;
+			height: 30px;
+			background-color: #E7E3DE;
+			padding: 10px 0px 10px;
+			color: #522808;
+			font-weight: bold;
+		}
+		
+		/* 레이어 정렬 : 중앙정렬 */
+		div.div_align_center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		/* 목록 본체 */
+		div.list_body {
+			width: 1000px;
+			height: 230px;
+			overflow-x: hidden;
+			overflow-y: scroll;
+			/* background-color:blue; */
+		}
+		
+		/* 긴 속성명(과목코드, 과목명, 강사명, 요일/시간) */
+		div.list_column_l {
+			float: left;
+			width: 160px;
+			margin-left: 10px;
+		}
+		
+		
+		/* 짧은 속성명(학점, 제한인원, 버튼) */
+		div.list_column_s {
+			float: left;
+			width: 80px;
+			margin-left: 10px;
+		}
+		
+		/* 강의(한줄) */
+		div.list_row {
+			height: 30px;
+			padding: 10px 0 10px;
+			border-bottom: 1px solid #ccc;
+		}
+		
+		/* 강의(한줄) : 롤오버 효과(rollover)*/
+		div.list_row:hover {
+			background-color: rgba(177,146,101,0.2);
+		}
+		
+		/* 담기/빼기 버튼 */
+		input.list_btn {
+			font-size: 1em;
+			border-radius: 5px;
+			width: auto;
+			border: 1px solid #B59263;
+			margin: 0 0 15px 0;
+			padding: 5px 10px;
+			font-weight: bold;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		input.btn_blue {
+			background-color:#522808;
+			color:#fff;
+		}
+		
+		input.btn_blue:hover {
+			background-color:rgba(181,146,99,0.5);
+			color:#fff;
+		}
+	
+	/* 시간표 영역 */
+	/*시간표*/
+	div.prs_tbl {
+		margin: 20px 20px;
+		position: absolute;
+		left: 1050px;
+		top: 142px;
+	}
+	
+	table {
+		cellspacing: 1px;
+		align: right;
+		cellpadding: 8px;
+		width: 480px;
+		height: 500px;
+	}
+	
+	/* 시간표 내부 */
+	td.time {
+		width: 50px;
+		height : 40px;
+		font-weight: bold;
+	}
+	
+	td.date {
+		width: 90px;
+		height : 50px;
+		font-weight: bold;
+	}
+	
+	td {
+    	color: #522808;
+    }

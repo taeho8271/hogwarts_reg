@@ -1,0 +1,103 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+import edu.hogwarts.hogwartsreg.vo.LectureVO;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Repository
+@Slf4j
+public class LectureDAOImpl implements LectureDAO {
+
+	@Autowired
+	private SqlSession sqlSession;
+
+	@Override
+	public void insertLecture(SubjectVO lecture) {
+		log.info("LectureDAOImpl.insertLecture");
+		sqlSession.insert("lecture.insertLecture", lecture);
+	}
+
+	@Override
+	public LectureVO getLecture(int subCode, int stuId) {
+		log.info("LectureDAOImpl.getLecture");
+
+		LectureVO lectureVO=new LectureVO();
+		lectureVO.setStuId(stuId);
+		lectureVO.setSubCode(subCode);
+		return sqlSession.selectOne("lecture.getLecture", lectureVO); 
+	}
+
+	@Override
+	public boolean checkLecture(int subCode, int stuId) {
+		log.info("LectureDAOImpl.checkLecture");
+
+		LectureVO lectureVO = new LectureVO();
+		lectureVO.setStuId(stuId);
+		lectureVO.setSubCode(subCode);            
+		return (int)sqlSession.selectOne("lecture.getLecture", lectureVO)==1 ? true : false ;
+	}
+
+	@Override
+	public void cancelLecture(int subCode, int stuId) {
+		log.info("LectureDAOImpl.cancelLecture");
+		
+		LectureVO lectureVO = new LectureVO();
+		lectureVO.setStuId(stuId);
+		lectureVO.setSubCode(subCode);            
+		sqlSession.selectOne("lecture.getLecture", lectureVO);
+	}
+
+	@Override
+	public void updateRegNum(int RegNum,int subCode,int success) {
+		log.info("LectureDAOImpl.updateRegNum");
+		
+		LectureVO lectureVO = new LectureVO();
+		lectureVO.setRegNum(RegNum);
+		lectureVO.setSubCode(subCode); 
+		lectureVO.setSuccess(success);
+		sqlSession.insert("lecture.updateRegNum",lectureVO);
+	}
+
+	@Override
+	public void selectDaytime(String daytime) {
+		log.info("LectureDAOImpl.selectDaytime");
+	}
+	
+	@Override
+	public int checkDaytime(int subCode) {
+		log.info("LectureDAOImpl.checkDaytime");
+		return sqlSession.selectOne("lecture.getLecture",subCode);
+	}
+	
+	@Override
+	public boolean checkLimitNum(int RegNum, int LimitNum) {
+
+		log.info("LectureDAOImpl.checkLimitNum");	
+		
+		LectureVO lectureVO = new LectureVO();
+		lectureVO.setRegNum(RegNum);
+		lectureVO.setLimitNum(LimitNum);            
+		return (int)sqlSession.selectOne("lecture.getLecture", lectureVO)==1 ? true : false;
+	}
+
+	@Override
+	public List<LectureVO> getLectureBySubCode(int subCode) {
+		log.info("LectureDAOImpl.getLectureBySubCode");
+
+		LectureVO lectureVO=new LectureVO();
+		lectureVO.setSubCode(subCode);
+		return sqlSession.selectList("lecture.getLectureBySubCode"); 
+	}
+	
+}

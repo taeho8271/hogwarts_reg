@@ -1,0 +1,39 @@
+package edu.hogwarts.hogwartsreg.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Repository
+@Slf4j
+public final class CartDAOImpl implements CartDAO {
+
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Override
+	public List<CartVO> getAllSubject() throws Exception {
+		log.info("CartDAOImpl.getAllSubject");
+		return sqlSession.selectList("cart.getAllSubject");
+	}
+
+	@Override
+	public void addSubject(int subCode, int stuId) throws Exception {
+		log.info("CartDAOImpl.addSubject");
+	}
+
+	@Override
+	public int getAllRegNumBySubCode(int subCode) {
+		log.info("CartDAOImpl.getAllRegNumBySubCode");
+		return sqlSession.selectOne("cart.getAllRegNumBySubCode", subCode);
+	}
+	
+}
+
+
+	

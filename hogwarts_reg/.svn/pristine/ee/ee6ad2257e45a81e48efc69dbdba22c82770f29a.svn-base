@@ -1,0 +1,287 @@
+/**
+ * 
+ */
+package edu.hogwarts.hogwartsreg.action.course;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NavigableSet;
+import java.util.TreeSet;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.hogwarts.hogwartsreg.service.CourseService;
+import edu.hogwarts.hogwartsreg.vo.LectureVO;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 강의 정보 REST 서비스
+ * @author Hogwarts
+ *
+ */
+@RestController
+@Slf4j
+public class CourseRestAction {
+	
+	@Autowired
+	private CourseService courseService;
+	
+	@RequestMapping(value="/course/courseRest/{subCode}", produces="application/json; charset=UTF-8")
+	public ResponseEntity<String> courseRest(@PathVariable("subCode") int subCode) {
+		log.info("courseRest");
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		
+		SubjectVO subjectVO = null;
+		String json="";
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			subjectVO = courseService.getSubjectBySubCode(subCode);
+		    json = mapper.writeValueAsString(subjectVO);
+		} catch (JsonProcessingException e) {
+		    log.error("json exception !");
+		    e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/course/storeCartSess/{subCode}", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> storeCartSess(@PathVariable("subCode") int subCode, 
+												HttpSession session) {
+		log.info("storeCartSess");
+		log.info("인자:"+subCode);
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/plain; charset=UTF-8");
+		String msg = "";
+		SubjectVO subjectVO = null;
+		//CartVO cartVO = null;
+		//NavigableSet<CartVO> cartList = new TreeSet<>();
+		NavigableSet<SubjectVO> cartList = new TreeSet<>();
+		
+		try {
+			
+			// 기존 세션 없을 경우: 신규 생성
+			if(session.getAttribute("CART_SESSION")==null) {
+				
+				subjectVO = courseService.getSubjectBySubCode(subCode);
+				//cartVO = new CartVO(subjectVO);
+				//cartList.add(cartVO);
+				cartList.add(subjectVO);
+				session.setAttribute("CART_SESSION", cartList);
+				
+			} else { // 기존 세션 있을 경우: 세션 갱신
+				//cartList = (NavigableSet<CartVO>)session.getAttribute("CART_SESSION");
+				cartList = (NavigableSet<SubjectVO>)session.getAttribute("CART_SESSION");
+				
+				log.info("현재 카트 현황:");
+				for(SubjectVO s:cartList) {
+					log.info("s:"+s);
+				}
+				
+				subjectVO = courseService.getSubjectBySubCode(subCode);
+				
+				//cartVO = new CartVO(subjectVO);
+				//cartList.add(cartVO);
+				cartList.add(subjectVO);
+				session.setAttribute("CART_SESSION", cartList);
+			}
+			msg = "장바구니에 성공적으로 저장했습니다.";
+			log.info("cartList 크기:"+cartList.size());
+			log.info("장바구니 담기 현황");
+			for(SubjectVO s:cartList) {
+				log.info("s:"+s);
+			}
+		
+		} catch (Exception e) {
+		    log.error("cartsession exception !");
+		    e.printStackTrace();
+		    msg = "장바구니에 저장하지 못했습니다.";
+		}
+		
+		return new ResponseEntity<String>(msg, responseHeaders, HttpStatus.OK);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/course/storeSubmitSess/{subCode}", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> storeSubmitSess(@PathVariable("subCode") int subCode, 
+												HttpSession session) {
+		log.info("sstoreSubmitSess");
+		log.info("인자:"+subCode);
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/plain; charset=UTF-8");
+		String msg = "";
+		SubjectVO subjectVO = null;
+		//CartVO cartVO = null;
+		//NavigableSet<CartVO> cartList = new TreeSet<>();
+		NavigableSet<SubjectVO> cartList = new TreeSet<>();
+		
+		try {
+			
+			// 기존 세션 없을 경우: 신규 생성
+			if(session.getAttribute("SUBMIT_SESSION")==null) {
+				
+				subjectVO = courseService.getSubjectBySubCode(subCode);
+				//cartVO = new CartVO(subjectVO);
+				//cartList.add(cartVO);
+				cartList.add(subjectVO);
+				session.setAttribute("SUBMIT_SESSION", cartList);
+				
+			} else { // 기존 세션 있을 경우: 세션 갱신
+				//cartList = (NavigableSet<CartVO>)session.getAttribute("CART_SESSION");
+				cartList = (NavigableSet<SubjectVO>)session.getAttribute("SUBMIT_SESSION");
+				subjectVO = courseService.getSubjectBySubCode(subCode);
+				//cartVO = new CartVO(subjectVO);
+				//cartList.add(cartVO);
+				cartList.add(subjectVO);
+				session.setAttribute("SUBMIT_SESSION", cartList);
+			}
+			msg = "신청에 성공했습니다.";
+			log.info("cartList 크기:"+cartList.size());
+		
+		} catch (Exception e) {
+		    log.error("cartsession exception !");
+		    e.printStackTrace();
+		    msg = "신청에 실패했습니다.";
+		}
+		
+		return new ResponseEntity<String>(msg, responseHeaders, HttpStatus.OK);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/course/modifyCartSess/{subCode}", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> modifyCartSess(@PathVariable("subCode") int subCode, 
+												HttpSession session) {
+		log.info("modifyCartSess");
+		log.info("인자:"+subCode);
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/plain; charset=UTF-8");
+		String msg = "";
+		SubjectVO subjectVO = null;
+		NavigableSet<SubjectVO> cartList = new TreeSet<>();
+		
+		try {
+			
+			// 기존 세션 있을 경우: 세션 갱신
+			if(session.getAttribute("CART_SESSION")!=null) {
+				
+				cartList = (NavigableSet<SubjectVO>)session.getAttribute("CART_SESSION");
+				subjectVO = new SubjectVO();
+				subjectVO.setSubCode(subCode);
+				cartList.remove(subjectVO);
+				session.setAttribute("CART_SESSION", cartList);
+			}
+			msg = "장바구니에서 해당 과목을 삭제했습니다.";
+			log.info("cartList 크기:"+cartList.size());
+		
+		} catch (Exception e) {
+		    log.error("cartsession exception !");
+		    e.printStackTrace();
+		    msg = "장바구니에서 해당 과목을 삭제하지 못했습니다.";
+		}
+		
+		return new ResponseEntity<String>(msg, responseHeaders, HttpStatus.OK);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/course/modifySubmitSess/{subCode}", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> modifySubmitSess(@PathVariable("subCode") int subCode, 
+												HttpSession session) {
+		log.info("modifySubmitSess");
+		log.info("인자:"+subCode);
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/plain; charset=UTF-8");
+		String msg = "";
+		LectureVO lectureVO = null;
+		int regNum = courseService.getAllRegNumBySubCode(subCode);
+		int stuId = (int)session.getAttribute("LOGIN_SESS");
+		
+		NavigableSet<LectureVO> cartList = new TreeSet<>();
+		
+		try {
+			
+			// 기존 세션 있을 경우: 세션 갱신
+			if(session.getAttribute("SUBMIT_SESSION")!=null) {
+				
+				cartList = (NavigableSet<LectureVO>)session.getAttribute("SUBMIT_SESSION");
+				lectureVO = courseService.getLecture(subCode, stuId);
+				
+				try {
+					cartList.remove(lectureVO); // ClassCastException
+				} catch (ClassCastException e) {
+					log.error(e.toString());
+				} 
+				
+				session.setAttribute("SUBMIT_SESSION", cartList);
+			}
+			regNum--;
+			courseService.updateRegNum(stuId, subCode, regNum, 0); // 개별 수강취소 반영
+			courseService.updateAllRegNum(subCode, regNum); // 전체 수강취소 인원 반영
+			msg = "해당 과목을 삭제했습니다.";
+			log.info("cartList 크기:"+cartList.size());
+		
+		} catch (Exception e) {
+		    log.error("cartsession exception !");
+		    e.printStackTrace();
+		    msg = "해당 과목을 삭제하지 못했습니다.";
+		}
+		
+		return new ResponseEntity<String>(msg, responseHeaders, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/course/lectureRest/{subCode}", produces="application/json; charset=UTF-8")
+	public ResponseEntity<String> lectureRest(@PathVariable("subCode") int subCode, HttpSession session) {
+		log.info("lectureRest");
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		int stuId = (int)session.getAttribute("LOGIN_SESS");
+		log.info("##stuId : "+stuId);
+		int regNum = 0;
+		SubjectVO subjectVO =null;
+		List<Object> result = new ArrayList<>();
+		String json="";
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			regNum = courseService.getAllRegNumBySubCode(subCode);
+			subjectVO = courseService.getSubjectBySubCode(subCode);
+			result.add(regNum);
+			result.add(subjectVO);
+			
+		    json = mapper.writeValueAsString(result);
+		} catch (JsonProcessingException e) {
+		    log.error("json exception !");
+		    e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+	}
+	
+}

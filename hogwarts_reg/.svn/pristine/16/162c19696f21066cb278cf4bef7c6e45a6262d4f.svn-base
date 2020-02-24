@@ -1,0 +1,155 @@
+package edu.hogwarts.hogwartsreg.action.course;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NavigableSet;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.hogwarts.hogwartsreg.action.course.SubmitAction;
+import edu.hogwarts.hogwartsreg.service.CourseService;
+import edu.hogwarts.hogwartsreg.vo.CartVO;
+import edu.hogwarts.hogwartsreg.vo.LectureStatusVO;
+import edu.hogwarts.hogwartsreg.vo.LectureVO;
+import edu.hogwarts.hogwartsreg.vo.StudentVO;
+import edu.hogwarts.hogwartsreg.vo.SubjectVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Controller
+@Slf4j
+@RequestMapping("/course")
+public class SubmitAction {
+	
+	@Autowired
+	private CourseService courseService;
+	
+	@RequestMapping(value="submit.do")
+	public String submit() {
+		log.info("/course/submit.do");
+		return "submit";
+	}
+	
+	// cartInit
+		@RequestMapping(value = "SubmitInit.do", produces = "application/json; charset=UTF-8")
+		public ResponseEntity<String> SubmitInit(HttpSession session) {
+			log.info("######/course/SubmitInit.do"); // 경로 정하기
+
+			// HTTP Header 정보 setting
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+
+			//NavigableSet<CartVO> subjects = null;
+			NavigableSet<SubjectVO> subjects = null;
+			String json = "";
+			ObjectMapper mapper = new ObjectMapper();
+			
+			// JSON 정보 생성
+			try {
+				// 기존 세션 있을 경우
+				if(session.getAttribute("SUBMIT_SESSION")!=null) {
+					//subjects = (NavigableSet<CartVO>)session.getAttribute("CART_SESSION");
+					subjects = (NavigableSet<SubjectVO>)session.getAttribute("SUBMIT_SESSION");
+					log.info("세션 길이:"+subjects.size());
+				}
+				
+				json = mapper.writeValueAsString(subjects);
+				log.info("###subjects:"+subjects.size());
+
+			} catch (Exception e) {
+				log.error("cartsession exception !");
+				//e.printStackTrace();
+				
+				json = "";
+			}
+			log.info("##JSON:"+json);
+
+			return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+		}
+		
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value="submit_lec.do", produces="application/json; charset=UTF-8")
+	public ResponseEntity<String> submit(@RequestParam("subCode") int subCode, HttpSession session) {
+		log.info("/course/submit_lec.do"); // 경로 정하기
+		
+		// 인자
+		// 학번(session), 과목코드(subCode)
+		log.info("세션 : "+ session.getAttribute("LOGIN_SESS"));
+		int stuId = (Integer)session.getAttribute("LOGIN_SESS");
+		log.info("학번:"+stuId);
+		
+		List<Object> result = new ArrayList<>();
+		String msg = ""; // 오류 메시지
+		LectureStatusVO lectureStatusVO = new LectureStatusVO(); 
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		
+		String json="";
+		ObjectMapper mapper = new ObjectMapper();
+		
+		// 수강신청 가능여부 점검: 수강 테이블 (lecture)에서 등록인원(reg_num) / 제한인원(limit_num) 비교하여 수강가능여부 점검
+		LectureVO lectureVO = courseService.getLecture(subCode, stuId);
+		//List<LectureVO> lectureVO2 = courseService.getLectureBySubCode(subCode);
+		SubjectVO subjectVO = courseService.getSubjectBySubCode(subCode);
+		
+		log.info("####lectureVO :"+lectureVO);
+		//log.info("####lectureVO2 :"+lectureVO2);
+		
+		int regNum = lectureVO.getRegNum();
+		int limitNum = lectureVO.getLimitNum();
+		lectureStatusVO.setLimitNum(limitNum); 
+		
+		
+		//1인당 1회만 수강신청할 수 있게(중복방지)
+			
+		//같은 과목코드 regNum 전체 동시 증가
+		if(regNum < limitNum) {
+			log.info("\\\\\\\\\\\\\\\\\\\\");
+			if(lectureVO.getSuccess()==0) {
+				log.info("###########수강신청 가능 , regnum : "+regNum);
+				regNum++;
+				courseService.updateRegNum(regNum, subCode, 1); //수강신청 완료
+				log.info("###########수강신청 가능222 , regnum : "+regNum);
+				lectureStatusVO.setRegNum(regNum);
+				msg = "수강신청되었습니다";
+			}
+			else {
+				log.info("수강신청 불가");
+				msg = "과목이 이미 존재합니다";
+			}
+			log.info("신청 후 상태 lectureVO : "+courseService.getLecture(subCode, stuId));
+			lectureStatusVO.setRegNum(regNum);//갱신
+		}
+		
+		lectureStatusVO.setMsg(msg);
+		//result.add(msg);
+		result.add(lectureVO);
+		result.add(lectureStatusVO);
+		
+		try {
+		    //json = mapper.writeValueAsString(lectureVO);
+			json = mapper.writeValueAsString(result);
+		} catch (JsonProcessingException e) {
+		    log.error("json exception !");
+		    e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+	}
+	
+}
+

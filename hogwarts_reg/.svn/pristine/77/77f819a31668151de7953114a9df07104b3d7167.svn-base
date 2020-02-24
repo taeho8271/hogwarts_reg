@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subject">
+
+	<select id="getSubject" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE sub_name=#{subName} AND substr(daytime, 1,1)=#{day}
+	</select>
+	
+	<select id="getProfessor" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE professor=#{professor} AND substr(daytime, 1,1)=#{day}
+	</select>
+	
+	<select id="getDaytime" parameterType="edu.hogwarts.hogwartsreg.vo.SubjectVO2" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE substr(daytime, 1,1)=#{day}
+	</select>
+	
+	<select id="getAllSubject"  resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">     
+		SELECT * FROM subject
+	</select>
+	
+	<select id="getSubjectBySubCode" parameterType="int" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE sub_code=#{subCode}
+	</select>
+	
+	
+	<select id="getSubjectBySubName" parameterType="String" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject WHERE sub_name=#{subName}
+	</select>
+	
+	<select id="searchSubjects" parameterType="java.util.Map" 
+			resultType="edu.hogwarts.hogwartsreg.vo.SubjectVO">
+		SELECT * FROM subject
+		<!-- 검색어 입력 시 -->
+		<if test="prsSelectBox != '선택' and listSearchWord != null and !listSearchWord.equals('')">
+			WHERE ${prsSelectBox}=#{listSearchWord}
+		</if>
+		
+		<!-- 검색어 미입력 시 -->
+		<if test="listSearchWord == null or listSearchWord.equals('')"> </if>
+		
+		<!-- 요일 입력 / 미입력 시 -->
+		<if test="days != null and !days.equals('')" >
+			<choose>
+				<when test="listSearchWord != null and !listSearchWord.equals('')">AND</when>
+				<otherwise>WHERE</otherwise>
+			</choose>
+			
+			<foreach collection="days" item="day" open="(" close=")" separator="OR">
+				substr(daytime, 1,1)=#{day}
+			</foreach>
+		</if>
+	</select>
+	
+</mapper>

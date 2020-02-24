@@ -1,0 +1,72 @@
+package edu.hogwarts.hogwartsreg.action.course;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.hogwarts.hogwartsreg.action.course.SubmitAction;
+import edu.hogwarts.hogwartsreg.service.CourseService;
+import edu.hogwarts.hogwartsreg.vo.LectureVO;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Controller
+@Slf4j
+@RequestMapping("/course")
+public class SubmitAction {
+	
+	@Autowired
+	private CourseService courseService;
+	
+
+	@RequestMapping(value="/course/submit.do", produces="application/json; charset=UTF-8")
+	public ResponseEntity<String> submit(@RequestParam("subCode") int subCode, HttpSession session) {
+		log.info("/course/submit.do"); // 경로 정하기
+		
+		// 인자
+		// 학번(session), 과목코드(subCode)
+		int stuId = (Integer)session.getAttribute("LOGIN_SESS");
+		log.info("학번:"+stuId);
+		
+		String msg = ""; // 오류 메시지
+		
+		// HTTP Header 정보 setting
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json; charset=UTF-8");
+		
+		String json="";
+		ObjectMapper mapper = new ObjectMapper();
+		
+		// 수강신청 가능여부 점검: 수강 테이블 (lecture)에서 등록인원(reg_num) / 제한인원(limit_num) 비교하여 수강가능여부 점검
+		LectureVO lectureVO = courseService.getLecture(subCode, stuId);
+		int regNum = lectureVO.getRegNum();
+		int limitNum = lectureVO.getLimitNum();
+		
+		if(regNum==limitNum) {
+			msg = "등록인원이 가득 찼습니다.";
+		} else { // 수강 가능 상태
+			msg = "수강신청되었습니다.";
+			// 수강현황 업데이트
+		}
+		
+		try {
+		    json = mapper.writeValueAsString();
+		} catch (JsonProcessingException e) {
+		    log.error("json exception !");
+		    e.printStackTrace();
+		}
+		
+		return new ResponseEntity<String>(json, responseHeaders, HttpStatus.OK);
+	}
+	
+}
+

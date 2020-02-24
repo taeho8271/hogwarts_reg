@@ -1,0 +1,74 @@
+package edu.hogwarts.hogwartsreg.vo;
+
+import lombok.Data;
+
+@Data
+public class SubjectVO implements Comparable<SubjectVO> {
+
+	private int subCode; 		// 과목코드
+	private String subName; 	// 과목명
+	private String professor; 	// 강사명
+	private String daytime; 	// 요일 및 시간
+	private int grade; 			// 학점
+	private int limitNum; 		// 제한인원
+	
+	@Override
+	public int compareTo(SubjectVO o) {
+		
+		return Integer.compare(this.subCode, o.subCode);
+	}
+
+	// 기본 생성자
+	/*
+	 * public SubjectVO() {
+	 * 
+	 * }
+	 * 
+	 *//**
+		 * 멤버 필드 초기화 : 생성자
+		 * 
+		 * @param subCode  과목코드
+		 * @param subName  과목이름
+		 * @param professor 교수명
+		 * @param daytime   요일시간
+		 * @param grade     학점
+		 * @param limitNum 제한인원
+		 *//*
+			 * public SubjectVO(int sub_code, String sub_name, String professor, String
+			 * daytime, int grade,int limit_num) {
+			 * 
+			 * this.sub_code=sub_code; this.sub_name=sub_name; this.professor=professor;
+			 * this.daytime=daytime; this.grade=grade; this.limit_num=limit_num;
+			 * 
+			 * }
+			 * 
+			 * public int getSub_code() { return sub_code; }
+			 * 
+			 * public void setSub_code(int sub_code) { this.sub_code = sub_code; }
+			 * 
+			 * public String getSub_name() { return sub_name; }
+			 * 
+			 * public void setSub_name(String sub_name) { this.sub_name = sub_name; }
+			 * 
+			 * public String getProfessor() { return professor; }
+			 * 
+			 * public void setProfessor(String professor) { this.professor = professor; }
+			 * 
+			 * public String getDaytime() { return daytime; }
+			 * 
+			 * public void setDaytime(String daytime) { this.daytime = daytime; }
+			 * 
+			 * public int getGrade() { return grade; }
+			 * 
+			 * public void setGrade(int grade) { this.grade = grade; }
+			 * 
+			 * public int getLimit_num() { return limit_num; }
+			 * 
+			 * public void setLimit_num(int limit_num) { this.limit_num = limit_num; }
+			 * 
+			 * @Override public String toString() { return "SubjectVO [sub_code=" + sub_code
+			 * + ", sub_name=" + sub_name + ", professor=" + professor + ", daytime=" +
+			 * daytime + ", grade=" + grade + ", limit_num=" + limit_num + "]"; }
+			 */
+
+}

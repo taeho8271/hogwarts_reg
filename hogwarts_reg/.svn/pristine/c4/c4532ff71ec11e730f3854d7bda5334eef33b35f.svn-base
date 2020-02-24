@@ -1,0 +1,133 @@
+package edu.hogwarts.hogwartsreg.vo;
+
+import java.util.Date;
+
+public class LectureVO {
+	
+	private int lectureSeq;		// 시퀀스
+	private int subCode; 		// 과목코드
+	private String daytime; 	// 요일 및 시간
+	private int RegNum; 		// 수강신청 인원
+	private int LimitNum; 		// 제한 인원
+	private int stuId; 			// 학번
+	private Date regTime; 		// 수강신청 시간
+	
+	// 기본 생성자
+	public LectureVO() {}
+
+	
+	public int getLectureSeq() {
+		return lectureSeq;
+	}
+	
+	public void setLectureSeq(int lectureSeq) {
+		this.lectureSeq = lectureSeq;
+	}
+	
+	public int getSubCode() {
+		return subCode;
+	}
+
+	public void setSubCode(int subCode) {
+		this.subCode = subCode;
+	}
+	
+	
+	public String getDaytime() {
+		return daytime;
+	}
+
+	public void setDaytime(String daytime) {
+		this.daytime = daytime;
+	}
+	
+	public int getRegNum() {
+		return RegNum;
+	}
+
+	public void setRegNum(int RegNum) {
+		this.RegNum = RegNum;
+	}
+	
+	
+	public int getLimitNum() {
+		return LimitNum;
+	}
+
+	public void setLimitNum(int LimitNum) {
+		this.LimitNum = LimitNum;
+	}
+	
+	public int getStuId() {
+		return stuId;
+	}
+
+	public void setStuId(int stuId) {
+		this.stuId = stuId;
+	}
+	
+	public Date getRegTime() {
+		return regTime;
+	}
+
+	public void setRegTime(Date regTime) {
+		this.regTime = regTime;
+	}
+
+
+	@Override
+	public String toString() {
+		return "LectureVO [lectureSeq=" + lectureSeq + ", subCode=" + subCode + ", daytime=" + daytime + ", RegNum="
+				+ RegNum + ", LimitNum=" + LimitNum + ", stuId=" + stuId + ", regTime=" + regTime + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + LimitNum;
+		result = prime * result + RegNum;
+		result = prime * result + ((daytime == null) ? 0 : daytime.hashCode());
+		result = prime * result + lectureSeq;
+		result = prime * result + ((regTime == null) ? 0 : regTime.hashCode());
+		result = prime * result + stuId;
+		result = prime * result + subCode;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LectureVO other = (LectureVO) obj;
+		if (LimitNum != other.LimitNum)
+			return false;
+		if (RegNum != other.RegNum)
+			return false;
+		if (daytime == null) {
+			if (other.daytime != null)
+				return false;
+		} else if (!daytime.equals(other.daytime))
+			return false;
+		if (lectureSeq != other.lectureSeq)
+			return false;
+		if (regTime == null) {
+			if (other.regTime != null)
+				return false;
+		} else if (!regTime.equals(other.regTime))
+			return false;
+		if (stuId != other.stuId)
+			return false;
+		if (subCode != other.subCode)
+			return false;
+		return true;
+	}
+	
+}
+

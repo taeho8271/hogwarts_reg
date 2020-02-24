@@ -1,0 +1,61 @@
+package edu.hogwarts.hogwartsreg.action.accessinfo;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.hogwarts.hogwartsreg.service.AccessInfoService;
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * Change password
+ * @author Hogwarts
+ *
+ */
+
+@Controller
+@Slf4j
+@RequestMapping("/accessinfo")
+public class ChangePwAction {
+	
+	@Autowired
+	private AccessInfoService accessInfoService;
+	
+	@RequestMapping("changePw.do")
+	public String update() {
+		log.info("/accessinfo/changePw.do");
+		return "change_pw";
+	}
+	
+	
+	@RequestMapping("updateProc.do")
+	public String updateProc(@RequestParam("cpwId") int cpwId, 
+							 @RequestParam("cpwName") String cpwName, 
+							 @RequestParam("cpwPw") String cpwPw, 
+							 @RequestParam("cpwNpw") String cpwNpw, 
+							 @RequestParam("cpwCf") String cpwCf,
+							 Model model,
+							 HttpSession session) {
+		log.info("/accessinfo/updateProc.do"); 
+		String msg = "";
+		
+		// 인자 처리 우선: 인쇄, 유효성 점검
+		log.info("cpwId:"+cpwId);
+		log.info("cpwName:"+cpwName);
+		log.info("cpwPw:"+cpwPw);
+		log.info("cpwNpw:"+cpwNpw);
+		log.info("cpwCf:"+cpwCf);
+		
+		// DB 메서드 -> 인증 처리
+		msg = accessInfoService.changePassword(cpwId, cpwName, cpwPw, cpwNpw, cpwCf);
+		// 오류 메시징
+		model.addAttribute("msg", msg);
+		
+		// 오류 패치(기능)
+		return "change_pw"; // 오류 페이지 있으면 오류 페이지로 연결시키면 됨
+	}
+}
