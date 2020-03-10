@@ -135,14 +135,12 @@ SELECT
 
 CREATE TABLE lecture        -- 수강신청 완료 테이블 생성
 (
-  	lecture_seq int default 1,
-	sub_code int NOT NULL,  -- 과목코드
+  	sub_code int NOT NULL,  -- 과목코드
    	stu_id int NOT NULL,  -- 학번 
 	sub_name   VARCHAR2(50) NOT NULL,   --과목명
 	professor 	 VARCHAR2(50) NOT NULL,   --교수명
 	daytime    VARCHAR2(50) NOT NULL,   --요일, 시간
-  	reg_time     date default sysdate,   --신청시간
-	grade       int NOT NULL,    --학점
+  	grade       int NOT NULL,    --학점
    	reg_num    int default 0, --신청인원
 	limit_num  int NOT NULL   --제한인원
 
@@ -150,11 +148,6 @@ CREATE TABLE lecture        -- 수강신청 완료 테이블 생성
 
 
 
-INSERT INTO lecture(sub_code,stu_id,sub_name,professor,daytime,grade,limit_num)
-SELECT * FROM cartview;
-
-
-    
 update lecture
   set lecture_seq = lecture_seq.nextval;
   
@@ -163,11 +156,22 @@ update lecture
 CREATE TABLE MyLec        -- 개인 수강신청 테이블 생성
 (
 
-    MyLec_seq int default 1,
     stu_id int NOT NULL,  --학번
     sub_code int NOT NULL  -- 과목코드
     
 );
+
+--lecture table에 수강신청 완료 flag 추가
+ALTER TABLE lecture 
+	add(success number(1) default 0);
+
+--20191001 학생 수강신청 위한 DB삽입
+INSERT INTO lecture values(524840,20191001,'비행술','후치 부인','수 15,16,17',3,15,40,0);
+INSERT INTO lecture values(524860,20191001,'마법','필리우스 플리트윅','화 1,2,3',3,10,40,0);
+INSERT INTO lecture values(312550,20191001,'마법약','세베루스 스네이프','월 9,10,11',3,23,50,0);
+INSERT INTO lecture values(448410,20191001,'마법의 역사','커스버트 빈스','화 16,17,18',3,7,40,0);
+INSERT INTO lecture values(524880,20191001,'변신술','미네르바 맥고나걸','수 4,5,6',3,30,45,0);
+commit;
 
 
 CREATE SEQUENCE lecture_seq   -- lecture 시퀀스 생성
