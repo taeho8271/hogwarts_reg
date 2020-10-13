@@ -42,7 +42,7 @@
 
 
 		<!-- Test -->
-		<junit-version>4.12</junit-version>
+		<junit-version>4.13.1</junit-version>
 
 		<!-- REST/JSON -->
 		<jackson-version>2.10.1</jackson-version>
