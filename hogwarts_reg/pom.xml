@@ -15,7 +15,7 @@
 	<properties>
 		<!-- Core/Spring/Security/AOP -->
 		<java-version>1.8</java-version>
-		<spring-version>4.3.25.RELEASE</spring-version>
+		<spring-version>5.3.18</spring-version>
 		<spring-securtiy-version>4.2.13.RELEASE</spring-securtiy-version>
 		<aspectj-version>1.9.5</aspectj-version>
 
