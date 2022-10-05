@@ -45,7 +45,7 @@
 		<junit-version>4.12</junit-version>
 
 		<!-- REST/JSON -->
-		<jackson-version>2.10.1</jackson-version>
+		<jackson-version>2.12.6.1</jackson-version>
 
 		<!-- FileUpload/ImageThumbnail -->
 		<commons-fileupload-version>1.4</commons-fileupload-version>
